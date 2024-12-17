@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.gerenteapp.SaioHasiera"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Título -->
+    <Label text="Inicio de Sesión"
+           layoutX="200.0" layoutY="50.0"/>
+
+    <!-- Contenedor principal para los campos -->
+    <VBox layoutX="150.0" layoutY="150.0" spacing="15.0"
+          alignment="CENTER" prefWidth="300.0">
+        <TextField fx:id="usernameField" promptText="Nombre de usuario" />
+        <PasswordField fx:id="passwordField" promptText="Contraseña" />
+        <Button fx:id="loginButton" text="Iniciar Sesión" onAction="#onLoginButtonClick"/>
+    </VBox>
+
+    <!-- Mensaje de error opcional -->
+    <Label fx:id="errorLabel"
+           textFill="red"
+           layoutX="150.0" layoutY="320.0"
+           prefWidth="300.0" alignment="CENTER"
+           visible="false"/>
+
+</AnchorPane>
+
