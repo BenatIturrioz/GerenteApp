@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 
-public class LehenOrriaController {
+public class LehenOrriaController extends BaseController{
 
     @FXML
     private Button langileakButton;

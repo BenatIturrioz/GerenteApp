@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SaioHasieraController {
+public class SaioHasieraController extends BaseController{
 
     @FXML
     private TextField usernameField;
@@ -33,10 +33,10 @@ public class SaioHasieraController {
         String erabiltzaileIzena = usernameField.getText();
         String pasahitza = passwordField.getText();
 
-        if (erabiltzaileIzena.equals("admin") && pasahitza.equals("1234")) {
+        if (kredentzialakKudeatu(erabiltzaileIzena, pasahitza)) {
             errorLabel.setVisible(false);
             System.out.println("Inicio de sesión exitoso");
-            // Aquí podrías cambiar de escena o continuar con el flujo de tu aplicación
+            aldatuEscenaLehenOrria();
         } else {
             errorLabel.setText("Usuario o contraseña incorrectos");
             errorLabel.setVisible(true);
@@ -46,24 +46,21 @@ public class SaioHasieraController {
     /**
      * Método para autenticar al usuario en la base de datos.
      *
-     * @param erabiltzaileIzena Nombre de usuario ingresado.
-     * @param pasahitza Contraseña ingresada.
-     * @return `true` si las credenciales son válidas, `false` en caso contrario.
+     * @param erabiltzaileIzena Erabiltzaile izena.
+     * @param pasahitza Pasahitza.
+     * @return `true`
      */
-    private boolean authenticateUser(String erabiltzaileIzena, String pasahitza) {
+    private boolean kredentzialakKudeatu(String erabiltzaileIzena, String pasahitza) {
         String query = "SELECT * FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            // Configurar los parámetros de la consulta
             preparedStatement.setString(1, erabiltzaileIzena);
             preparedStatement.setString(2, pasahitza);
 
-            // Ejecutar la consulta
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Si la consulta devuelve resultados, las credenciales son válidas
             return resultSet.next();
 
         } catch (Exception e) {
@@ -71,6 +68,23 @@ public class SaioHasieraController {
             errorLabel.setText("Error al conectar con la base de datos.");
             errorLabel.setVisible(true);
             return false;
+        }
+    }
+
+    private void aldatuEscenaLehenOrria() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
+            Scene escenaLehenOrria = new Scene(loader.load());
+
+            Stage stageActual = this.getUsingStage();
+
+            stageActual.setScene(escenaLehenOrria);
+            stageActual.setTitle("Lehen Orria");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("Ezin da orria kargatu :(");
+            errorLabel.setVisible(true);
         }
     }
 }

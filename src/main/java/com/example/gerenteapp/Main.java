@@ -14,6 +14,13 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/SaioHasiera.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 300); // Ajusta el tamaño de la ventana según sea necesario
         stage.setTitle("Inicio de Sesión");
+        stage.setMaximized(true);
+        SaioHasieraController shc = fxmlLoader.getController();
+
+        stage.setWidth(javafx.stage.Screen.getPrimary().getVisualBounds().getWidth());
+        stage.setHeight(javafx.stage.Screen.getPrimary().getVisualBounds().getHeight());
+
+        shc.setUsingStage(stage);
         stage.setScene(scene);
         stage.show();
     }

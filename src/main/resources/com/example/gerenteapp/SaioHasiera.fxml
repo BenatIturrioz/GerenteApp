@@ -2,31 +2,21 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.gerenteapp.SaioHasieraController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.SaioHasieraController">
 
-    <!-- Título -->
-    <Label text="Inicio de Sesión"
-           layoutX="200.0" layoutY="50.0"/>
+    <!-- Título centrado en la parte superior -->
+    <Label alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Inicio de Sesión" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
 
-    <!-- Contenedor principal para los campos -->
-    <VBox layoutX="150.0" layoutY="150.0" spacing="15.0"
-          alignment="CENTER" prefWidth="300.0">
-        <TextField fx:id="usernameField" promptText="Nombre de usuario" />
-        <PasswordField fx:id="passwordField" promptText="Contraseña" />
-        <Button fx:id="loginButton" text="Saioa Hasi" onAction="#onLoginButtonClick"/>
+    <!-- Contenedor principal centrado en el medio -->
+    <VBox alignment="CENTER" layoutX="315.0" layoutY="150.0" prefHeight="300.0" prefWidth="171.0" spacing="15.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="314.0" AnchorPane.topAnchor="150.0">
+        <!-- Establecer un ancho fijo para los campos de texto -->
+        <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="54.0" promptText="Nombre de usuario" />
+        <PasswordField fx:id="passwordField" prefWidth="250.0" promptText="Contraseña" />
+        <Button fx:id="loginButton" onAction="#onLoginButtonClick" text="Saioa Hasi" />
     </VBox>
 
-    <!-- Mensaje de error opcional -->
-    <Label fx:id="errorLabel"
-           textFill="red"
-           layoutX="150.0" layoutY="320.0"
-           prefWidth="300.0" alignment="CENTER"
-           visible="false"/>
+    <!-- Mensaje de error opcional centrado -->
+    <Label fx:id="errorLabel" alignment="CENTER" style="-fx-font-size: 14px;" text="Usuario o contraseña incorrectos" textFill="red" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 
 </AnchorPane>
-
