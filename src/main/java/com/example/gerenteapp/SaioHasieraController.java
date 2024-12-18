@@ -61,7 +61,19 @@ public class SaioHasieraController extends BaseController{
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            return resultSet.next();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                int idLangilea = resultSet.getInt("id_langilea");
+
+                Erabiltzailea erabiltzailea = new Erabiltzailea(id, erabiltzaileIzena, pasahitza, idLangilea);
+
+                errorLabel.setVisible(false);
+                System.out.println("Inicio de sesión exitoso");
+                aldatuEscenaLehenOrria();
+                return true;
+            } else {
+                return false;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

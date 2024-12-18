@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.SaioHasieraController">
@@ -9,14 +11,26 @@
     <Label alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Inicio de Sesión" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
 
     <!-- Contenedor principal centrado en el medio -->
-    <VBox alignment="CENTER" layoutX="315.0" layoutY="150.0" prefHeight="300.0" prefWidth="171.0" spacing="15.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="314.0" AnchorPane.topAnchor="150.0">
+    <VBox alignment="CENTER" layoutX="315.0" layoutY="294.0" prefHeight="135.0" prefWidth="171.0" spacing="15.0" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="314.0" AnchorPane.topAnchor="294.0">
         <!-- Establecer un ancho fijo para los campos de texto -->
         <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="54.0" promptText="Nombre de usuario" />
         <PasswordField fx:id="passwordField" prefWidth="250.0" promptText="Contraseña" />
-        <Button fx:id="loginButton" onAction="#onLoginButtonClick" text="Saioa Hasi" />
+        <Button fx:id="loginButton" onAction="#onLoginButtonClick" text="Saioa Hasi">
+         <effect>
+            <Reflection bottomOpacity="0.63" fraction="0.76" topOpacity="0.73">
+               <input>
+                  <Bloom threshold="1.0" />
+               </input>
+            </Reflection>
+         </effect></Button>
     </VBox>
 
     <!-- Mensaje de error opcional centrado -->
     <Label fx:id="errorLabel" alignment="CENTER" style="-fx-font-size: 14px;" text="Usuario o contraseña incorrectos" textFill="red" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <ImageView fitHeight="208.0" fitWidth="377.0" layoutX="465.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
+      </image>
+   </ImageView>
 
 </AnchorPane>
