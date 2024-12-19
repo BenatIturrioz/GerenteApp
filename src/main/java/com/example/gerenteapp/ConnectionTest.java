@@ -6,15 +6,18 @@ import java.sql.SQLException;
 
 public class ConnectionTest {
 
-    public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/erronka1";
-        String user = "root";
-        String password = "1WMG2023";
+    public static final String URL = "jdbc:mysql://localhost:3306/erronka1";
+    public static final String USER = "root";
+    public static final String PASS = "1WMG2023";
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            System.out.println("Conexión exitosa a la base de datos MySQL.");
+
+
+    public static Connection connect() {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
+            return connection;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

@@ -24,9 +24,7 @@ public class SaioHasieraController extends BaseController{
     @FXML
     private Label errorLabel;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/erronka1";
-    private static final String USER = "root";
-    private static final String PASS = "1WMG2023";
+
 
     @FXML
     protected void onLoginButtonClick() {
@@ -51,36 +49,12 @@ public class SaioHasieraController extends BaseController{
      * @return `true`
      */
     private boolean kredentzialakKudeatu(String erabiltzaileIzena, String pasahitza) {
-        String query = "SELECT * FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, erabiltzaileIzena);
-            preparedStatement.setString(2, pasahitza);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                int idLangilea = resultSet.getInt("id_langilea");
-
-                Erabiltzailea erabiltzailea = new Erabiltzailea(id, erabiltzaileIzena, pasahitza, idLangilea);
-
-                errorLabel.setVisible(false);
-                System.out.println("Inicio de sesión exitoso");
-                aldatuEscenaLehenOrria();
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            errorLabel.setText("Error al conectar con la base de datos.");
-            errorLabel.setVisible(true);
-            return false;
+        int id = Erabiltzailea.lortuIdKredentzialenArabera(erabiltzaileIzena, pasahitza);
+        if (id > 0) {
+            Erabiltzailea erabiltzailea = Erabiltzailea.bilatuErabiltzailea(id);
         }
+        return true;
     }
 
     private void aldatuEscenaLehenOrria() {
