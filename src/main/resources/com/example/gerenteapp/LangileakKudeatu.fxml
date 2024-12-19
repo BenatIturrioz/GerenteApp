@@ -3,18 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.gerenteapp.LangileakKudeatuController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
 
-    <TableView fx:id="langileTable" layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
-        <columns>
-            <TableColumn fx:id="idColumn" text="id" prefWidth="100.0"/>
-            <TableColumn fx:id="izenaColumn" text="Izena" prefWidth="200.0"/>
-            <TableColumn fx:id="abizenaColumn" text="Abizena" prefWidth="200.0"/>
-        </columns>
-    </TableView>
+    <ScrollPane layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
+        <TableView fx:id="langileTable" prefHeight="373.0" prefWidth="962.0">
+            <columns>
+                <TableColumn fx:id="idColumn" text="id" />
+                <TableColumn fx:id="dniColumn" text="dni" />
+                <TableColumn fx:id="izenaColumn" text="Izena" />
+                <TableColumn fx:id="abizenaColumn" text="Abizena" />
+                <TableColumn fx:id="probintziaColumn" text="probintzia" />
+                <TableColumn fx:id="pkColumn" text="Posta kodea" />
+                <TableColumn fx:id="herriaColumn" text="Abizena" />
+                <TableColumn fx:id="helbideaColumn" text="Helbidea" />
+                <TableColumn fx:id="emailaColumn" text="Emaila" />
+                <TableColumn fx:id="telfColumn" text="Telf" />
+                <TableColumn fx:id="kkColumn" text="Kontu korrontea" />
+                <TableColumn fx:id="jaiotzeDataColumn" text="Jaiotze data" />
+            </columns>
+        </TableView>
+    </ScrollPane>
+
+
 
 </AnchorPane>
-
