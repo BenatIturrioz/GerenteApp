@@ -3,27 +3,76 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="400.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
 
     <ScrollPane layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
-        <TableView fx:id="langileTable" prefHeight="373.0" prefWidth="962.0">
+        <TableView fx:id="langileTable" prefHeight="373.0" prefWidth="560.0">
             <columns>
-                <TableColumn fx:id="idColumn" text="id" />
-                <TableColumn fx:id="dniColumn" text="dni" />
-                <TableColumn fx:id="izenaColumn" text="Izena" />
-                <TableColumn fx:id="abizenaColumn" text="Abizena" />
-                <TableColumn fx:id="probintziaColumn" text="probintzia" />
-                <TableColumn fx:id="pkColumn" text="Posta kodea" />
-                <TableColumn fx:id="herriaColumn" text="Abizena" />
-                <TableColumn fx:id="helbideaColumn" text="Helbidea" />
-                <TableColumn fx:id="emailaColumn" text="Emaila" />
-                <TableColumn fx:id="telfColumn" text="Telf" />
-                <TableColumn fx:id="kkColumn" text="Kontu korrontea" />
-                <TableColumn fx:id="jaiotzeDataColumn" text="Jaiotze data" />
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="dniColumn" text="DNI" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dni"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="izenaColumn" text="Izena" prefWidth="120">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="izena"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="abizenaColumn" text="Abizena" prefWidth="120">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="abizena"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="probintziaColumn" text="Probintzia" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="probintzia"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="pkColumn" text="Posta Kodea" prefWidth="80">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="pk"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="herriaColumn" text="Herria" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="herria"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="helbideaColumn" text="Helbidea" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="helbidea"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="emailaColumn" text="Emaila" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="emaila"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="telfColumn" text="Telf" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="telf"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="kkColumn" text="Kontu Korrontea" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="kk"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="jaiotzeDataColumn" text="Jaiotze Data" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="jaiotzeData"/>
+                    </cellValueFactory>
+                </TableColumn>
             </columns>
         </TableView>
     </ScrollPane>
 
-
-
 </AnchorPane>
+
