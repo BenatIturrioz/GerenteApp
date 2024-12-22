@@ -66,17 +66,14 @@ public class LangileakKudeatuController extends BaseController {
         helbideaColumn.setCellValueFactory(new PropertyValueFactory<>("helbidea"));
         emailaColumn.setCellValueFactory(new PropertyValueFactory<>("emaila"));
         telfColumn.setCellValueFactory(new PropertyValueFactory<>("telf"));
-        kkColumn.setCellValueFactory(new PropertyValueFactory<>("kk"));
+        kkColumn.setCellValueFactory(new PropertyValueFactory<>("kontuKorrontea"));
         jaiotzeDataColumn.setCellValueFactory(new PropertyValueFactory<>("jaiotzeData"));
 
-        // Agregar datos de ejemplo
-        langileaList.add(new Langilea(1, "12345678A", "Jon", "Perez", "Bizkaia", "48001", "Bilbao",
-                "Calle Mayor 10", "jon.perez@email.com", "123456789", "ES1234567890123456789012", LocalDate.of(1990, 1, 1)));
+        // Usar LangileaDAO para obtener los datos de la base de datos
+        LangileaDAO langileaDAO = new LangileaDAO();
+        langileaList = langileaDAO.getLangileak();
 
-        langileaList.add(new Langilea(2, "87654321B", "Amaia", "Lopez", "Gipuzkoa", "20001", "Donostia",
-                "Calle Zurriola 5", "amaia.lopez@email.com", "987654321", "ES9876543210987654321098", LocalDate.of(1985, 5, 15)));
-
-        // Asignar datos al TableView
+        // Asignar los datos obtenidos al TableView
         langileTable.setItems(langileaList);
     }
 
