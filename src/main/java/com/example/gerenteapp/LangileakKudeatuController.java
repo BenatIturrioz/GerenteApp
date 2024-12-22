@@ -2,14 +2,21 @@ package com.example.gerenteapp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 
 public class LangileakKudeatuController extends BaseController {
+
+    public Button LangileakGehituButton;
 
     @FXML
     private TableView<Langilea> langileTable;
@@ -76,5 +83,40 @@ public class LangileakKudeatuController extends BaseController {
         // Asignar los datos obtenidos al TableView
         langileTable.setItems(langileaList);
     }
+
+    @FXML
+    public void onLangileakGehituButtonClicked() {
+        ShowLangileakGehitu();
+    }
+
+    private void ShowLangileakGehitu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakGehitu.fxml"));
+            Scene escenaLangileakGehitu = new Scene(loader.load());
+
+            // Crear un nuevo Stage para la nueva ventana
+            Stage nuevoStage = new Stage();
+            nuevoStage.setScene(escenaLangileakGehitu);
+            nuevoStage.setTitle("Langile Kudeaketa");
+
+            // Configurar el tamaño deseado
+            nuevoStage.setWidth(800);  // Establece el ancho deseado
+            nuevoStage.setHeight(600); // Establece la altura deseada
+
+            // Centrar la ventana en la pantalla
+            nuevoStage.centerOnScreen();
+
+            // Mostrar la nueva ventana
+            nuevoStage.show();
+
+            // Cerrar el Stage actual si es necesario
+            Stage stageActual = (Stage) LangileakGehituButton.getScene().getWindow();
+            stageActual.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

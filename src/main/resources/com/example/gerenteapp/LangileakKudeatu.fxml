@@ -3,68 +3,69 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="2560.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
 
     <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="847.0">
-        <TableView fx:id="langileTable" prefHeight="1558.0" prefWidth="1927.0">
+        <TableView fx:id="langileTable" prefHeight="584.0" prefWidth="1231.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="60" text="ID">
+                <TableColumn fx:id="idColumn" prefWidth="23.0" text="ID">
                     <cellValueFactory>
                         <PropertyValueFactory property="id" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="dniColumn" prefWidth="100" text="DNI">
+                <TableColumn fx:id="dniColumn" prefWidth="78.0" text="DNI">
                     <cellValueFactory>
                         <PropertyValueFactory property="dni" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="izenaColumn" prefWidth="120" text="Izena">
+                <TableColumn fx:id="izenaColumn" prefWidth="77.0" text="Izena">
                     <cellValueFactory>
                         <PropertyValueFactory property="izena" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="abizenaColumn" prefWidth="120" text="Abizena">
+                <TableColumn fx:id="abizenaColumn" prefWidth="88.0" text="Abizena">
                     <cellValueFactory>
                         <PropertyValueFactory property="abizena" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="probintziaColumn" prefWidth="100" text="Probintzia">
+                <TableColumn fx:id="probintziaColumn" prefWidth="84.0" text="Probintzia">
                     <cellValueFactory>
                         <PropertyValueFactory property="probintzia" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="pkColumn" prefWidth="80" text="Posta Kodea">
+                <TableColumn fx:id="pkColumn" prefWidth="67.0" text="Posta Kodea">
                     <cellValueFactory>
                         <PropertyValueFactory property="pk" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="herriaColumn" prefWidth="100" text="Herria">
+                <TableColumn fx:id="herriaColumn" prefWidth="71.0" text="Herria">
                     <cellValueFactory>
                         <PropertyValueFactory property="herria" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="helbideaColumn" prefWidth="150" text="Helbidea">
+                <TableColumn fx:id="helbideaColumn" prefWidth="204.0" text="Helbidea">
                     <cellValueFactory>
                         <PropertyValueFactory property="helbidea" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="emailaColumn" prefWidth="150" text="Emaila">
+                <TableColumn fx:id="emailaColumn" prefWidth="138.0" text="Emaila">
                     <cellValueFactory>
                         <PropertyValueFactory property="emaila" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="telfColumn" prefWidth="100" text="Telf">
+                <TableColumn fx:id="telfColumn" prefWidth="133.0" text="Telf">
                     <cellValueFactory>
                         <PropertyValueFactory property="telf" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="kkColumn" prefWidth="150" text="KontuKorrontea">
+                <TableColumn fx:id="kkColumn" prefWidth="137.0" text="KontuKorrontea">
                     <cellValueFactory>
                         <PropertyValueFactory property="kk" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="jaiotzeDataColumn" prefWidth="100" text="Jaiotze Data">
+                <TableColumn fx:id="jaiotzeDataColumn" prefWidth="103.0" text="Jaiotze Data">
                     <cellValueFactory>
                         <PropertyValueFactory property="jaiotzeData" />
                     </cellValueFactory>
@@ -72,5 +73,10 @@
             </columns>
         </TableView>
     </ScrollPane>
+   <Button fx:id="LangileakGehituButton" layoutX="22.0" layoutY="627.0" mnemonicParsing="false" onAction="#onLangileakGehituButtonClicked" prefHeight="88.0" prefWidth="182.0" text="Langilea Gehitu" textFill="#070707">
+      <font>
+         <Font name="Candara Bold" size="12.0" />
+      </font>
+   </Button>
 
 </AnchorPane>
