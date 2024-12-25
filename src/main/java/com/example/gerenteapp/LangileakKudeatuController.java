@@ -89,6 +89,28 @@ public class LangileakKudeatuController extends BaseController {
         ShowLangileakGehitu();
     }
 
+    @FXML
+    public void onAtzeraButtonClicked() {
+        try {
+            // Cargar el archivo FXML de la ventana anterior
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
+            Scene escenaAnterior = new Scene(loader.load());
+
+            // Obtener el Stage actual
+            Stage currentStage = (Stage) langileTable.getScene().getWindow();
+
+            // Configurar la escena en el Stage actual
+            currentStage.setScene(escenaAnterior);
+            currentStage.setTitle("Lehen Orria");
+
+            // Opcional: centrar la ventana
+            currentStage.centerOnScreen();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void ShowLangileakGehitu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakGehitu.fxml"));
@@ -108,10 +130,6 @@ public class LangileakKudeatuController extends BaseController {
 
             // Mostrar la nueva ventana
             nuevoStage.show();
-
-            // Cerrar el Stage actual si es necesario
-            Stage stageActual = (Stage) LangileakGehituButton.getScene().getWindow();
-            stageActual.close();
 
         } catch (IOException e) {
             e.printStackTrace();
