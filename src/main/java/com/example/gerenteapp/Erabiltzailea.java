@@ -53,10 +53,8 @@ public class Erabiltzailea extends ConnectionTest {
         this.id_langilea = id_langilea;
     }
 
-    public static int lortuIdKredentzialenArabera(String erabiltzaileIzena, String pasahitza){
-
+    public static int lortuIdKredentzialenArabera(String erabiltzaileIzena, String pasahitza) {
         String query = "SELECT id FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
-
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -64,29 +62,20 @@ public class Erabiltzailea extends ConnectionTest {
             preparedStatement.setString(1, erabiltzaileIzena);
             preparedStatement.setString(2, pasahitza);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-
-                System.out.println("Inicio de sesión exitoso");
-                return id;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id"); // Usuario encontrado, devolver ID
+                }
             }
-            else
-            {
-                return 0;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
         }
 
-
+        return 0; // Si no se encuentra el usuario, devolver 0
     }
 
-    public static Erabiltzailea bilatuErabiltzailea(int id){
 
+    public static Erabiltzailea bilatuErabiltzailea(int id) {
         String query = "SELECT * FROM erabiltzailea WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
@@ -94,27 +83,21 @@ public class Erabiltzailea extends ConnectionTest {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int erabiltzaileaId = resultSet.getInt("id");
-                String erabiltzaileIzena = resultSet.getString("erabiltzaileIzena");
-                String pasahitza = resultSet.getString("pasahitza");
-                int id_langilea = resultSet.getInt("langilea_id");
-
-                System.out.println("Inicio de sesión exitoso");
-                Erabiltzailea e = new Erabiltzailea(erabiltzaileaId,erabiltzaileIzena,pasahitza,id_langilea);
-                return e;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Erabiltzailea(
+                            resultSet.getInt("id"),
+                            resultSet.getString("erabiltzaileIzena"),
+                            resultSet.getString("pasahitza"),
+                            resultSet.getInt("langilea_id")
+                    );
+                }
             }
-            else
-            {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
 
+        return null; // Usuario no encontrado
     }
+
 }

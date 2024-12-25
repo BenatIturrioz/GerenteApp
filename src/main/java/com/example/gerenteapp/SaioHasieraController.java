@@ -49,13 +49,18 @@ public class SaioHasieraController extends BaseController{
      * @return `true`
      */
     private boolean kredentzialakKudeatu(String erabiltzaileIzena, String pasahitza) {
-
         int id = Erabiltzailea.lortuIdKredentzialenArabera(erabiltzaileIzena, pasahitza);
+
         if (id > 0) {
+            // Usuario encontrado, buscar datos completos (si es necesario)
             Erabiltzailea erabiltzailea = Erabiltzailea.bilatuErabiltzailea(id);
+            return true;
+        } else {
+            // Usuario no encontrado o credenciales incorrectas
+            return false;
         }
-        return true;
     }
+
 
     private void aldatuEscenaLehenOrria() {
         try {
