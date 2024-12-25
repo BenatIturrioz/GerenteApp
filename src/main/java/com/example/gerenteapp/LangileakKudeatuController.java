@@ -122,8 +122,8 @@ public class LangileakKudeatuController extends BaseController {
             nuevoStage.setTitle("Langile Kudeaketa");
 
             // Configurar el tamaño deseado
-            nuevoStage.setWidth(800);  // Establece el ancho deseado
-            nuevoStage.setHeight(600); // Establece la altura deseada
+            nuevoStage.setWidth(670);  // Establece el ancho deseado
+            nuevoStage.setHeight(460); // Establece la altura deseada
 
             // Centrar la ventana en la pantalla
             nuevoStage.centerOnScreen();
