@@ -42,7 +42,8 @@ public class LangileaDAO {
                         resultSet.getString("emaila"),
                         resultSet.getString("telf"),
                         resultSet.getString("kontuKorrontea"),
-                        resultSet.getDate("jaiotzeData").toLocalDate() // Convertimos java.sql.Date a LocalDate
+                        resultSet.getDate("jaiotzeData").toLocalDate(), // Convertimos java.sql.Date a LocalDate
+                        resultSet.getInt("mota")
                 );
                 langileak.add(langilea);
             }

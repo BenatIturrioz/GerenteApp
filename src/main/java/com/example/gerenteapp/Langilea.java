@@ -16,10 +16,11 @@ public class Langilea {
     private String telf;
     private String kontuKorrontea;
     private LocalDate jaiotzeData;
+    private int mota;
 
     // Constructor
     public Langilea(int id, String dni, String izena, String abizena, String probintzia, String pk, String herria,
-                    String helbidea, String emaila, String telf, String kontuKorrontea, LocalDate jaiotzeData) {
+                    String helbidea, String emaila, String telf, String kontuKorrontea, LocalDate jaiotzeData, int mota) {
         this.id = id;
         this.dni = dni;
         this.izena = izena;
@@ -32,6 +33,7 @@ public class Langilea {
         this.telf = telf;
         this.kontuKorrontea = kontuKorrontea;
         this.jaiotzeData = jaiotzeData;
+        this.mota = mota;
     }
 
     // Getters y setters
@@ -70,4 +72,9 @@ public class Langilea {
 
     public LocalDate getJaiotzeData() { return jaiotzeData; }
     public void setJaiotzeData(LocalDate jaiotzeData) { this.jaiotzeData = jaiotzeData; }
+
+    public int getMota() {return mota;}
+
+    public void setMota(int mota) {this.mota = mota;}
 }
+

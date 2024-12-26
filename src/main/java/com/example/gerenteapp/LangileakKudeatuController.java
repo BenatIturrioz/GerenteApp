@@ -116,25 +116,28 @@ public class LangileakKudeatuController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakGehitu.fxml"));
             Scene escenaLangileakGehitu = new Scene(loader.load());
 
-            // Crear un nuevo Stage para la nueva ventana
-            Stage nuevoStage = new Stage();
-            nuevoStage.setScene(escenaLangileakGehitu);
-            nuevoStage.setTitle("Langile Kudeaketa");
+            // Obtener el controlador del FXMLLoader
+            LangileakGehituController controller = loader.getController();
 
-            // Configurar el tamaño deseado
-            nuevoStage.setWidth(670);  // Establece el ancho deseado
-            nuevoStage.setHeight(460); // Establece la altura deseada
+            // Pasar el Stage al controlador
+            Stage stage = new Stage();
+            controller.setUsingStage(stage);  // Aquí pasamos el Stage
 
-            // Centrar la ventana en la pantalla
-            nuevoStage.centerOnScreen();
+            // Configurar el nuevo Stage
+            stage.setScene(escenaLangileakGehitu);
+            stage.setTitle("Langile Kudeaketa");
+            stage.setWidth(670);
+            stage.setHeight(460);
+            stage.centerOnScreen();
 
             // Mostrar la nueva ventana
-            nuevoStage.show();
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
 }
