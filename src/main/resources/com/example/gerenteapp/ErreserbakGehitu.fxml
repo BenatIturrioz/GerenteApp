@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="420.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErreserbakGehituController">
+    <children>
+        <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="400.0" text="ERRESERBA BERRIAREN DATUAK SARTU">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+
+        <!-- Bezeroaren Izena -->
+        <Label layoutX="29.0" layoutY="76.0" text="BEZEROAREN IZENA" />
+        <TextField fx:id="bezeroIzenaField" layoutX="200.0" layoutY="72.0" prefWidth="200.0" />
+
+        <!-- Telefonoa -->
+        <Label layoutX="29.0" layoutY="123.0" text="TELEFONOA" />
+        <TextField fx:id="telfField" layoutX="200.0" layoutY="119.0" prefWidth="200.0" />
+
+        <!-- Data -->
+        <Label layoutX="29.0" layoutY="172.0" text="DATA" />
+        <DatePicker fx:id="dataPicker" layoutX="200.0" layoutY="168.0" prefWidth="200.0" />
+
+        <!-- Bezero Kopurua -->
+        <Label layoutX="29.0" layoutY="221.0" text="BEZERO KOPURUA" />
+        <TextField fx:id="bezroKopField" layoutX="200.0" layoutY="217.0" prefWidth="200.0" />
+
+        <!-- Mahaia ID -->
+        <Label layoutX="29.0" layoutY="270.0" text="MAHAIA ID" />
+        <TextField fx:id="mahaiaIdField" layoutX="200.0" layoutY="266.0" prefWidth="200.0" />
+
+        <!-- Langilea ID -->
+        <Label layoutX="29.0" layoutY="318.0" text="LANGILEA ID" />
+        <TextField fx:id="langileaIdField" layoutX="200.0" layoutY="314.0" prefWidth="200.0" />
+
+        <!-- Erreserba ID -->
+        <Label layoutX="450.0" layoutY="76.0" text="ERRESERBA ID" />
+        <TextField fx:id="erreserbaIdField" layoutX="550.0" layoutY="72.0" prefWidth="120.0" />
+
+        <!-- Sortu botoia -->
+        <Button layoutX="500.0" layoutY="350.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Sortu Erreserba" />
+    </children>
+</AnchorPane>
+
