@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErreserbaKudeatuController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErreserbakKudeatuController">
 
     <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="847.0">
         <TableView fx:id="erreserbaTable" prefHeight="584.0" prefWidth="1231.0">

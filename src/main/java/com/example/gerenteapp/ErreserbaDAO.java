@@ -37,7 +37,7 @@ public class ErreserbaDAO {
                         resultSet.getInt("langilea_id"),
                         resultSet.getString("bezeroIzena"),
                         resultSet.getInt("telf"),
-                        resultSet.getDate("data") != null ? resultSet.getDate("data").toLocalDate() : Integer.parseInt(null),
+                        resultSet.getDate("data") != null ? resultSet.getDate("data").toLocalDate() : LocalDate.ofEpochDay(Integer.parseInt(null)),
 
                         resultSet.getInt("bezeroKop")
                 );

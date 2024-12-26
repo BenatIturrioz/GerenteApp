@@ -1,6 +1,7 @@
 package com.example.gerenteapp;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class Erreserba {
 
@@ -10,10 +11,10 @@ public class Erreserba {
     private int langilea_id;
     private String bezeroIzena;
     private int telf;
-    private java.sql.Date data;
+    private LocalDate data;
     private int bezroKop;
 
-    public Erreserba(int id, int erreserba_id, int mahaia_id, int langilea_id, String bezeroIzena, int telf, java.sql.Date, int bezroKop) {
+    public Erreserba(int id, int erreserba_id, int mahaia_id, int langilea_id, String bezeroIzena, int telf, LocalDate data, int bezroKop) {
         this.id = id;
         this.erreserba_id = erreserba_id;
         this.mahaia_id = mahaia_id;
@@ -72,12 +73,12 @@ public class Erreserba {
         this.telf = telf;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
     public void setData(Date data) {
-        this.data = data;
+        this.data = data.toLocalDate();
     }
 
     public int getBezroKop() {
