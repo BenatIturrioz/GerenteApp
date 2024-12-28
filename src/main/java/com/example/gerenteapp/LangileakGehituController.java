@@ -74,6 +74,11 @@ public class LangileakGehituController extends BaseController {
             if (saveLangilea(langilea)) {
                 showAlert("Arrakasta", "Langilea ondo sortu da.", Alert.AlertType.INFORMATION);
 
+                // Actualizar la tabla en el controlador principal
+                if (parentController != null) {
+                    parentController.updateLangileakTable();
+                }
+
                 closeWindow();
 
             } else {
@@ -145,6 +150,15 @@ public class LangileakGehituController extends BaseController {
             usingStage.close();
         }
     }
+
+    private LangileakKudeatuController parentController;
+
+    public void setParentController(LangileakKudeatuController parentController) {
+        this.parentController = parentController;
+    }
+
+
+
 }
 
 

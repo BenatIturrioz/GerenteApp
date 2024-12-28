@@ -116,27 +116,41 @@ public class LangileakKudeatuController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakGehitu.fxml"));
             Scene escenaLangileakGehitu = new Scene(loader.load());
 
-            // Obtener el controlador del FXMLLoader
+            // Obtener el controlador del formulario
             LangileakGehituController controller = loader.getController();
 
-            // Pasar el Stage al controlador
-            Stage stage = new Stage();
-            controller.setUsingStage(stage);  // Aquí pasamos el Stage
+            // Pasar la referencia de este controlador (LangileakKudeatuController)
+            controller.setParentController(this);
 
-            // Configurar el nuevo Stage
+            // Configurar el Stage para el formulario
+            Stage stage = new Stage();
+            controller.setUsingStage(stage);  // Pasar el Stage al controlador
+
+            // Configurar la ventana
             stage.setScene(escenaLangileakGehitu);
             stage.setTitle("Langile Kudeaketa");
             stage.setWidth(670);
             stage.setHeight(460);
             stage.centerOnScreen();
 
-            // Mostrar la nueva ventana
+            // Mostrar la ventana
             stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    public void updateLangileakTable() {
+        // Obtener los datos actualizados desde la base de datos
+        LangileaDAO langileaDAO = new LangileaDAO();
+        ObservableList<Langilea> updatedLangileaList = langileaDAO.getLangileak();
+
+        // Actualizar los datos del TableView
+        langileaList.setAll(updatedLangileaList); // Reemplazar los elementos actuales
+    }
+
 
 
 
