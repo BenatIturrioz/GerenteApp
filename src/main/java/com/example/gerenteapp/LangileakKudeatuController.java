@@ -1,22 +1,19 @@
 package com.example.gerenteapp;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-
 public class LangileakKudeatuController extends BaseController {
-
-    public Button LangileakGehituButton;
 
     @FXML
     private TableView<Langilea> langileTable;
@@ -57,12 +54,17 @@ public class LangileakKudeatuController extends BaseController {
     @FXML
     private TableColumn<Langilea, LocalDate> jaiotzeDataColumn;
 
-    // Lista de datos para el TableView
+    @FXML
+    private Button GuardarCambiosButton;
+
+    @FXML
+    private Button LangileakGehituButton;
+
     private ObservableList<Langilea> langileaList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Configuración de las columnas
+        // Configuración de las columnas con propiedades observables
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dniColumn.setCellValueFactory(new PropertyValueFactory<>("dni"));
         izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
@@ -76,12 +78,58 @@ public class LangileakKudeatuController extends BaseController {
         kkColumn.setCellValueFactory(new PropertyValueFactory<>("kontuKorrontea"));
         jaiotzeDataColumn.setCellValueFactory(new PropertyValueFactory<>("jaiotzeData"));
 
-        // Usar LangileaDAO para obtener los datos de la base de datos
+        // Configurar columnas editables
+        izenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        abizenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        telfColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        // Hacer la tabla editable
+        langileTable.setEditable(true);
+
+        // Detectar cambios en las columnas editables
+        izenaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setIzena(event.getNewValue());
+            enableSaveButton();
+        });
+
+        abizenaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setAbizena(event.getNewValue());
+            enableSaveButton();
+        });
+
+        emailaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setEmaila(event.getNewValue());
+            enableSaveButton();
+        });
+
+        telfColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setTelf(event.getNewValue());
+            enableSaveButton();
+        });
+
+        // Cargar datos desde LangileaDAO
         LangileaDAO langileaDAO = new LangileaDAO();
         langileaList = langileaDAO.getLangileak();
-
-        // Asignar los datos obtenidos al TableView
         langileTable.setItems(langileaList);
+    }
+
+    private void enableSaveButton() {
+        GuardarCambiosButton.setDisable(false);
+    }
+
+    @FXML
+    public void onGuardarCambiosButtonClicked() {
+        LangileaDAO langileaDAO = new LangileaDAO();
+        for (Langilea langilea : langileaList) {
+            langileaDAO.updateLangilea(langilea);
+        }
+        GuardarCambiosButton.setDisable(true);
+        System.out.println("Cambios guardados correctamente.");
     }
 
     @FXML
@@ -92,20 +140,12 @@ public class LangileakKudeatuController extends BaseController {
     @FXML
     public void onAtzeraButtonClicked() {
         try {
-            // Cargar el archivo FXML de la ventana anterior
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene escenaAnterior = new Scene(loader.load());
-
-            // Obtener el Stage actual
             Stage currentStage = (Stage) langileTable.getScene().getWindow();
-
-            // Configurar la escena en el Stage actual
             currentStage.setScene(escenaAnterior);
             currentStage.setTitle("Lehen Orria");
-
-            // Opcional: centrar la ventana
             currentStage.centerOnScreen();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,43 +155,25 @@ public class LangileakKudeatuController extends BaseController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakGehitu.fxml"));
             Scene escenaLangileakGehitu = new Scene(loader.load());
-
-            // Obtener el controlador del formulario
             LangileakGehituController controller = loader.getController();
-
-            // Pasar la referencia de este controlador (LangileakKudeatuController)
             controller.setParentController(this);
-
-            // Configurar el Stage para el formulario
             Stage stage = new Stage();
-            controller.setUsingStage(stage);  // Pasar el Stage al controlador
-
-            // Configurar la ventana
+            controller.setUsingStage(stage);
             stage.setScene(escenaLangileakGehitu);
             stage.setTitle("Langile Kudeaketa");
             stage.setWidth(670);
             stage.setHeight(460);
             stage.centerOnScreen();
-
-            // Mostrar la ventana
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     public void updateLangileakTable() {
-        // Obtener los datos actualizados desde la base de datos
         LangileaDAO langileaDAO = new LangileaDAO();
         ObservableList<Langilea> updatedLangileaList = langileaDAO.getLangileak();
-
-        // Actualizar los datos del TableView
-        langileaList.setAll(updatedLangileaList); // Reemplazar los elementos actuales
+        langileaList.setAll(updatedLangileaList);
     }
-
-
-
-
 }
+

@@ -54,5 +54,23 @@ public class LangileaDAO {
 
         return langileak;
     }
+
+    public void updateLangilea(Langilea langilea) {
+        String query = "UPDATE langilea SET izena = ?, abizena = ?, emaila = ?, telf = ? WHERE id = ?";
+        try (Connection connection = ConnectionTest.connect();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, langilea.getIzena());
+            stmt.setString(2, langilea.getAbizena());
+            stmt.setString(3, langilea.getEmaila());
+            stmt.setString(4, langilea.getTelf());
+            stmt.setInt(5, langilea.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
