@@ -157,8 +157,6 @@ public class LangileakGehituController extends BaseController {
         this.parentController = parentController;
     }
 
-
-
 }
 
 

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -91,52 +92,56 @@ public class LangileakKudeatuController extends BaseController {
         langileTable.setEditable(true);
 
         // Detectar cambios en las columnas editables
-        izenaColumn.setOnEditCommit(event -> {
-            Langilea langilea = event.getRowValue();
-            langilea.setIzena(event.getNewValue());
-            enableSaveButton();
-        });
-
-        abizenaColumn.setOnEditCommit(event -> {
-            Langilea langilea = event.getRowValue();
-            langilea.setAbizena(event.getNewValue());
-            enableSaveButton();
-        });
-
-        emailaColumn.setOnEditCommit(event -> {
-            Langilea langilea = event.getRowValue();
-            langilea.setEmaila(event.getNewValue());
-            enableSaveButton();
-        });
-
-        telfColumn.setOnEditCommit(event -> {
-            Langilea langilea = event.getRowValue();
-            langilea.setTelf(event.getNewValue());
-            enableSaveButton();
-        });
+        setupEditListeners();
 
         // Cargar datos desde LangileaDAO
         LangileaDAO langileaDAO = new LangileaDAO();
         langileaList = langileaDAO.getLangileak();
         langileTable.setItems(langileaList);
 
-        // Agregar columna para acción de eliminar
-        addButtonToTable();
+        // Agregar columna para acciones (eliminar y editar)
+        addActionButtonsToTable();
     }
 
-    private void enableSaveButton() {
-        GuardarCambiosButton.setDisable(false);
+    private void setupEditListeners() {
+        izenaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setIzena(event.getNewValue());
+        });
+
+        abizenaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setAbizena(event.getNewValue());
+        });
+
+        emailaColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setEmaila(event.getNewValue());
+        });
+
+        telfColumn.setOnEditCommit(event -> {
+            Langilea langilea = event.getRowValue();
+            langilea.setTelf(event.getNewValue());
+        });
     }
 
-    private void addButtonToTable() {
+    private void addActionButtonsToTable() {
         accionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("🗑️");
+            private final Button editButton = new Button("💾");
 
             {
                 deleteButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                editButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+
                 deleteButton.setOnAction(event -> {
                     Langilea langilea = getTableView().getItems().get(getIndex());
                     confirmAndDelete(langilea);
+                });
+
+                editButton.setOnAction(event -> {
+                    Langilea langilea = getTableView().getItems().get(getIndex());
+                    saveEditedLangilea(langilea);
                 });
             }
 
@@ -146,10 +151,20 @@ public class LangileakKudeatuController extends BaseController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteButton);
+                    HBox buttons = new HBox(5, deleteButton, editButton);
+                    setGraphic(buttons);
                 }
             }
         });
+    }
+
+    public void updateLangileakTable() {
+        // Obtener los datos actualizados desde la base de datos
+        LangileaDAO langileaDAO = new LangileaDAO();
+        ObservableList<Langilea> updatedLangileaList = langileaDAO.getLangileak();
+
+        // Actualizar los datos del TableView
+        langileaList.setAll(updatedLangileaList); // Reemplazar los elementos actuales
     }
 
     private void confirmAndDelete(Langilea langilea) {
@@ -167,6 +182,28 @@ public class LangileakKudeatuController extends BaseController {
         });
     }
 
+    private void saveEditedLangilea(Langilea langilea) {
+        // Mostrar cuadro de diálogo de confirmación antes de guardar
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de guardado");
+        alert.setHeaderText("¿Está seguro de que desea guardar los cambios?");
+        alert.setContentText("Registro: " + langilea.getIzena() + " " + langilea.getAbizena());
+
+        // Esperar la respuesta del usuario
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Guardar cambios en la base de datos
+                LangileaDAO langileaDAO = new LangileaDAO();
+                langileaDAO.updateLangilea(langilea);
+
+                // Refrescar la tabla para mostrar los cambios
+                langileTable.refresh();
+
+                System.out.println("Registro actualizado: " + langilea);
+            }
+        });
+    }
+
     private void deleteLangilea(Langilea langilea) {
         // Eliminar de la lista observable
         langileaList.remove(langilea);
@@ -176,16 +213,6 @@ public class LangileakKudeatuController extends BaseController {
         langileaDAO.deleteLangilea(langilea.getId());
 
         System.out.println("Registro eliminado: " + langilea);
-    }
-
-    @FXML
-    public void onGuardarCambiosButtonClicked() {
-        LangileaDAO langileaDAO = new LangileaDAO();
-        for (Langilea langilea : langileaList) {
-            langileaDAO.updateLangilea(langilea);
-        }
-        GuardarCambiosButton.setDisable(true);
-        System.out.println("Cambios guardados correctamente.");
     }
 
     @FXML
@@ -225,13 +252,9 @@ public class LangileakKudeatuController extends BaseController {
             e.printStackTrace();
         }
     }
-
-    public void updateLangileakTable() {
-        LangileaDAO langileaDAO = new LangileaDAO();
-        ObservableList<Langilea> updatedLangileaList = langileaDAO.getLangileak();
-        langileaList.setAll(updatedLangileaList);
-    }
 }
+
+
 
 
 

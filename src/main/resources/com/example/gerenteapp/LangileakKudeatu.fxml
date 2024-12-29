@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1601.0" prefWidth="1282.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileakKudeatuController">
 
-    <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="847.0">
-        <TableView fx:id="langileTable" prefHeight="584.0" prefWidth="1231.0">
+    <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="1095.0">
+        <TableView fx:id="langileTable" prefHeight="584.0" prefWidth="1080.0">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="23.0" text="ID">
                     <cellValueFactory>
@@ -45,54 +45,43 @@
                         <PropertyValueFactory property="herria" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="helbideaColumn" prefWidth="204.0" text="Helbidea">
+                <TableColumn fx:id="helbideaColumn" prefWidth="128.0" text="Helbidea">
                     <cellValueFactory>
                         <PropertyValueFactory property="helbidea" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="emailaColumn" prefWidth="138.0" text="Emaila">
+                <TableColumn fx:id="emailaColumn" prefWidth="122.0" text="Emaila">
                     <cellValueFactory>
                         <PropertyValueFactory property="emaila" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="telfColumn" prefWidth="133.0" text="Telf">
+                <TableColumn fx:id="telfColumn" prefWidth="98.0" text="Telf">
                     <cellValueFactory>
                         <PropertyValueFactory property="telf" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="kkColumn" prefWidth="137.0" text="KontuKorrontea">
+                <TableColumn fx:id="kkColumn" prefWidth="104.0" text="KontuKorrontea">
                     <cellValueFactory>
-                        <PropertyValueFactory property="kk" />
+                        <PropertyValueFactory property="kontuKorrontea" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="jaiotzeDataColumn" prefWidth="103.0" text="Jaiotze Data">
+                <TableColumn fx:id="jaiotzeDataColumn" prefWidth="107.0" text="Jaiotze Data">
                     <cellValueFactory>
                         <PropertyValueFactory property="jaiotzeData" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="accionColumn" text="Acción" prefWidth="100.0" />
+                <TableColumn fx:id="accionColumn" prefWidth="114.0" text="Acción" />
             </columns>
         </TableView>
     </ScrollPane>
-    <Button fx:id="LangileakGehituButton" layoutX="892.0" layoutY="23.0" mnemonicParsing="false" onAction="#onLangileakGehituButtonClicked" prefHeight="95.0" prefWidth="197.0" text="Langilea Gehitu" textFill="#070707">
-        <font>
-            <Font name="Candara Bold" size="12.0" />
-        </font>
-    </Button>
-    <Button fx:id="AtzeraButton" layoutX="21.0" layoutY="622.0" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" prefHeight="88.0" prefWidth="197.0" text="ATZERA" />
-    <Button fx:id="GuardarCambiosButton"
-            layoutX="892.0"
-            layoutY="150.0"
-            mnemonicParsing="false"
-            text="Guardar Cambios"
-            textFill="#070707"
-            onAction="#onGuardarCambiosButtonClicked"
-            prefHeight="50.0"
-            prefWidth="197.0"
-            disable="true">
-        <font>
-            <Font name="Candara Bold" size="12.0" />
-        </font>
-    </Button>
-</AnchorPane>
 
+    <Button fx:id="LangileakGehituButton" layoutX="1124.0" layoutY="21.0" mnemonicParsing="false" onAction="#onLangileakGehituButtonClicked" prefHeight="95.0" prefWidth="148.0" text="Langilea Gehitu" textFill="#070707">
+        <font>
+            <Font name="Candara Bold" size="12.0" />
+        </font>
+    </Button>
+
+    <Button fx:id="AtzeraButton" layoutX="21.0" layoutY="622.0" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" prefHeight="88.0" prefWidth="197.0" text="ATZERA" />
+
+
+</AnchorPane>
