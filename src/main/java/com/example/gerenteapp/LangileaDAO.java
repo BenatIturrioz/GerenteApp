@@ -72,5 +72,20 @@ public class LangileaDAO {
         }
     }
 
+    public void deleteLangilea(int id) {
+        String query = "DELETE FROM langilea WHERE id = ?";
+        try (Connection connection = ConnectionTest.connect();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
+
 

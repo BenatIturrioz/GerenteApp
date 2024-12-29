@@ -55,6 +55,9 @@ public class LangileakKudeatuController extends BaseController {
     private TableColumn<Langilea, LocalDate> jaiotzeDataColumn;
 
     @FXML
+    private TableColumn<Langilea, Void> accionColumn;
+
+    @FXML
     private Button GuardarCambiosButton;
 
     @FXML
@@ -116,10 +119,63 @@ public class LangileakKudeatuController extends BaseController {
         LangileaDAO langileaDAO = new LangileaDAO();
         langileaList = langileaDAO.getLangileak();
         langileTable.setItems(langileaList);
+
+        // Agregar columna para acción de eliminar
+        addButtonToTable();
     }
 
     private void enableSaveButton() {
         GuardarCambiosButton.setDisable(false);
+    }
+
+    private void addButtonToTable() {
+        accionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("🗑️");
+
+            {
+                deleteButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                deleteButton.setOnAction(event -> {
+                    Langilea langilea = getTableView().getItems().get(getIndex());
+                    confirmAndDelete(langilea);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+    }
+
+    private void confirmAndDelete(Langilea langilea) {
+        // Mostrar cuadro de diálogo de confirmación
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de eliminación");
+        alert.setHeaderText("¿Está seguro de que desea eliminar este registro?");
+        alert.setContentText("Registro: " + langilea.getIzena() + " " + langilea.getAbizena());
+
+        // Esperar la respuesta del usuario
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                deleteLangilea(langilea);
+            }
+        });
+    }
+
+    private void deleteLangilea(Langilea langilea) {
+        // Eliminar de la lista observable
+        langileaList.remove(langilea);
+
+        // Actualizar en la base de datos
+        LangileaDAO langileaDAO = new LangileaDAO();
+        langileaDAO.deleteLangilea(langilea.getId());
+
+        System.out.println("Registro eliminado: " + langilea);
     }
 
     @FXML
@@ -176,4 +232,6 @@ public class LangileakKudeatuController extends BaseController {
         langileaList.setAll(updatedLangileaList);
     }
 }
+
+
 
