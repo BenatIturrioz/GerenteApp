@@ -25,6 +25,9 @@ public class Erreserba {
         this.bezroKop = bezroKop;
     }
 
+    public Erreserba(int erreserbaId, int mahaiaId, String bezeroIzena, String telefonoa, LocalDate data, int bezeroKop, int langileaId) {
+    }
+
     public int getId() {
         return id;
     }
