@@ -50,6 +50,7 @@
                         <PropertyValueFactory property="bezroKop" />
                     </cellValueFactory>
                 </TableColumn>
+                <TableColumn fx:id="accionColumn" prefWidth="114.0" text="Acción" />
             </columns>
         </TableView>
     </ScrollPane>
