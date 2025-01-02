@@ -97,27 +97,33 @@ public class ErreserbakKudeatuController extends BaseController {
 
     private void ShowErreserbaGehitu() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbaGehitu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakGehitu.fxml"));
             Scene escenaErreserbaGehitu = new Scene(loader.load());
-
-            // Crear un nuevo Stage para la nueva ventana
+            ErreserbakGehituController controller = loader.getController();
+            controller.setParentController(this);
             Stage nuevoStage = new Stage();
+            controller.setUsingStage(nuevoStage);
             nuevoStage.setScene(escenaErreserbaGehitu);
             nuevoStage.setTitle("Erreserba Kudeaketa");
-
-            // Configurar el tamaño deseado
             nuevoStage.setWidth(670);  // Establece el ancho deseado
             nuevoStage.setHeight(460); // Establece la altura deseada
-
-            // Centrar la ventana en la pantalla
             nuevoStage.centerOnScreen();
-
-            // Mostrar la nueva ventana
             nuevoStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    public void updateErreserbakTable() {
+        // Obtener los datos actualizados desde la base de datos
+        ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
+        ObservableList<Erreserba> updatedErreserbakList = erreserbaDAO.getErreserbak();
+
+        // Actualizar los datos del TableView
+        erreserbaList.setAll(updatedErreserbakList); // Reemplazar los elementos actuales
     }
 }
 

@@ -52,38 +52,6 @@ public class ErreserbaDAO {
     }
 
     /**
-     * Método para agregar una nueva reserva a la base de datos.
-     *
-     * @param erreserba El objeto Erreserba a agregar.
-     * @return true si la inserción fue exitosa, false en caso contrario.
-     */
-    public boolean addErreserba(Erreserba erreserba) {
-        String query = "INSERT INTO erreserba (erreserba_id, mahaia_id, langilea_id, bezeroIzena, telf, data, bezeroKop) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection connection = ConnectionTest.connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            // Establecer los parámetros del PreparedStatement
-            statement.setInt(1, erreserba.getErreserba_id());
-            statement.setInt(2, erreserba.getMahaia_id());
-            statement.setInt(3, erreserba.getLangilea_id());
-            statement.setString(4, erreserba.getBezeroIzena());
-            statement.setInt(5, erreserba.getTelf());
-            statement.setDate(6, java.sql.Date.valueOf(erreserba.getData())); // Convertir LocalDate a java.sql.Date
-            statement.setInt(7, erreserba.getBezroKop());
-
-            // Ejecutar la inserción
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Si se insertó al menos una fila, el resultado es positivo
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
      * Método para actualizar los datos de una reserva en la base de datos.
      *
      * @param erreserba El objeto Erreserba con los nuevos datos.
