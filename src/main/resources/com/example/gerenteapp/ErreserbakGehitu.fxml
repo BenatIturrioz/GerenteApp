@@ -30,7 +30,7 @@
 
         <!-- Mahaia ID -->
         <Label layoutX="29.0" layoutY="270.0" text="MAHAIA ID" />
-        <TextField fx:id="mahaiaIdField" editable="false" layoutX="150.0" layoutY="266.0" prefWidth="200.0" />
+        <TextField fx:id="mahaiaIdField" layoutX="150.0" layoutY="266.0" prefWidth="200.0" />
 
         <!-- Langilea ID -->
         <Label layoutX="29.0" layoutY="318.0" text="LANGILEA ID" />
@@ -41,6 +41,5 @@
         <TextField fx:id="erreserbaIdField" layoutX="465.0" layoutY="72.0" prefWidth="120.0" />
 
         <!-- Sortu botoia -->
-        <Button layoutX="427.0" layoutY="350.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Sortu Erreserba" />
-    </children>
+        <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu erreserba berria" />    </children>
 </AnchorPane>

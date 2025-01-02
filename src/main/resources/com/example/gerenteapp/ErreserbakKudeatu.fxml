@@ -64,6 +64,3 @@
     <Button fx:id="AtzeraButton" layoutX="21.0" layoutY="622.0" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" prefHeight="88.0" prefWidth="197.0" text="ATZERA" />
 
 </AnchorPane>
-
-
-

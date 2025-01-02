@@ -5,17 +5,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
 public class ErreserbakKudeatuController extends BaseController {
+
+    public Button ErreserbaGehituButton;
 
     @FXML
     private TableView<Erreserba> erreserbaTable;
@@ -44,12 +45,7 @@ public class ErreserbakKudeatuController extends BaseController {
     @FXML
     private TableColumn<Erreserba, Integer> bezroKopColumn;
 
-    @FXML
-    private TableColumn<Erreserba, Void> accionColumn;
-
-    @FXML
-    private Button ErreserbaGehituButton;
-
+    // Lista de datos para el TableView
     private ObservableList<Erreserba> erreserbaList = FXCollections.observableArrayList();
 
     @FXML
@@ -64,125 +60,12 @@ public class ErreserbakKudeatuController extends BaseController {
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
         bezroKopColumn.setCellValueFactory(new PropertyValueFactory<>("bezroKop"));
 
-        // Configurar columnas editables
-        bezeroIzenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        telfColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-
-        // Hacer la tabla editable
-        erreserbaTable.setEditable(true);
-
-        // Detectar cambios en las columnas editables
-        setupEditListeners();
-
-        // Cargar datos desde ErreserbaDAO
+        // Usar ErreserbaDAO para obtener los datos de la base de datos
         ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
         erreserbaList = erreserbaDAO.getErreserbak();
+
+        // Asignar los datos obtenidos al TableView
         erreserbaTable.setItems(erreserbaList);
-
-        // Agregar columna para acciones (eliminar y editar)
-        addActionButtonsToTable();
-    }
-
-    private void setupEditListeners() {
-        bezeroIzenaColumn.setOnEditCommit(event -> {
-            Erreserba erreserba = event.getRowValue();
-            erreserba.setBezeroIzena(event.getNewValue());
-        });
-
-        telfColumn.setOnEditCommit(event -> {
-            Erreserba erreserba = event.getRowValue();
-            erreserba.setTelf(event.getNewValue());
-        });
-    }
-
-    private void addActionButtonsToTable() {
-        accionColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("🗑️");
-            private final Button editButton = new Button("💾");
-
-            {
-                deleteButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-                editButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-
-                deleteButton.setOnAction(event -> {
-                    Erreserba erreserba = getTableView().getItems().get(getIndex());
-                    confirmAndDelete(erreserba);
-                });
-
-                editButton.setOnAction(event -> {
-                    Erreserba erreserba = getTableView().getItems().get(getIndex());
-                    saveEditedErreserba(erreserba);
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    HBox buttons = new HBox(5, deleteButton, editButton);
-                    setGraphic(buttons);
-                }
-            }
-        });
-    }
-
-    public void updateErreserbakTable() {
-        // Obtener los datos actualizados desde la base de datos
-        ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-        ObservableList<Erreserba> updatedErreserbaList = erreserbaDAO.getErreserbak();
-
-        // Actualizar los datos del TableView
-        erreserbaList.setAll(updatedErreserbaList);
-    }
-
-    private void confirmAndDelete(Erreserba erreserba) {
-        // Mostrar cuadro de diálogo de confirmación
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación de eliminación");
-        alert.setHeaderText("¿Está seguro de que desea eliminar este registro?");
-        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
-
-        // Esperar la respuesta del usuario
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                deleteErreserba(erreserba);
-            }
-        });
-    }
-
-    private void saveEditedErreserba(Erreserba erreserba) {
-        // Mostrar cuadro de diálogo de confirmación antes de guardar
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación de guardado");
-        alert.setHeaderText("¿Está seguro de que desea guardar los cambios?");
-        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
-
-        // Esperar la respuesta del usuario
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                // Guardar cambios en la base de datos
-                ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-                erreserbaDAO.updateErreserba(erreserba);
-
-                // Refrescar la tabla para mostrar los cambios
-                erreserbaTable.refresh();
-
-                System.out.println("Registro actualizado: " + erreserba);
-            }
-        });
-    }
-
-    private void deleteErreserba(Erreserba erreserba) {
-        // Eliminar de la lista observable
-        erreserbaList.remove(erreserba);
-
-        // Actualizar en la base de datos
-        ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-        erreserbaDAO.deleteErreserba(erreserba.getId());
-
-        System.out.println("Registro eliminado: " + erreserba);
     }
 
     @FXML
@@ -193,12 +76,20 @@ public class ErreserbakKudeatuController extends BaseController {
     @FXML
     public void onAtzeraButtonClicked() {
         try {
+            // Cargar el archivo FXML de la ventana anterior
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene escenaAnterior = new Scene(loader.load());
+
+            // Obtener el Stage actual
             Stage currentStage = (Stage) erreserbaTable.getScene().getWindow();
+
+            // Configurar la escena en el Stage actual
             currentStage.setScene(escenaAnterior);
             currentStage.setTitle("Lehen Orria");
+
+            // Opcional: centrar la ventana
             currentStage.centerOnScreen();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -206,20 +97,36 @@ public class ErreserbakKudeatuController extends BaseController {
 
     private void ShowErreserbaGehitu() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakGehitu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbaGehitu.fxml"));
             Scene escenaErreserbaGehitu = new Scene(loader.load());
+
+            // Crear un nuevo Stage para la nueva ventana
             Stage nuevoStage = new Stage();
             nuevoStage.setScene(escenaErreserbaGehitu);
             nuevoStage.setTitle("Erreserba Kudeaketa");
-            nuevoStage.setWidth(670);
-            nuevoStage.setHeight(460);
+
+            // Configurar el tamaño deseado
+            nuevoStage.setWidth(670);  // Establece el ancho deseado
+            nuevoStage.setHeight(460); // Establece la altura deseada
+
+            // Centrar la ventana en la pantalla
             nuevoStage.centerOnScreen();
+
+            // Mostrar la nueva ventana
             nuevoStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
+
+
+
+
+
+
 
 
 
