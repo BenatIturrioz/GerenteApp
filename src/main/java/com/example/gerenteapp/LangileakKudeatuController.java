@@ -59,9 +59,6 @@ public class LangileakKudeatuController extends BaseController {
     private TableColumn<Langilea, Void> accionColumn;
 
     @FXML
-    private Button GuardarCambiosButton;
-
-    @FXML
     private Button LangileakGehituButton;
 
     private ObservableList<Langilea> langileaList = FXCollections.observableArrayList();

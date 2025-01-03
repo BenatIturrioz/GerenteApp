@@ -33,13 +33,13 @@ public class ErreserbaDAO {
                 Erreserba erreserba = new Erreserba(
                         resultSet.getInt("id"), // Cambia "id" por el nombre exacto de tu columna
                         resultSet.getInt("erreserba_id"),
-                        resultSet.getInt("mahaia_id"),
+                        resultSet.getString("mahaia_id"),
                         resultSet.getInt("langilea_id"),
                         resultSet.getString("bezeroIzena"),
-                        resultSet.getInt("telf"),
+                        resultSet.getString("telf"),
                         resultSet.getDate("data") != null ? resultSet.getDate("data").toLocalDate() : LocalDate.ofEpochDay(Integer.parseInt(null)),
 
-                        resultSet.getInt("bezeroKop")
+                        resultSet.getString("bezeroKop")
                 );
                 erreserbak.add(erreserba);
             }
@@ -66,12 +66,12 @@ public class ErreserbaDAO {
 
             // Establecer los parámetros del PreparedStatement
             statement.setInt(1, erreserba.getErreserba_id());
-            statement.setInt(2, erreserba.getMahaia_id());
+            statement.setString(2, erreserba.getMahaia_id());
             statement.setInt(3, erreserba.getLangilea_id());
             statement.setString(4, erreserba.getBezeroIzena());
-            statement.setInt(5, erreserba.getTelf());
+            statement.setString(5, erreserba.getTelf());
             statement.setDate(6, java.sql.Date.valueOf(erreserba.getData())); // Convertir LocalDate a java.sql.Date
-            statement.setInt(7, erreserba.getBezroKop());
+            statement.setString(7, erreserba.getBezroKop());
             statement.setInt(8, erreserba.getId());
 
             // Ejecutar la actualización

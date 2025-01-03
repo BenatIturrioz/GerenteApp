@@ -5,10 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class ErreserbakKudeatuController extends BaseController {
     private TableColumn<Erreserba, Integer> erreserbaIdColumn;
 
     @FXML
-    private TableColumn<Erreserba, Integer> mahaiaIdColumn;
+    private TableColumn<Erreserba, String> mahaiaIdColumn;
 
     @FXML
     private TableColumn<Erreserba, Integer> langileaIdColumn;
@@ -37,13 +37,16 @@ public class ErreserbakKudeatuController extends BaseController {
     private TableColumn<Erreserba, String> bezeroIzenaColumn;
 
     @FXML
-    private TableColumn<Erreserba, Integer> telfColumn;
+    private TableColumn<Erreserba, String> telfColumn;
 
     @FXML
     private TableColumn<Erreserba, LocalDate> dataColumn;
 
     @FXML
-    private TableColumn<Erreserba, Integer> bezroKopColumn;
+    private TableColumn<Erreserba, String> bezroKopColumn;
+
+    @FXML
+    private TableColumn<Erreserba, Void> accionColumn;
 
     // Lista de datos para el TableView
     private ObservableList<Erreserba> erreserbaList = FXCollections.observableArrayList();
@@ -60,12 +63,124 @@ public class ErreserbakKudeatuController extends BaseController {
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
         bezroKopColumn.setCellValueFactory(new PropertyValueFactory<>("bezroKop"));
 
+        bezeroIzenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        telfColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        mahaiaIdColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        bezroKopColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        erreserbaTable.setEditable(true);
+
         // Usar ErreserbaDAO para obtener los datos de la base de datos
         ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
         erreserbaList = erreserbaDAO.getErreserbak();
 
         // Asignar los datos obtenidos al TableView
         erreserbaTable.setItems(erreserbaList);
+
+        addActionButtonToTable();
+    }
+
+    private void setupEditListeners() {
+        bezeroIzenaColumn.setOnEditCommit(event -> {
+            Erreserba erreserba = event.getRowValue();
+            erreserba.setBezeroIzena(event.getNewValue());
+        });
+
+        telfColumn.setOnEditCommit(event -> {
+            Erreserba erreserba = event.getRowValue();
+            erreserba.setTelf(event.getNewValue());
+        });
+
+        mahaiaIdColumn.setOnEditCommit(event -> {
+            Erreserba erreserba = event.getRowValue();
+            erreserba.setMahaia_id(event.getNewValue());
+        });
+
+        bezroKopColumn.setOnEditCommit(event -> {
+            Erreserba erreserba = event.getRowValue();
+            erreserba.setBezroKop(event.getNewValue());
+        });
+    }
+
+    private void addActionButtonToTable() {
+        accionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("🗑️");
+            private final Button editButton = new Button("💾");
+
+            {
+                deleteButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                editButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+
+                deleteButton.setOnAction(event -> {
+                    Erreserba erreserba = getTableView().getItems().get(getIndex());
+                    confirmAndDelete(erreserba);
+                });
+
+                editButton.setOnAction(event -> {
+                    Erreserba erreserba = getTableView().getItems().get(getIndex());
+                    saveEditedErreserba(erreserba);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(5, deleteButton, editButton);
+                    setGraphic(buttons);
+                }
+            }
+        });
+    }
+
+    private void confirmAndDelete(Erreserba erreserba) {
+        // Mostrar cuadro de diálogo de confirmación
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de eliminación");
+        alert.setHeaderText("¿Está seguro de que desea eliminar este registro?");
+        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
+
+        // Esperar la respuesta del usuario
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                deleteerreserba(erreserba);
+            }
+        });
+    }
+
+    private void saveEditedErreserba(Erreserba erreserba) {
+        // Mostrar cuadro de diálogo de confirmación antes de guardar
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de guardado");
+        alert.setHeaderText("¿Está seguro de que desea guardar los cambios?");
+        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
+
+        // Esperar la respuesta del usuario
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Guardar cambios en la base de datos
+                ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
+                erreserbaDAO.updateErreserba(erreserba);
+
+                // Refrescar la tabla para mostrar los cambios
+                erreserbaTable.refresh();
+
+                System.out.println("Registro actualizado: " + erreserba);
+            }
+        });
+    }
+
+    private void deleteerreserba(Erreserba erreserba) {
+        // Eliminar de la lista observable
+        erreserbaList.remove(erreserba);
+
+        // Actualizar en la base de datos
+        LangileaDAO langileaDAO = new LangileaDAO();
+        langileaDAO.deleteLangilea(erreserba.getId());
+
+        System.out.println("Registro eliminado: " + erreserba);
     }
 
     @FXML
