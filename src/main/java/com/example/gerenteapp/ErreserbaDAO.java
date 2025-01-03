@@ -13,49 +13,48 @@ import java.time.LocalDate;
 public class ErreserbaDAO {
 
     /**
-     * Método para obtener todos los registros de la tabla "erreserbak".
+     * "Erreserbak" taulako erregistro guztiak lortzeko metodoa.
      *
-     * @return ObservableList con objetos Erreserba.
+     * @return Erreserba objektuekin ObservableList bat.
      */
     public ObservableList<Erreserba> getErreserbak() {
-        // Lista para almacenar los resultados
+        // Emaitzak gordetzeko zerrenda
         ObservableList<Erreserba> erreserbak = FXCollections.observableArrayList();
 
-        // Consulta SQL para obtener los datos
-        String query = "SELECT * FROM erreserba"; // Cambia "erreserba" por el nombre real de tu tabla, si es diferente
+        // Datuak lortzeko SQL kontsulta
+        String query = "SELECT * FROM erreserba"; // Aldatu "erreserba" zure taularen benetako izenarekin, ezberdina bada
 
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
-            // Iterar sobre los resultados y crear objetos Erreserba
+            // Emaitzetan iteratu eta Erreserba objektuak sortu
             while (resultSet.next()) {
                 Erreserba erreserba = new Erreserba(
-                        resultSet.getInt("id"), // Cambia "id" por el nombre exacto de tu columna
+                        resultSet.getInt("id"), // Aldatu "id" zure zutabearen izen zehatzarekin
                         resultSet.getInt("erreserba_id"),
                         resultSet.getString("mahaia_id"),
                         resultSet.getInt("langilea_id"),
                         resultSet.getString("bezeroIzena"),
                         resultSet.getString("telf"),
                         resultSet.getDate("data") != null ? resultSet.getDate("data").toLocalDate() : LocalDate.ofEpochDay(Integer.parseInt(null)),
-
                         resultSet.getString("bezeroKop")
                 );
                 erreserbak.add(erreserba);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Muestra el error si algo falla
+            e.printStackTrace(); // Errorea erakutsi zerbait huts egiten badu
         }
 
         return erreserbak;
     }
 
     /**
-     * Método para actualizar los datos de una reserva en la base de datos.
+     * Datu-baseko erreserba baten datuak eguneratzeko metodoa.
      *
-     * @param erreserba El objeto Erreserba con los nuevos datos.
-     * @return true si la actualización fue exitosa, false en caso contrario.
+     * @param erreserba Datu berriekin Erreserba objektua.
+     * @return true eguneratzea arrakastatsua izan bada, false kontrakoa bada.
      */
     public boolean updateErreserba(Erreserba erreserba) {
         String query = "UPDATE erreserba SET erreserba_id = ?, mahaia_id = ?, langilea_id = ?, bezeroIzena = ?, telf = ?, " +
@@ -64,17 +63,17 @@ public class ErreserbaDAO {
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            // Establecer los parámetros del PreparedStatement
+            // PreparedStatement-aren parametroak ezarri
             statement.setInt(1, erreserba.getErreserba_id());
             statement.setString(2, erreserba.getMahaia_id());
             statement.setInt(3, erreserba.getLangilea_id());
             statement.setString(4, erreserba.getBezeroIzena());
             statement.setString(5, erreserba.getTelf());
-            statement.setDate(6, java.sql.Date.valueOf(erreserba.getData())); // Convertir LocalDate a java.sql.Date
+            statement.setDate(6, java.sql.Date.valueOf(erreserba.getData())); // LocalDate java.sql.Date bihurtu
             statement.setString(7, erreserba.getBezroKop());
             statement.setInt(8, erreserba.getId());
 
-            // Ejecutar la actualización
+            // Eguneratzea exekutatu
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -85,10 +84,10 @@ public class ErreserbaDAO {
     }
 
     /**
-     * Método para eliminar una reserva de la base de datos.
+     * Datu-baseko erreserba bat ezabatzeko metodoa.
      *
-     * @param id El ID de la reserva a eliminar.
-     * @return true si la eliminación fue exitosa, false en caso contrario.
+     * @param id Ezabatu behar den erreserbaren ID-a.
+     * @return true ezabaketa arrakastatsua izan bada, false kontrakoa bada.
      */
     public boolean deleteErreserba(int id) {
         String query = "DELETE FROM erreserba WHERE id = ?";
@@ -96,10 +95,10 @@ public class ErreserbaDAO {
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            // Establecer el parámetro
+            // Parametroa ezarri
             statement.setInt(1, id);
 
-            // Ejecutar la eliminación
+            // Ezabaketa exekutatu
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -109,6 +108,7 @@ public class ErreserbaDAO {
         }
     }
 }
+
 
 
 

@@ -12,8 +12,6 @@ public class Erabiltzailea extends ConnectionTest {
     private String pasahitza;
     private int id_langilea;
 
-
-
     public Erabiltzailea(int id, String erabiltzaile_izena, String pasahitza, int id_langilea) {
         this.id = id;
         this.erabiltzaile_izena = erabiltzaile_izena;
@@ -64,16 +62,15 @@ public class Erabiltzailea extends ConnectionTest {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt("id"); // Usuario encontrado, devolver ID
+                    return resultSet.getInt("id"); // Erabiltzailea aurkitu da, ID itzuli
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return 0; // Si no se encuentra el usuario, devolver 0
+        return 0; // Erabiltzailea ez bada aurkitzen, 0 itzuli
     }
-
 
     public static Erabiltzailea bilatuErabiltzailea(int id) {
         String query = "SELECT * FROM erabiltzailea WHERE id = ?";
@@ -97,7 +94,8 @@ public class Erabiltzailea extends ConnectionTest {
             e.printStackTrace();
         }
 
-        return null; // Usuario no encontrado
+        return null; // Erabiltzailea ez da aurkitu
     }
 
 }
+

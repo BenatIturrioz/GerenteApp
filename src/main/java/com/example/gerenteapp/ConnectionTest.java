@@ -12,11 +12,10 @@ public class ConnectionTest {
 
     public static Connection connect() {
         try {
-            // Devuelve la conexión directamente
             return DriverManager.getConnection(URL, USER, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
-            return null; // Devuelve null si hay un error en la conexión
+            return null;
         }
     }
 }

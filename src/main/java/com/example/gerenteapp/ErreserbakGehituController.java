@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class ErreserbakGehituController extends BaseController {
 
-    // FXML Fields
+    // FXML eremuak
     @FXML private TextField bezeroIzenaField;
     @FXML private TextField telfField;
     @FXML private DatePicker dataPicker;
@@ -22,10 +22,10 @@ public class ErreserbakGehituController extends BaseController {
     @FXML private TextField langileaIdField;
     @FXML private TextField erreserbaIdField;
 
-    // Método que se ejecutará cuando se haga clic en el botón "Sortu erreserba berria"
+    // "Sortu erreserba berria" botoia klik egitean exekutatuko den metodoa
     @FXML
     private void onSortuClick(ActionEvent event) {
-        // Recoger los valores de los campos
+        // Eremuetako balioak bildu
         String bezeroIzena = bezeroIzenaField.getText();
         String telefonoa = telfField.getText();
         String data = dataPicker.getValue() != null ? dataPicker.getValue().toString() : "";
@@ -34,18 +34,18 @@ public class ErreserbakGehituController extends BaseController {
         String langileaId = langileaIdField.getText();
         String erreserbaId = erreserbaIdField.getText();
 
-        // Verificar si todos los campos están completos
+        // Egiaztatu eremu guztiak beteta dauden
         if (bezeroIzena.isEmpty() || telefonoa.isEmpty() || data.isEmpty() || bezeroKopurua.isEmpty() || mahaiaId.isEmpty() || langileaId.isEmpty() || erreserbaId.isEmpty()) {
-            mostrarError("Por favor, completa todos los campos.");
+            mostrarError("Mesedez, bete eremu guztiak.");
             return;
         }
 
-        // Intentar insertar los datos en la base de datos
+        // Datuak datu-basean sartzen saiatu
         try {
             insertarReserva(bezeroIzena, telefonoa, data, bezeroKopurua, mahaiaId, langileaId, erreserbaId);
-            mostrarInfo("¡Reserva creada con éxito!");
+            mostrarInfo("Erreserba arrakastaz sortu da!");
 
-            // Actualizar la tabla en el controlador principal
+            // Taula eguneratu kontroladore nagusian
             if (parentController != null) {
                 parentController.updateErreserbakTable();
             }
@@ -53,26 +53,26 @@ public class ErreserbakGehituController extends BaseController {
             closeWindow();
 
         } catch (SQLException e) {
-            mostrarError("Error al crear la reserva: " + e.getMessage());
+            mostrarError("Errorea erreserba sortzean: " + e.getMessage());
         }
     }
 
-    // Método para insertar la reserva en la base de datos
+    // Erreserba datu-basean sartzeko metodoa
     private void insertarReserva(String bezeroIzena, String telefonoa, String data, String bezeroKopurua, String mahaiaId, String langileaId, String erreserbaId) throws SQLException {
-        // Obtener la conexión desde ConnectionTest
+        // Konexioa lortu ConnectionTest-etik
         try (Connection connection = ConnectionTest.connect()) {
             if (connection == null) {
-                mostrarError("Error de conexión a la base de datos.");
+                mostrarError("Datu-basearekin konexio errorea.");
                 return;
             }
 
-            // Query SQL para insertar la reserva
+            // Erreserba sartzeko SQL kontsulta
             String query = "INSERT INTO erreserba (erreserba_id, bezeroIzena, telf, data, bezeroKop, mahaia_id, langilea_id) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            // Crear el PreparedStatement
+            // PreparedStatement sortu
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                // Establecer los parámetros del PreparedStatement
+                // PreparedStatement-aren parametroak ezarri
                 statement.setString(1, erreserbaId);
                 statement.setString(2, bezeroIzena);
                 statement.setString(3, telefonoa);
@@ -81,25 +81,25 @@ public class ErreserbakGehituController extends BaseController {
                 statement.setInt(6, Integer.parseInt(mahaiaId));
                 statement.setInt(7, Integer.parseInt(langileaId));
 
-                // Ejecutar la consulta
+                // Kontsulta exekutatu
                 statement.executeUpdate();
             }
         }
     }
 
-    // Método para mostrar un mensaje de error
+    // Errorea erakusteko metodoa
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle("Errorea");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
-    // Método para mostrar un mensaje informativo
+    // Informazio mezu bat erakusteko metodoa
     private void mostrarInfo(String mensaje) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Información");
+        alert.setTitle("Informazioa");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
@@ -112,12 +112,13 @@ public class ErreserbakGehituController extends BaseController {
     }
 
     private void closeWindow() {
-        // Cierra la ventana actual utilizando el Stage de la clase base (heredado de BaseController)
+        // Uneko leihoa itxi BaseController-etik herentzian dagoen Stage erabiliz
         if (usingStage != null) {
             usingStage.close();
         }
     }
 }
+
 
 
 
