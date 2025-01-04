@@ -35,27 +35,27 @@ public class LangileakGehituController extends BaseController {
     @FXML
     private Button sortuButton;
     @FXML
-    private ChoiceBox<String> motaChoiceBox;  // ChoiceBox para el tipo de puesto
+    private ChoiceBox<String> motaChoiceBox;  // Hautaketa-koadroa lanpostu motarako
 
     @FXML
     private void onSortuClick() {
-        // Validación básica
+        // Oinarrizko baliozkotzea
         if (izenaField.getText().isEmpty() || abizenaField.getText().isEmpty() || dniField.getText().isEmpty()) {
-            showAlert("Error", "Izena, abizena eta DNI ezin dira hutsik egon.", Alert.AlertType.ERROR);
+            showAlert("Errorea", "Izena, abizena eta NAN ezin dira hutsik egon.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Verificar si se ha seleccionado un tipo de puesto
+        // Egiaztatu lanpostu mota bat hautatu den
         String motaSeleccionada = motaChoiceBox.getValue();
         if (motaSeleccionada == null) {
-            showAlert("Error", "Mesedez, hautatu mota.", Alert.AlertType.ERROR);
+            showAlert("Errorea", "Mesedez, hautatu mota.", Alert.AlertType.ERROR);
             return;
         }
 
         try {
-            // Crear nuevo Langilea con el tipo de puesto
+            // Sortu Langile berria lanpostu motarekin
             Langilea langilea = new Langilea(
-                    0, // ID puede ser generado automáticamente
+                    0, // ID automatikoki sortua izan daiteke
                     dniField.getText(),
                     izenaField.getText(),
                     abizenaField.getText(),
@@ -67,14 +67,14 @@ public class LangileakGehituController extends BaseController {
                     telfField.getText(),
                     kontuKorronteaField.getText(),
                     jaiotzeDataPicker.getValue(),
-                    convertMotaToNumber(motaSeleccionada) // Convertir la mota seleccionada a número
+                    convertMotaToNumber(motaSeleccionada) // Hautatutako mota zenbakira bihurtu
             );
 
-            // Guardar el Langilea en la base de datos
+            // Gorde Langilea datu-basean
             if (saveLangilea(langilea)) {
                 showAlert("Arrakasta", "Langilea ondo sortu da.", Alert.AlertType.INFORMATION);
 
-                // Actualizar la tabla en el controlador principal
+                // Eguneratu taula kontrolatzaile nagusian
                 if (parentController != null) {
                     parentController.updateLangileakTable();
                 }
@@ -82,16 +82,16 @@ public class LangileakGehituController extends BaseController {
                 closeWindow();
 
             } else {
-                showAlert("Error", "Errore bat gertatu da langilea sortzerakoan.", Alert.AlertType.ERROR);
+                showAlert("Errorea", "Errore bat gertatu da langilea sortzerakoan.", Alert.AlertType.ERROR);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Errore bat gertatu da langilea sortzerakoan.", Alert.AlertType.ERROR);
+            showAlert("Errorea", "Errore bat gertatu da langilea sortzerakoan.", Alert.AlertType.ERROR);
         }
     }
 
-    // Método para convertir el tipo de puesto a un número
+    // Metodoa lanpostu mota zenbakira bihurtzeko
     private int convertMotaToNumber(String mota) {
         switch (mota) {
             case "Zerbitzaria":
@@ -113,7 +113,7 @@ public class LangileakGehituController extends BaseController {
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            // Asignar los valores a la consulta
+            // Esleitu balioak kontsultari
             stmt.setString(1, langilea.getDni());
             stmt.setString(2, langilea.getIzena());
             stmt.setString(3, langilea.getAbizena());
@@ -125,11 +125,11 @@ public class LangileakGehituController extends BaseController {
             stmt.setString(9, langilea.getTelf());
             stmt.setString(10, langilea.getKontuKorrontea());
             stmt.setObject(11, langilea.getJaiotzeData());
-            stmt.setInt(12, langilea.getMota()); // Aquí guardamos la mota
+            stmt.setInt(12, langilea.getMota()); // Hemen mota gordetzen dugu
 
-            // Ejecutar la consulta
+            // Exekutatu kontsulta
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0; // Si se insertaron filas, la inserción fue exitosa
+            return rowsAffected > 0; // Lerroak gehitu badira, txertaketa arrakastatsua izan da
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,7 +145,7 @@ public class LangileakGehituController extends BaseController {
     }
 
     private void closeWindow() {
-        // Cierra la ventana actual utilizando el Stage de la clase base (heredado de BaseController)
+        // Itxi uneko leihoa oinarrizko klaseko Stage erabiliz (BaseController heredatua)
         if (usingStage != null) {
             usingStage.close();
         }
@@ -158,6 +158,7 @@ public class LangileakGehituController extends BaseController {
     }
 
 }
+
 
 
 

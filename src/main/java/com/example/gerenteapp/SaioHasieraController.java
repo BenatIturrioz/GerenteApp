@@ -7,13 +7,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class SaioHasieraController extends BaseController{
+public class SaioHasieraController extends BaseController {
 
     @FXML
     private TextField usernameField;
@@ -24,8 +19,9 @@ public class SaioHasieraController extends BaseController{
     @FXML
     private Label errorLabel;
 
-
-
+    /**
+     * Saio-hasierako botoian klik egitean gertatzen dena.
+     */
     @FXML
     protected void onLoginButtonClick() {
         String erabiltzaileIzena = usernameField.getText();
@@ -33,49 +29,61 @@ public class SaioHasieraController extends BaseController{
 
         if (kredentzialakKudeatu(erabiltzaileIzena, pasahitza)) {
             errorLabel.setVisible(false);
-            System.out.println("Inicio de sesión exitoso");
-            aldatuEscenaLehenOrria();
+            System.out.println("Saioa arrakastaz hasi da");
+            aldatuLehenOrrira();
         } else {
-            errorLabel.setText("Usuario o contraseña incorrectos");
-            errorLabel.setVisible(true);
+            erakutsiErrorea("Erabiltzailea edo pasahitza ez da zuzena");
         }
     }
 
     /**
-     * Método para autenticar al usuario en la base de datos.
+     * Erabiltzailearen kredentzialak egiaztatu.
      *
      * @param erabiltzaileIzena Erabiltzaile izena.
-     * @param pasahitza Pasahitza.
-     * @return `true`
+     * @param pasahitza         Pasahitza.
+     * @return `true` kredentzialak zuzenak badira; bestela, `false`.
      */
     private boolean kredentzialakKudeatu(String erabiltzaileIzena, String pasahitza) {
+        // Erabiltzailea bilatu datu-basean
         int id = Erabiltzailea.lortuIdKredentzialenArabera(erabiltzaileIzena, pasahitza);
 
         if (id > 0) {
-            // Usuario encontrado, buscar datos completos (si es necesario)
-            Erabiltzailea erabiltzailea = Erabiltzailea.bilatuErabiltzailea(id);
+            // Erabiltzailea aurkitu da, datuak kargatu behar izanez gero
+            Erabiltzailea.bilatuErabiltzailea(id); // Aukerakoa: erabiltzailearen informazioa kargatu
             return true;
         } else {
-            // Usuario no encontrado o credenciales incorrectas
             return false;
         }
     }
 
-
-    private void aldatuEscenaLehenOrria() {
+    /**
+     * Lehen orrira aldatu saioa arrakastaz hasi ondoren.
+     */
+    private void aldatuLehenOrrira() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
-            Scene escenaLehenOrria = new Scene(loader.load());
+            Scene lehenOrria = new Scene(loader.load());
 
-            Stage stageActual = this.getUsingStage();
+            // Oraingo leihoa eskuratu BaseController-etik
+            Stage oraingoLeihoa = this.getUsingStage();
 
-            stageActual.setScene(escenaLehenOrria);
-            stageActual.setTitle("Lehen Orria");
-
+            oraingoLeihoa.setScene(lehenOrria);
+            oraingoLeihoa.setTitle("Lehen Orria");
+            oraingoLeihoa.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
-            errorLabel.setText("Ezin da orria kargatu :(");
-            errorLabel.setVisible(true);
+            erakutsiErrorea("Orria ezin izan da kargatu :(");
         }
     }
+
+    /**
+     * Errorea erakutsi erabiltzaileari.
+     *
+     * @param mezua Errorearen mezua.
+     */
+    private void erakutsiErrorea(String mezua) {
+        errorLabel.setText(mezua);
+        errorLabel.setVisible(true);
+    }
 }
+

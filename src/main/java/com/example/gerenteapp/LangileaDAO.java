@@ -13,26 +13,26 @@ import java.time.LocalDate;
 public class LangileaDAO {
 
     /**
-     * Método para obtener todos los registros de la tabla "langileak".
+     * "langileak" taulako erregistro guztiak lortzeko metodoa.
      *
-     * @return ObservableList con objetos Langilea.
+     * @return Langilea objektuekin ObservableList bat.
      */
     public ObservableList<Langilea> getLangileak() {
-        // Lista para almacenar los resultados
+        // Emaitzak gordetzeko zerrenda
         ObservableList<Langilea> langileak = FXCollections.observableArrayList();
 
-        // Consulta SQL para obtener los datos
-        String query = "SELECT * FROM langilea"; // Cambia "langileak" por el nombre real de tu tabla, si es diferente
+        // Datuak lortzeko SQL kontsulta
+        String query = "SELECT * FROM langilea"; // Aldatu "langileak" zure taularen izen errealera, desberdina bada
 
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
-            // Iterar sobre los resultados y crear objetos Langilea
+            // Emaitzak iteratu eta Langilea objektuak sortu
             while (resultSet.next()) {
                 Langilea langilea = new Langilea(
-                        resultSet.getInt("id"), // Cambia "id" por el nombre exacto de tu columna
-                        resultSet.getString("dni"), // Cambia "dni" por el nombre exacto de tu columna
+                        resultSet.getInt("id"), // Aldatu "id" zure zutabearen izen zehatzera
+                        resultSet.getString("dni"), // Aldatu "dni" zure zutabearen izen zehatzera
                         resultSet.getString("izena"),
                         resultSet.getString("abizena"),
                         resultSet.getString("probintzia"),
@@ -42,14 +42,14 @@ public class LangileaDAO {
                         resultSet.getString("emaila"),
                         resultSet.getString("telf"),
                         resultSet.getString("kontuKorrontea"),
-                        resultSet.getDate("jaiotzeData").toLocalDate(), // Convertimos java.sql.Date a LocalDate
+                        resultSet.getDate("jaiotzeData").toLocalDate(), // java.sql.Date -> LocalDate bihurtu
                         resultSet.getInt("mota")
                 );
                 langileak.add(langilea);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Muestra el error si algo falla
+            e.printStackTrace(); // Errorea erakutsi zerbait gaizki badoa
         }
 
         return langileak;
@@ -85,6 +85,7 @@ public class LangileaDAO {
         }
     }
 }
+
 
 
 

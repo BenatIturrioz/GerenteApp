@@ -21,73 +21,64 @@ public class LehenOrriaController extends BaseController {
     private Label errorLabel;
 
     /**
-     * Maneja el evento de clic en el botón "Langileak".
+     * "Langileak" botoian klik egitean gertatzen dena.
      */
     @FXML
     private void onLangileakButtonClick() {
-        aldatuEscenaLangileakKudeatu();
+        aldatuEscena("/com/example/gerenteapp/LangileakKudeatu.fxml",
+                "Langile Kudeaketa", langileakButton);
     }
 
     /**
-     * Maneja el evento de clic en el botón "Erreserbak".
+     * "Erreserbak" botoian klik egitean gertatzen dena.
      */
     @FXML
     private void onErreserbakButtonClick() {
-        aldatuEscenaErreserbakKudeatu();
+        aldatuEscena("/com/example/gerenteapp/ErreserbakKudeatu.fxml",
+                "Erreserba Kudeaketa", erreserbakButton);
     }
 
     /**
-     * Cambia a la escena de gestión de empleados.
+     * Eszena aldatu emandako datuekin.
+     *
+     * @param fxmlPath Eszenaren FXML fitxategiaren bidea.
+     * @param izenburua Leiho berriaren izenburua.
+     * @param button Botoia, uneko Stage-a eskuratzeko.
      */
-    private void aldatuEscenaLangileakKudeatu() {
+    private void aldatuEscena(String fxmlPath, String izenburua, Button button) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LangileakKudeatu.fxml"));
-            Scene escenaLangileakKudeatu = new Scene(loader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene eszenaBerria = new Scene(loader.load());
 
-            // Obtener el Stage actual desde el botón
-            Stage stageActual = (Stage) langileakButton.getScene().getWindow();
+            // Oraingo Stage-a eskuratu botoitik
+            Stage oraingoStagea = (Stage) button.getScene().getWindow();
 
-            stageActual.setScene(escenaLangileakKudeatu);
-            stageActual.setTitle("Langile Kudeaketa");
+            oraingoStagea.setScene(eszenaBerria);
+            oraingoStagea.setTitle(izenburua);
+            oraingoStagea.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarError("Ezin da orria kargatu :(");
+            erakutsiErrorea("Orria ezin izan da kargatu :(");
         }
     }
 
     /**
-     * Cambia a la escena de gestión de reservas.
+     * Errore-mezua erakutsi etiketan.
+     *
+     * @param mezua Errore-mezua.
      */
-    private void aldatuEscenaErreserbakKudeatu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakKudeatu.fxml"));
-            Scene escenaErreserbakKudeatu = new Scene(loader.load());
-
-            // Obtener el Stage actual desde el botón
-            Stage stageActual = (Stage) erreserbakButton.getScene().getWindow();
-
-            stageActual.setScene(escenaErreserbakKudeatu);
-            stageActual.setTitle("Erreserba Kudeaketa");
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Ezin da orria kargatu :(");
-        }
-    }
-
-    /**
-     * Muestra un mensaje de error en la etiqueta correspondiente.
-     * @param mensaje Mensaje de error a mostrar.
-     */
-    private void mostrarError(String mensaje) {
-        errorLabel.setText(mensaje);
+    private void erakutsiErrorea(String mezua) {
+        errorLabel.setText(mezua);
         errorLabel.setVisible(true);
     }
 
     /**
-     * Método vacío para futuros manejos de eventos de reservas (si aplica).
+     * Erreserben kudeaketarako etorkizuneko funtzioak (beharrezkoa izanez gero).
      */
     @FXML
     public void handleErreserbakKudeatu() {
-        // Implementar si es necesario.
+        // Behar izanez gero, hemen inplementatu.
     }
 }
+
+

@@ -48,12 +48,12 @@ public class ErreserbakKudeatuController extends BaseController {
     @FXML
     private TableColumn<Erreserba, Void> accionColumn;
 
-    // Lista de datos para el TableView
+    // TableView-erako datuen zerrenda
     private ObservableList<Erreserba> erreserbaList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Configuración de las columnas
+        // Zutabeen konfigurazioa
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         erreserbaIdColumn.setCellValueFactory(new PropertyValueFactory<>("erreserba_id"));
         mahaiaIdColumn.setCellValueFactory(new PropertyValueFactory<>("mahaia_id"));
@@ -70,11 +70,11 @@ public class ErreserbakKudeatuController extends BaseController {
 
         erreserbaTable.setEditable(true);
 
-        // Usar ErreserbaDAO para obtener los datos de la base de datos
+        // ErreserbaDAO erabiliz datuak lortu datu-basean
         ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
         erreserbaList = erreserbaDAO.getErreserbak();
 
-        // Asignar los datos obtenidos al TableView
+        // Lortutako datuak TableView-era esleitu
         erreserbaTable.setItems(erreserbaList);
 
         addActionButtonToTable();
@@ -136,13 +136,13 @@ public class ErreserbakKudeatuController extends BaseController {
     }
 
     private void confirmAndDelete(Erreserba erreserba) {
-        // Mostrar cuadro de diálogo de confirmación
+        // Baieztapen elkarrizketa-koadroa erakutsi
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación de eliminación");
-        alert.setHeaderText("¿Está seguro de que desea eliminar este registro?");
-        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
+        alert.setTitle("Ezabatzea baieztatu");
+        alert.setHeaderText("Ziur zaude erregistro hau ezabatu nahi duzula?");
+        alert.setContentText("Erregistroa: " + erreserba.getBezeroIzena());
 
-        // Esperar la respuesta del usuario
+        // Erabiltzailearen erantzuna itxaron
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 deleteerreserba(erreserba);
@@ -151,36 +151,36 @@ public class ErreserbakKudeatuController extends BaseController {
     }
 
     private void saveEditedErreserba(Erreserba erreserba) {
-        // Mostrar cuadro de diálogo de confirmación antes de guardar
+        // Gorde aurretik baieztapen elkarrizketa-koadroa erakutsi
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación de guardado");
-        alert.setHeaderText("¿Está seguro de que desea guardar los cambios?");
-        alert.setContentText("Registro: " + erreserba.getBezeroIzena());
+        alert.setTitle("Gordetzea baieztatu");
+        alert.setHeaderText("Ziur zaude aldaketak gorde nahi dituzula?");
+        alert.setContentText("Erregistroa: " + erreserba.getBezeroIzena());
 
-        // Esperar la respuesta del usuario
+        // Erabiltzailearen erantzuna itxaron
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Guardar cambios en la base de datos
+                // Aldaketak datu-basean gorde
                 ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
                 erreserbaDAO.updateErreserba(erreserba);
 
-                // Refrescar la tabla para mostrar los cambios
+                // Taula freskatu aldaketak erakusteko
                 erreserbaTable.refresh();
 
-                System.out.println("Registro actualizado: " + erreserba);
+                System.out.println("Erregistroa eguneratuta: " + erreserba);
             }
         });
     }
 
     private void deleteerreserba(Erreserba erreserba) {
-        // Eliminar de la lista observable
+        // Ikus daitezkeen zerrendatik ezabatu
         erreserbaList.remove(erreserba);
 
-        // Actualizar en la base de datos
+        // Datu-basean eguneratu
         LangileaDAO langileaDAO = new LangileaDAO();
         langileaDAO.deleteLangilea(erreserba.getId());
 
-        System.out.println("Registro eliminado: " + erreserba);
+        System.out.println("Erregistroa ezabatuta: " + erreserba);
     }
 
     @FXML
@@ -191,18 +191,18 @@ public class ErreserbakKudeatuController extends BaseController {
     @FXML
     public void onAtzeraButtonClicked() {
         try {
-            // Cargar el archivo FXML de la ventana anterior
+            // Aurreko leihoaren FXML fitxategia kargatu
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene escenaAnterior = new Scene(loader.load());
 
-            // Obtener el Stage actual
+            // Uneko Stage-a lortu
             Stage currentStage = (Stage) erreserbaTable.getScene().getWindow();
 
-            // Configurar la escena en el Stage actual
+            // Eszena uneko Stage-an konfiguratu
             currentStage.setScene(escenaAnterior);
             currentStage.setTitle("Lehen Orria");
 
-            // Opcional: centrar la ventana
+            // Hautazkoa: leihoa erdian kokatu
             currentStage.centerOnScreen();
 
         } catch (IOException e) {
@@ -220,8 +220,8 @@ public class ErreserbakKudeatuController extends BaseController {
             controller.setUsingStage(nuevoStage);
             nuevoStage.setScene(escenaErreserbaGehitu);
             nuevoStage.setTitle("Erreserba Kudeaketa");
-            nuevoStage.setWidth(670);  // Establece el ancho deseado
-            nuevoStage.setHeight(460); // Establece la altura deseada
+            nuevoStage.setWidth(670);  // Zabalera nahi bezala ezarri
+            nuevoStage.setHeight(460); // Altuera nahi bezala ezarri
             nuevoStage.centerOnScreen();
             nuevoStage.show();
 
@@ -230,17 +230,16 @@ public class ErreserbakKudeatuController extends BaseController {
         }
     }
 
-
-
     public void updateErreserbakTable() {
-        // Obtener los datos actualizados desde la base de datos
+        // Eguneratutako datuak datu-basetik lortu
         ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
         ObservableList<Erreserba> updatedErreserbakList = erreserbaDAO.getErreserbak();
 
-        // Actualizar los datos del TableView
-        erreserbaList.setAll(updatedErreserbakList); // Reemplazar los elementos actuales
+        // TableView-eko datuak eguneratu
+        erreserbaList.setAll(updatedErreserbakList); // Uneko elementuak ordezkatu
     }
 }
+
 
 
 
