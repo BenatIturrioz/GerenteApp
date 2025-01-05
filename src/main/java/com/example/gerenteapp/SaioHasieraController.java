@@ -64,6 +64,7 @@ public class SaioHasieraController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene lehenOrria = new Scene(loader.load());
 
+            lehenOrria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             // Oraingo leihoa eskuratu BaseController-etik
             Stage oraingoLeihoa = this.getUsingStage();
 

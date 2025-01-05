@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class LehenOrriaController extends BaseController {
@@ -50,6 +51,7 @@ public class LehenOrriaController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene eszenaBerria = new Scene(loader.load());
 
+            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             // Oraingo Stage-a eskuratu botoitik
             Stage oraingoStagea = (Stage) button.getScene().getWindow();
 

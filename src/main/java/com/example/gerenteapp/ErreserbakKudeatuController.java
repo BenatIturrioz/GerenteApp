@@ -195,6 +195,7 @@ public class ErreserbakKudeatuController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene escenaAnterior = new Scene(loader.load());
 
+             escenaAnterior.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             // Uneko Stage-a lortu
             Stage currentStage = (Stage) erreserbaTable.getScene().getWindow();
 

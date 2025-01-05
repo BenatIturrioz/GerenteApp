@@ -108,6 +108,14 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -127,13 +135,14 @@
             <id>default-cli</id>
             <configuration>
               <mainClass>com.example.gerenteapp.Main</mainClass>
-              <modulePath>${project.build.directory}/classes</modulePath> <!-- Agregar el modulePath -->
-              <addModules>javafx.controls,javafx.fxml,javafx.media</addModules> <!-- Asegúrate de incluir todos los módulos necesarios -->
+              <modulePath>${project.build.directory}/classes</modulePath>
+              <addModules>javafx.controls,javafx.fxml,javafx.media</addModules>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
     </plugins>
   </build>
+
+
 </project>
