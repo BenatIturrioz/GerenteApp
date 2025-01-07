@@ -178,6 +178,7 @@ public class LangileakKudeatuController extends BaseController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             Stage stage = (Stage) langileTable.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Lehen Orria");
