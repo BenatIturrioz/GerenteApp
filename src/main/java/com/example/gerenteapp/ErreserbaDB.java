@@ -10,14 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ErreserbaDAO {
+public class ErreserbaDB {
 
     /**
      * "Erreserbak" taulako erregistro guztiak lortzeko metodoa.
      *
      * @return Erreserba objektuekin ObservableList bat.
      */
-    public ObservableList<Erreserba> getErreserbak() {
+    public static ObservableList<Erreserba> getErreserbak() {
         // Emaitzak gordetzeko zerrenda
         ObservableList<Erreserba> erreserbak = FXCollections.observableArrayList();
 
@@ -56,7 +56,7 @@ public class ErreserbaDAO {
      * @param erreserba Datu berriekin Erreserba objektua.
      * @return true eguneratzea arrakastatsua izan bada, false kontrakoa bada.
      */
-    public boolean updateErreserba(Erreserba erreserba) {
+    public static boolean updateErreserba(Erreserba erreserba) {
         String query = "UPDATE erreserba SET erreserba_id = ?, mahaia_id = ?, langilea_id = ?, bezeroIzena = ?, telf = ?, " +
                 "data = ?, bezeroKop = ? WHERE id = ?";
 
@@ -83,13 +83,8 @@ public class ErreserbaDAO {
         }
     }
 
-    /**
-     * Datu-baseko erreserba bat ezabatzeko metodoa.
-     *
-     * @param id Ezabatu behar den erreserbaren ID-a.
-     * @return true ezabaketa arrakastatsua izan bada, false kontrakoa bada.
-     */
-    public boolean deleteErreserba(int id) {
+
+    public static boolean deleteErreserba(int id) {
         String query = "DELETE FROM erreserba WHERE id = ?";
 
         try (Connection connection = ConnectionTest.connect();

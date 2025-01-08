@@ -89,8 +89,7 @@ public class LangileakKudeatuController extends BaseController {
     }
 
     private void loadLangileakData() {
-        LangileaDAO langileaDAO = new LangileaDAO();
-        langileaList = langileaDAO.getLangileak();
+        langileaList = LangileaDB.getLangileak();
         langileTable.setItems(langileaList);
     }
 
@@ -120,8 +119,7 @@ public class LangileakKudeatuController extends BaseController {
     }
 
     public void updateLangileakTable() {
-        LangileaDAO langileaDAO = new LangileaDAO();
-        langileaList.setAll(langileaDAO.getLangileak());
+        langileaList.setAll(LangileaDB.getLangileak());
     }
 
     private void confirmAndDelete(Langilea langilea) {
@@ -137,7 +135,7 @@ public class LangileakKudeatuController extends BaseController {
                 "¿Desea guardar los cambios?", ButtonType.OK, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                new LangileaDAO().updateLangilea(langilea);
+                LangileaDB.updateLangilea(langilea);
                 langileTable.refresh();
             }
         });
@@ -145,7 +143,7 @@ public class LangileakKudeatuController extends BaseController {
 
     private void deleteLangilea(Langilea langilea) {
         langileaList.remove(langilea);
-        new LangileaDAO().deleteLangilea(langilea.getId());
+        LangileaDB.deleteLangilea(langilea.getId());
     }
 
     @FXML

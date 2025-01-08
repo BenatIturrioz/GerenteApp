@@ -71,8 +71,8 @@ public class ErreserbakKudeatuController extends BaseController {
         erreserbaTable.setEditable(true);
 
         // ErreserbaDAO erabiliz datuak lortu datu-basean
-        ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-        erreserbaList = erreserbaDAO.getErreserbak();
+        ErreserbaDB erreserbaDB = new ErreserbaDB();
+        erreserbaList = erreserbaDB.getErreserbak();
 
         // Lortutako datuak TableView-era esleitu
         erreserbaTable.setItems(erreserbaList);
@@ -160,26 +160,16 @@ public class ErreserbakKudeatuController extends BaseController {
         // Erabiltzailearen erantzuna itxaron
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Aldaketak datu-basean gorde
-                ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-                erreserbaDAO.updateErreserba(erreserba);
-
-                // Taula freskatu aldaketak erakusteko
+                ErreserbaDB.updateErreserba(erreserba);
                 erreserbaTable.refresh();
-
                 System.out.println("Erregistroa eguneratuta: " + erreserba);
             }
         });
     }
 
     private void deleteerreserba(Erreserba erreserba) {
-        // Ikus daitezkeen zerrendatik ezabatu
         erreserbaList.remove(erreserba);
-
-        // Datu-basean eguneratu
-        LangileaDAO langileaDAO = new LangileaDAO();
-        langileaDAO.deleteLangilea(erreserba.getId());
-
+        ErreserbaDB.deleteErreserba(erreserba.getId());
         System.out.println("Erregistroa ezabatuta: " + erreserba);
     }
 
@@ -191,19 +181,15 @@ public class ErreserbakKudeatuController extends BaseController {
     @FXML
     public void onAtzeraButtonClicked() {
         try {
-            // Aurreko leihoaren FXML fitxategia kargatu
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene escenaAnterior = new Scene(loader.load());
 
             escenaAnterior.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-            // Uneko Stage-a lortu
             Stage currentStage = (Stage) erreserbaTable.getScene().getWindow();
 
-            // Eszena uneko Stage-an konfiguratu
             currentStage.setScene(escenaAnterior);
             currentStage.setTitle("Lehen Orria");
 
-            // Hautazkoa: leihoa erdian kokatu
             currentStage.centerOnScreen();
 
         } catch (IOException e) {
@@ -232,11 +218,7 @@ public class ErreserbakKudeatuController extends BaseController {
     }
 
     public void updateErreserbakTable() {
-        // Eguneratutako datuak datu-basetik lortu
-        ErreserbaDAO erreserbaDAO = new ErreserbaDAO();
-        ObservableList<Erreserba> updatedErreserbakList = erreserbaDAO.getErreserbak();
-
-        // TableView-eko datuak eguneratu
+        ObservableList<Erreserba> updatedErreserbakList = ErreserbaDB.getErreserbak();
         erreserbaList.setAll(updatedErreserbakList); // Uneko elementuak ordezkatu
     }
 }

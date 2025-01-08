@@ -19,6 +19,9 @@ public class LehenOrriaController extends BaseController {
     private Button erreserbakButton;
 
     @FXML
+    private Button chatIrekiButton;
+
+    @FXML
     private Label errorLabel;
 
     /**
@@ -38,6 +41,7 @@ public class LehenOrriaController extends BaseController {
         aldatuEscena("/com/example/gerenteapp/ErreserbakKudeatu.fxml",
                 "Erreserba Kudeaketa", erreserbakButton);
     }
+
 
     /**
      * Eszena aldatu emandako datuekin.
@@ -81,6 +85,10 @@ public class LehenOrriaController extends BaseController {
     public void handleErreserbakKudeatu() {
         // Behar izanez gero, hemen inplementatu.
     }
+
+
+
+
 }
 
 

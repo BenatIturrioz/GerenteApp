@@ -10,14 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class LangileaDAO {
+public class LangileaDB {
 
-    /**
-     * "langileak" taulako erregistro guztiak lortzeko metodoa.
-     *
-     * @return Langilea objektuekin ObservableList bat.
-     */
-    public ObservableList<Langilea> getLangileak() {
+
+    public static ObservableList<Langilea> getLangileak() {
         // Emaitzak gordetzeko zerrenda
         ObservableList<Langilea> langileak = FXCollections.observableArrayList();
 
@@ -31,8 +27,8 @@ public class LangileaDAO {
             // Emaitzak iteratu eta Langilea objektuak sortu
             while (resultSet.next()) {
                 Langilea langilea = new Langilea(
-                        resultSet.getInt("id"), // Aldatu "id" zure zutabearen izen zehatzera
-                        resultSet.getString("dni"), // Aldatu "dni" zure zutabearen izen zehatzera
+                        resultSet.getInt("id"),
+                        resultSet.getString("dni"),
                         resultSet.getString("izena"),
                         resultSet.getString("abizena"),
                         resultSet.getString("probintzia"),
@@ -42,7 +38,7 @@ public class LangileaDAO {
                         resultSet.getString("emaila"),
                         resultSet.getString("telf"),
                         resultSet.getString("kontuKorrontea"),
-                        resultSet.getDate("jaiotzeData").toLocalDate(), // java.sql.Date -> LocalDate bihurtu
+                        resultSet.getDate("jaiotzeData").toLocalDate(),
                         resultSet.getInt("mota")
                 );
                 langileak.add(langilea);
@@ -55,7 +51,7 @@ public class LangileaDAO {
         return langileak;
     }
 
-    public void updateLangilea(Langilea langilea) {
+    public static void updateLangilea(Langilea langilea) {
         String query = "UPDATE langilea SET izena = ?, abizena = ?, emaila = ?, telf = ? WHERE id = ?";
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -72,7 +68,7 @@ public class LangileaDAO {
         }
     }
 
-    public void deleteLangilea(int id) {
+    public static void deleteLangilea(int id) {
         String query = "DELETE FROM langilea WHERE id = ?";
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement stmt = connection.prepareStatement(query)) {
