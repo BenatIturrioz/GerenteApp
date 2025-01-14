@@ -19,6 +19,9 @@ public class LehenOrriaController extends BaseController {
     private Button erreserbakButton;
 
     @FXML
+    private Button mahaiakButton;
+
+    @FXML
     private Button chatIrekiButton;
 
     @FXML
@@ -40,6 +43,18 @@ public class LehenOrriaController extends BaseController {
     private void onErreserbakButtonClick() {
         aldatuEscena("/com/example/gerenteapp/ErreserbakKudeatu.fxml",
                 "Erreserba Kudeaketa", erreserbakButton);
+    }
+
+    @FXML
+    private void onChatIrekiButtonClick() {
+        aldatuEscena("/com/example/gerenteapp/Chat.fxml",
+                "Chat Ireki Kudeaketa", chatIrekiButton);
+    }
+
+    @FXML
+    private void onMahaiakButtonClick() {
+        aldatuEscena("/com/example/gerenteapp/MahaiakKudeatu.fxml",
+                "Mahai kudeaketa", mahaiakButton);
     }
 
 

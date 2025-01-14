@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LehenOrriaController">
+<AnchorPane prefHeight="400.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LehenOrriaController">
      <Button fx:id="langileakButton" layoutX="74.0" layoutY="156.0" onAction="#onLangileakButtonClick" prefHeight="89.0" prefWidth="182.0" text="Langileak kudeatu" />
      <Button fx:id="erreserbakButton" layoutX="357.0" layoutY="156.0" onAction="#onErreserbakButtonClick" prefHeight="89.0" prefWidth="182.0" text="Erreserbak kudeatu" />
-
+     <Button fx:id="chatIrekiButton" layoutX="232.0" layoutY="281.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="71.0" prefWidth="156.0" text="Chat" />
+     <Button fx:id="mahaiakButton" layoutX="606.0" layoutY="156.0" mnemonicParsing="false" prefHeight="89.0" onAction="#onMahaiakButtonClick" prefWidth="182.0" text="Mahaiak kudeatu" />
 </AnchorPane>
