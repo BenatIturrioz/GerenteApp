@@ -24,48 +24,47 @@ public class SaioHasieraController extends BaseController {
      */
     @FXML
     protected void onLoginButtonClick() {
-        String erabiltzaileIzena = usernameField.getText();
-        String pasahitza = passwordField.getText();
+        String erabiltzaileIzena = usernameField.getText().trim();
+        String pasahitza = passwordField.getText().trim();
 
-        if (kredentzialakKudeatu(erabiltzaileIzena, pasahitza)) {
-            errorLabel.setVisible(false);
-            System.out.println("Saioa arrakastaz hasi da");
-            aldatuLehenOrrira();
-        } else {
-            erakutsiErrorea("Erabiltzailea edo pasahitza ez da zuzena");
+        if (erabiltzaileIzena.isEmpty() || pasahitza.isEmpty()) {
+            erakutsiErrorea("Sartzeko erabiltzailea eta pasahitza sartu behar da");
+            return;
+        }
+
+        try {
+            Erabiltzailea erabiltzailea = new Erabiltzailea();
+            erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
+            erabiltzailea.setPasahitza(pasahitza);
+
+            // Verificar las credenciales
+            if (erabiltzailea.validarErabiltzailea()) {
+                // Si el usuario tiene permisos (langilea_mota = "3")
+                erakutsiErrorea("Saioa hasita.");
+
+                // Lógica adicional si es necesario
+                int erabiltzaileaId = erabiltzailea.getErabiltzaileaId();
+                String langileaMota = erabiltzailea.getLangileaMota();
+
+                System.out.println("ErabiltzaileaId: " + erabiltzaileaId);
+                System.out.println("LangileaMota: " + langileaMota);
+
+                // Aquí puedes cambiar a una nueva pantalla, por ejemplo, LehenOrria.fxml
+                aldatuLehenOrrira();
+            } else {
+                erakutsiErrorea("Ez duzu baimenik sartzeko.");
+            }
+        } catch (Exception e) {
+            erakutsiErrorea("Saioa hasterakoan arazoa: " + e.getMessage());
         }
     }
 
-    /**
-     * Erabiltzailearen kredentzialak egiaztatu.
-     *
-     * @param erabiltzaileIzena Erabiltzaile izena.
-     * @param pasahitza         Pasahitza.
-     * @return `true` kredentzialak zuzenak badira; bestela, `false`.
-     */
-    private boolean kredentzialakKudeatu(String erabiltzaileIzena, String pasahitza) {
-        // Erabiltzailea bilatu datu-basean
-        int id = Erabiltzailea.lortuIdKredentzialenArabera(erabiltzaileIzena, pasahitza);
-
-        if (id > 0) {
-            // Erabiltzailea aurkitu da, datuak kargatu behar izanez gero
-            Erabiltzailea.bilatuErabiltzailea(id); // Aukerakoa: erabiltzailearen informazioa kargatu
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Lehen orrira aldatu saioa arrakastaz hasi ondoren.
-     */
     private void aldatuLehenOrrira() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene lehenOrria = new Scene(loader.load());
 
             lehenOrria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-            // Oraingo leihoa eskuratu BaseController-etik
             Stage oraingoLeihoa = this.getUsingStage();
 
             oraingoLeihoa.setScene(lehenOrria);
@@ -77,14 +76,10 @@ public class SaioHasieraController extends BaseController {
         }
     }
 
-    /**
-     * Errorea erakutsi erabiltzaileari.
-     *
-     * @param mezua Errorearen mezua.
-     */
     private void erakutsiErrorea(String mezua) {
         errorLabel.setText(mezua);
         errorLabel.setVisible(true);
     }
 }
+
 

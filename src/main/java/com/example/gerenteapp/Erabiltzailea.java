@@ -1,38 +1,20 @@
 package com.example.gerenteapp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
-public class Erabiltzailea extends ConnectionTest {
-
-    private int id;
-    private String erabiltzaile_izena;
+public class Erabiltzailea {
+    private String erabiltzaileIzena;
     private String pasahitza;
-    private int id_langilea;
+    private int erabiltzaileaId;
+    private String langileaMota;
 
-    public Erabiltzailea(int id, String erabiltzaile_izena, String pasahitza, int id_langilea) {
-        this.id = id;
-        this.erabiltzaile_izena = erabiltzaile_izena;
-        this.pasahitza = pasahitza;
-        this.id_langilea = id_langilea;
+    // Getters y Setters
+    public String getErabiltzaileIzena() {
+        return erabiltzaileIzena;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getErabiltzaile_izena() {
-        return erabiltzaile_izena;
-    }
-
-    public void setErabiltzaile_izena(String erabiltzaile_izena) {
-        this.erabiltzaile_izena = erabiltzaile_izena;
+    public void setErabiltzaileIzena(String erabiltzaileIzena) {
+        this.erabiltzaileIzena = erabiltzaileIzena;
     }
 
     public String getPasahitza() {
@@ -43,59 +25,66 @@ public class Erabiltzailea extends ConnectionTest {
         this.pasahitza = pasahitza;
     }
 
-    public int getId_langilea() {
-        return id_langilea;
+    public int getErabiltzaileaId() {
+        return erabiltzaileaId;
     }
 
-    public void setId_langilea(int id_langilea) {
-        this.id_langilea = id_langilea;
+    public void setErabiltzaileaId(int erabiltzaileaId) {
+        this.erabiltzaileaId = erabiltzaileaId;
     }
 
-    public static int lortuIdKredentzialenArabera(String erabiltzaileIzena, String pasahitza) {
-        String query = "SELECT id FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
+    public String getLangileaMota() {
+        return langileaMota;
+    }
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
+    public void setLangileaMota(String langileaMota) {
+        this.langileaMota = langileaMota;
+    }
+
+    // Método para validar las credenciales
+    public boolean validarErabiltzailea() {
+        String query = "SELECT id, langilea_mota FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
+
+        // Conectarse a la base de datos usando la clase ConnectionTest
+        try (Connection connection = ConnectionTest.connect();  // Utiliza el método connect de ConnectionTest
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, erabiltzaileIzena);
-            preparedStatement.setString(2, pasahitza);
+            if (connection == null) {
+                System.out.println("No se pudo conectar a la base de datos.");
+                return false;
+            }
+
+            preparedStatement.setString(1, this.erabiltzaileIzena);
+            preparedStatement.setString(2, this.pasahitza);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt("id"); // Erabiltzailea aurkitu da, ID itzuli
+                    this.erabiltzaileaId = resultSet.getInt("id");
+                    this.langileaMota = resultSet.getString("langilea_mota");
+
+                    // Imprimir los valores obtenidos para depuración
+                    System.out.println("ID Usuario: " + this.erabiltzaileaId);
+                    System.out.println("Tipo de usuario (langilea_mota): " + this.langileaMota);
+
+                    // Verificar si langilea_mota es "3"
+                    if ("4".equals(this.langileaMota)) {
+                        return true;
+                    } else {
+                        System.out.println("El tipo de usuario no es 4");
+                        return false;
+                    }
+                } else {
+                    System.out.println("No se encontró el usuario con las credenciales proporcionadas.");
+                    return false;
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error de base de datos: " + e.getMessage());
         }
 
-        return 0; // Erabiltzailea ez bada aurkitzen, 0 itzuli
+        return false;
     }
-
-    public static Erabiltzailea bilatuErabiltzailea(int id) {
-        String query = "SELECT * FROM erabiltzailea WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, id);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return new Erabiltzailea(
-                            resultSet.getInt("id"),
-                            resultSet.getString("erabiltzaileIzena"),
-                            resultSet.getString("pasahitza"),
-                            resultSet.getInt("langilea_id")
-                    );
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null; // Erabiltzailea ez da aurkitu
-    }
-
 }
+
 

@@ -73,10 +73,17 @@ public class LangileakKudeatuController extends BaseController {
         kkColumn.setCellValueFactory(new PropertyValueFactory<>("kontuKorrontea"));
         jaiotzeDataColumn.setCellValueFactory(new PropertyValueFactory<>("jaiotzeData"));
 
+        // Make all columns editable
         izenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         abizenaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         emailaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         telfColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        dniColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        probintziaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        pkColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        herriaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        helbideaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        kkColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         langileTable.setEditable(true);
     }
@@ -86,6 +93,12 @@ public class LangileakKudeatuController extends BaseController {
         abizenaColumn.setOnEditCommit(event -> event.getRowValue().setAbizena(event.getNewValue()));
         emailaColumn.setOnEditCommit(event -> event.getRowValue().setEmaila(event.getNewValue()));
         telfColumn.setOnEditCommit(event -> event.getRowValue().setTelf(event.getNewValue()));
+        dniColumn.setOnEditCommit(event -> event.getRowValue().setDni(event.getNewValue())); // Handle DNI edit
+        probintziaColumn.setOnEditCommit(event -> event.getRowValue().setProbintzia(event.getNewValue())); // Handle Province edit
+        pkColumn.setOnEditCommit(event -> event.getRowValue().setPk(event.getNewValue())); // Handle PK edit
+        herriaColumn.setOnEditCommit(event -> event.getRowValue().setHerria(event.getNewValue())); // Handle Town edit
+        helbideaColumn.setOnEditCommit(event -> event.getRowValue().setHelbidea(event.getNewValue())); // Handle Address edit
+        kkColumn.setOnEditCommit(event -> event.getRowValue().setKontuKorrontea(event.getNewValue())); // Handle Account edit
     }
 
     private void loadLangileakData() {
