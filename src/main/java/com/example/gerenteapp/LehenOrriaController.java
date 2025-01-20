@@ -70,8 +70,8 @@ public class LehenOrriaController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene eszenaBerria = new Scene(loader.load());
 
-            //eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-            // Oraingo Stage-a eskuratu botoitik
+            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+
             Stage oraingoStagea = (Stage) button.getScene().getWindow();
 
             oraingoStagea.setScene(eszenaBerria);

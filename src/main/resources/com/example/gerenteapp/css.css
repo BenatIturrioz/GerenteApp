@@ -1,14 +1,14 @@
 .root {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #ead6cb;
 }
 
 
 .button {
-    -fx-background-color: #ff6f00;
-    -fx-text-fill: black;
+    -fx-background-color: #ff6600;
+    -fx-text-fill: #1a1a1a;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-border-color: black;
+    -fx-border-color: #1a1a1a;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
@@ -16,7 +16,7 @@
 
 
 .button:hover {
-    -fx-background-color: #c1500e;
+    -fx-background-color: #9b3700;
     -fx-cursor: hand;
 }
 

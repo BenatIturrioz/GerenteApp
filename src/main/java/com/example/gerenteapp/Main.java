@@ -15,7 +15,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/SaioHasiera.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 400, 300); // Ajusta el tamaño de la ventana según sea necesario
-       //scene.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
         stage.setTitle("Saio Hasiera");
         stage.setMaximized(true);
         SaioHasieraController shc = fxmlLoader.getController();

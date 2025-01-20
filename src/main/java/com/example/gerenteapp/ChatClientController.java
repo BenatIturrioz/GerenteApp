@@ -79,7 +79,8 @@ public class ChatClientController {
 
     private void sendMessage(String message) {
         if (out != null) {
-            out.println(message); // Enviar el mensaje al servidor
+            String prefixedMessage = "[Gerente] " + message; // Agregar prefijo al mensaje
+            out.println(prefixedMessage); // Enviar mensaje con prefijo al servidor
         }
     }
 
@@ -92,9 +93,9 @@ public class ChatClientController {
         // Aplicar estilo según si el mensaje es enviado o recibido
         messageBox.setAlignment(Pos.CENTER_LEFT); // Alineación a la izquierda
         if (isSentByUser) {
-            messageLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
+            messageLabel.setStyle("-fx-background-color: #c1500e; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         } else {
-            messageLabel.setStyle("-fx-background-color: lightgreen; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
+            messageLabel.setStyle("-fx-background-color: #e1a067; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         }
 
         messageBox.getChildren().add(messageLabel);
