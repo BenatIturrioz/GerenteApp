@@ -2,6 +2,7 @@ package com.example.gerenteapp;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
@@ -14,39 +15,45 @@ import java.net.Socket;
 public class ChatClientController {
 
     @FXML
-    private VBox messageArea;
+    private VBox messageArea; // Contenedor para mostrar los mensajes
 
     @FXML
-    private TextField messageField;
+    private TextField messageField; // Campo de entrada del mensaje
+
+    @FXML
+    private Button sendButton; // Botón para enviar el mensaje
 
     private PrintWriter out; // Para enviar mensajes al servidor
-
     private BufferedReader in; // Para recibir mensajes del servidor
 
     @FXML
     public void initialize() {
         connectToServer();
+
+        // Acción del botón enviar
+        sendButton.setOnAction(event -> handleSendMessage());
+
+        // Acción al presionar Enter en el campo de texto
         messageField.setOnAction(event -> handleSendMessage());
     }
 
-    @FXML
     private void handleSendMessage() {
-        String message = messageField.getText();
+        String message = messageField.getText().trim(); // Capturar el mensaje
         if (!message.isEmpty()) {
-            addMessage(message, true); // Mostrar mensaje enviado
-            sendMessage(message); // Enviar mensaje al servidor
-            messageField.clear();
+            addMessage(message, true); // Mostrar el mensaje enviado
+            sendMessage(message); // Enviar al servidor
+            messageField.clear(); // Limpiar el campo de texto
         }
     }
 
     private void connectToServer() {
         try {
-            // Conectar al servidor en localhost y puerto 5555
+            // Conexión al servidor
             Socket socket = new Socket("localhost", 5555);
 
-            // Crear streams de entrada y salida
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+            // Streams para enviar y recibir mensajes
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
             // Hilo para recibir mensajes
             Thread receiveThread = new Thread(() -> {
@@ -54,8 +61,8 @@ public class ChatClientController {
                     String incomingMessage;
                     while ((incomingMessage = in.readLine()) != null) {
                         String finalMessage = incomingMessage;
-                        // Actualizar la interfaz de usuario en el hilo de JavaFX
-                        Platform.runLater(() -> addMessage(finalMessage, false)); // Mostrar mensaje recibido
+                        // Actualizar la interfaz con el mensaje recibido
+                        Platform.runLater(() -> addMessage(finalMessage, false));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -65,7 +72,7 @@ public class ChatClientController {
             receiveThread.setDaemon(true);
             receiveThread.start();
         } catch (IOException e) {
-            Platform.runLater(() -> addMessage("No se pudo conectar al servidor.", false));
+            Platform.runLater(() -> addMessage("Error al conectar con el servidor.", false));
             e.printStackTrace();
         }
     }
@@ -77,22 +84,28 @@ public class ChatClientController {
     }
 
     private void addMessage(String message, boolean isSentByUser) {
-        // Crear un contenedor para el mensaje
+        // Crear el contenedor para el mensaje
         HBox messageBox = new HBox();
         Label messageLabel = new Label(message);
         messageLabel.setWrapText(true);
 
-        // Estilizar el mensaje según sea enviado o recibido
+        // Aplicar estilo según si el mensaje es enviado o recibido
+        messageBox.setAlignment(Pos.CENTER_LEFT); // Alineación a la izquierda
         if (isSentByUser) {
-            messageBox.setAlignment(Pos.CENTER_RIGHT);
             messageLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         } else {
-            messageBox.setAlignment(Pos.CENTER_LEFT);
             messageLabel.setStyle("-fx-background-color: lightgreen; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         }
 
         messageBox.getChildren().add(messageLabel);
-        messageArea.getChildren().add(messageBox);
+
+        // Agregar el mensaje al área de mensajes
+        Platform.runLater(() -> {
+            messageArea.getChildren().add(messageBox);
+            messageArea.layout(); // Asegurar que el layout se actualice
+        });
     }
 
 }
+
+

@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.gerenteapp.ChatClientController"
-      spacing="10" styleClass="chat-container">
+      spacing="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9;">
     <children>
-        <Label text="Mensajes del chat:" styleClass="header-label" />
-        <ScrollPane fitToWidth="true" styleClass="message-scrollpane">
+        <Label text="Chat" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
             <content>
-                <VBox fx:id="messageArea" spacing="10" styleClass="message-area" />
+                <VBox fx:id="messageArea" spacing="10" style="-fx-padding: 10;" />
             </content>
         </ScrollPane>
-        <HBox spacing="5" styleClass="input-container">
-            <TextField fx:id="messageField" promptText="Escribe un mensaje..." styleClass="message-field" />
-            <Button text="Enviar" onAction="#handleSendMessage" styleClass="send-button" />
+        <HBox spacing="5">
+            <TextField fx:id="messageField" promptText="Escribe un mensaje..." style="-fx-pref-width: 400;" />
+            <Button fx:id="sendButton" text="Enviar" style="-fx-background-color: orange; -fx-text-fill: white;" />
         </HBox>
     </children>
 </VBox>
