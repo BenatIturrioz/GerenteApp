@@ -7,10 +7,19 @@ public class Erabiltzailea {
     private String pasahitza;
     private int erabiltzaileaId;
     private String langileaMota;
+    private int langileaId;
 
     // Getters y Setters
     public String getErabiltzaileIzena() {
         return erabiltzaileIzena;
+    }
+
+    public int getLangileaId() {
+        return langileaId;
+    }
+
+    public void setLangileaId(int langileaId) {
+        this.langileaId = langileaId;
     }
 
     public void setErabiltzaileIzena(String erabiltzaileIzena) {
@@ -43,7 +52,7 @@ public class Erabiltzailea {
 
     // Método para validar las credenciales
     public boolean validarErabiltzailea() {
-        String query = "SELECT id, langilea_mota FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
+        String query = "SELECT id, langilea_mota, langilea_id FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
 
         // Conectarse a la base de datos usando la clase ConnectionTest
         try (Connection connection = ConnectionTest.connect();  // Utiliza el método connect de ConnectionTest
@@ -61,10 +70,12 @@ public class Erabiltzailea {
                 if (resultSet.next()) {
                     this.erabiltzaileaId = resultSet.getInt("id");
                     this.langileaMota = resultSet.getString("langilea_mota");
+                    this.langileaId = resultSet.getInt("langilea_id");
 
                     // Imprimir los valores obtenidos para depuración
                     System.out.println("ID Usuario: " + this.erabiltzaileaId);
                     System.out.println("Tipo de usuario (langilea_mota): " + this.langileaMota);
+                    System.out.println("ID Usuario: " + this.erabiltzaileaId);
 
                     // Verificar si langilea_mota es "3"
                     if ("4".equals(this.langileaMota)) {

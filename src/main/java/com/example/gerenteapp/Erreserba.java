@@ -8,19 +8,15 @@ import java.time.LocalDate;
 public class Erreserba {
 
     private final IntegerProperty id;
-    private final IntegerProperty erreserba_id;
     private final StringProperty mahaia_id;
-    private final IntegerProperty langilea_id;
     private final StringProperty bezeroIzena;
     private final StringProperty telf;
     private final ObjectProperty<LocalDate> data;
     private final StringProperty bezroKop;
 
-    public Erreserba(int id, int erreserba_id, String mahaia_id, int langilea_id, String bezeroIzena, String telf, LocalDate data, String bezroKop) {
+    public Erreserba(int id, String mahaia_id, String bezeroIzena, String telf, LocalDate data, String bezroKop) {
         this.id = new SimpleIntegerProperty(id);
-        this.erreserba_id = new SimpleIntegerProperty(erreserba_id);
         this.mahaia_id = new SimpleStringProperty(mahaia_id);
-        this.langilea_id = new SimpleIntegerProperty(langilea_id);
         this.bezeroIzena = new SimpleStringProperty(bezeroIzena);
         this.telf = new SimpleStringProperty(telf);
         this.data = new SimpleObjectProperty<>(data);
@@ -34,12 +30,6 @@ public class Erreserba {
 
     public IntegerProperty idProperty() {return id;}
 
-    // erreserba_id
-    public int getErreserba_id() {return erreserba_id.get();}
-
-    public void setErreserba_id(int erreserba_id) {this.erreserba_id.set(erreserba_id);}
-
-    public IntegerProperty erreserba_idProperty() {return erreserba_id;}
 
     // mahaia_id
     public String getMahaia_id() {return mahaia_id.get();}
@@ -48,12 +38,6 @@ public class Erreserba {
 
     public StringProperty mahaia_idProperty() {return mahaia_id;}
 
-    // langilea_id
-    public int getLangilea_id() {return langilea_id.get();}
-
-    public void setLangilea_id(int langilea_id) {this.langilea_id.set(langilea_id);}
-
-    public IntegerProperty langilea_idProperty() {return langilea_id;}
 
     // bezeroIzena
     public String getBezeroIzena() {return bezeroIzena.get();}

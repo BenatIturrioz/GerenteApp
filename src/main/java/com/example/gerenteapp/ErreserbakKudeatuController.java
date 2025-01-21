@@ -28,9 +28,6 @@ public class ErreserbakKudeatuController extends BaseController {
     private TableColumn<Erreserba, String> mahaiaIdColumn;
 
     @FXML
-    private TableColumn<Erreserba, Integer> langileaIdColumn;
-
-    @FXML
     private TableColumn<Erreserba, String> bezeroIzenaColumn;
 
     @FXML
@@ -53,7 +50,6 @@ public class ErreserbakKudeatuController extends BaseController {
         // Zutabeen konfigurazioa
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         mahaiaIdColumn.setCellValueFactory(new PropertyValueFactory<>("mahaia_id"));
-        langileaIdColumn.setCellValueFactory(new PropertyValueFactory<>("langilea_id"));
         bezeroIzenaColumn.setCellValueFactory(new PropertyValueFactory<>("bezeroIzena"));
         telfColumn.setCellValueFactory(new PropertyValueFactory<>("telf"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
@@ -193,19 +189,33 @@ public class ErreserbakKudeatuController extends BaseController {
         }
     }
 
+    private Erabiltzailea erabiltzaileActual; // Usuario autenticado
+
+    public void setErabiltzaileActual(Erabiltzailea erabiltzaileActual) {
+        this.erabiltzaileActual = erabiltzaileActual;
+    }
+
     private void ShowErreserbaGehitu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakGehitu.fxml"));
             Scene escenaErreserbaGehitu = new Scene(loader.load());
             ErreserbakGehituController controller = loader.getController();
-            escenaErreserbaGehitu.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+
+            // Pasar el controlador padre
             controller.setParentController(this);
+
+
+
+            // Configurar la escena y el estilo
+            escenaErreserbaGehitu.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+
+            // Configurar y mostrar el Stage
             Stage nuevoStage = new Stage();
             controller.setUsingStage(nuevoStage);
             nuevoStage.setScene(escenaErreserbaGehitu);
             nuevoStage.setTitle("Erreserba Kudeaketa");
-            nuevoStage.setWidth(670);  // Zabalera nahi bezala ezarri
-            nuevoStage.setHeight(460); // Altuera nahi bezala ezarri
+            nuevoStage.setWidth(670);  // Ancho deseado
+            nuevoStage.setHeight(460); // Alto deseado
             nuevoStage.centerOnScreen();
             nuevoStage.show();
 
@@ -213,6 +223,7 @@ public class ErreserbakKudeatuController extends BaseController {
             e.printStackTrace();
         }
     }
+
 
     public void updateErreserbakTable() {
         ObservableList<Erreserba> updatedErreserbakList = ErreserbaDB.getErreserbak();

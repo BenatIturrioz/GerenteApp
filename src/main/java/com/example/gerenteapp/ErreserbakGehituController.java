@@ -19,37 +19,49 @@ public class ErreserbakGehituController extends BaseController {
     @FXML private DatePicker dataPicker;
     @FXML private TextField bezroKopField;
     @FXML private TextField mahaiaIdField;
-    @FXML private TextField langileaIdField;
-    @FXML private TextField erreserbaIdField;
+    private ErreserbakKudeatuController parentController;
+    // Establecer el controlador padre
+    public void setParentController(ErreserbakKudeatuController parentController) {
+        this.parentController = parentController;
+    }
 
-    // "Sortu erreserba berria" botoia klik egitean exekutatuko den metodoa
+    // Método ejecutado al hacer clic en "Sortu erreserba berria"
     @FXML
     private void onSortuClick(ActionEvent event) {
-        // Eremuetako balioak bildu
+        // Recoger valores de los campos
         String bezeroIzena = bezeroIzenaField.getText();
         String telefonoa = telfField.getText();
         String data = dataPicker.getValue() != null ? dataPicker.getValue().toString() : "";
         String bezeroKopurua = bezroKopField.getText();
         String mahaiaId = mahaiaIdField.getText();
-        String langileaId = langileaIdField.getText();
-        String erreserbaId = erreserbaIdField.getText();
 
-        // Egiaztatu eremu guztiak beteta dauden
-        if (bezeroIzena.isEmpty() || telefonoa.isEmpty() || data.isEmpty() || bezeroKopurua.isEmpty() || mahaiaId.isEmpty() || langileaId.isEmpty() || erreserbaId.isEmpty()) {
+
+        // Validar campos
+        if (bezeroIzena.isEmpty() || telefonoa.isEmpty() || data.isEmpty() || bezeroKopurua.isEmpty() || mahaiaId.isEmpty()) {
             mostrarError("Mesedez, bete eremu guztiak.");
             return;
         }
 
-        // Datuak datu-basean sartzen saiatu
+        // Validar que los campos numéricos son válidos
         try {
-            insertarReserva(bezeroIzena, telefonoa, data, bezeroKopurua, mahaiaId, langileaId, erreserbaId);
+            Integer.parseInt(bezeroKopurua);
+            Integer.parseInt(mahaiaId);
+        } catch (NumberFormatException e) {
+            mostrarError("Bezero kopurua eta mahaia ID zenbaki baliozkoak izan behar dira.");
+            return;
+        }
+
+        // Intentar insertar los datos en la base de datos
+        try {
+            insertarReserva(bezeroIzena, telefonoa, data, bezeroKopurua, mahaiaId);
             mostrarInfo("Erreserba arrakastaz sortu da!");
 
-            // Taula eguneratu kontroladore nagusian
+            // Actualizar tabla en el controlador padre
             if (parentController != null) {
                 parentController.updateErreserbakTable();
             }
 
+            // Cerrar la ventana actual
             closeWindow();
 
         } catch (SQLException e) {
@@ -57,37 +69,33 @@ public class ErreserbakGehituController extends BaseController {
         }
     }
 
-    // Erreserba datu-basean sartzeko metodoa
-    private void insertarReserva(String bezeroIzena, String telefonoa, String data, String bezeroKopurua, String mahaiaId, String langileaId, String erreserbaId) throws SQLException {
-        // Konexioa lortu ConnectionTest-etik
+    // Método para insertar la reserva en la base de datos
+    private void insertarReserva(String bezeroIzena, String telefonoa, String data, String bezeroKopurua, String mahaiaId) throws SQLException {
+        // Conexión a la base de datos
         try (Connection connection = ConnectionTest.connect()) {
             if (connection == null) {
                 mostrarError("Datu-basearekin konexio errorea.");
                 return;
             }
 
-            // Erreserba sartzeko SQL kontsulta
-            String query = "INSERT INTO erreserba (erreserba_id, bezeroIzena, telf, data, bezeroKop, mahaia_id, langilea_id) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            // Consulta SQL para insertar la reserva
+            String query = "INSERT INTO erreserba (bezeroIzena, telf, data, bezeroKop, mahaia_id) "
+                    + "VALUES (?, ?, ?, ?, ?)";
 
-            // PreparedStatement sortu
+            // Preparar y ejecutar la consulta
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                // PreparedStatement-aren parametroak ezarri
-                statement.setString(1, erreserbaId);
-                statement.setString(2, bezeroIzena);
-                statement.setString(3, telefonoa);
-                statement.setString(4, data);
-                statement.setInt(5, Integer.parseInt(bezeroKopurua));
-                statement.setInt(6, Integer.parseInt(mahaiaId));
-                statement.setInt(7, Integer.parseInt(langileaId));
+                statement.setString(1, bezeroIzena);
+                statement.setString(2, telefonoa);
+                statement.setString(3, data);
+                statement.setInt(4, Integer.parseInt(bezeroKopurua));
+                statement.setInt(5, Integer.parseInt(mahaiaId));
 
-                // Kontsulta exekutatu
                 statement.executeUpdate();
             }
         }
     }
 
-    // Errorea erakusteko metodoa
+    // Método para mostrar un error
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Errorea");
@@ -96,7 +104,7 @@ public class ErreserbakGehituController extends BaseController {
         alert.showAndWait();
     }
 
-    // Informazio mezu bat erakusteko metodoa
+    // Método para mostrar información
     private void mostrarInfo(String mensaje) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Informazioa");
@@ -105,19 +113,15 @@ public class ErreserbakGehituController extends BaseController {
         alert.showAndWait();
     }
 
-    private ErreserbakKudeatuController parentController;
-
-    public void setParentController(ErreserbakKudeatuController parentController) {
-        this.parentController = parentController;
-    }
-
+    // Método para cerrar la ventana
     private void closeWindow() {
-        // Uneko leihoa itxi BaseController-etik herentzian dagoen Stage erabiliz
+        // Cierra la ventana usando la referencia a `Stage` en la clase `BaseController`
         if (usingStage != null) {
             usingStage.close();
         }
     }
 }
+
 
 
 

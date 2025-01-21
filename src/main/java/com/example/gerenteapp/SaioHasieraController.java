@@ -39,12 +39,13 @@ public class SaioHasieraController extends BaseController {
 
             // Verificar las credenciales
             if (erabiltzailea.validarErabiltzailea()) {
-                // Si el usuario tiene permisos (langilea_mota = "3")
+
                 erakutsiErrorea("Saioa hasita.");
 
                 // Lógica adicional si es necesario
                 int erabiltzaileaId = erabiltzailea.getErabiltzaileaId();
                 String langileaMota = erabiltzailea.getLangileaMota();
+                int langileaId = erabiltzailea.getLangileaId();
 
                 System.out.println("ErabiltzaileaId: " + erabiltzaileaId);
                 System.out.println("LangileaMota: " + langileaMota);

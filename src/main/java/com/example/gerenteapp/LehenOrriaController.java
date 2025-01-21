@@ -100,10 +100,6 @@ public class LehenOrriaController extends BaseController {
     public void handleErreserbakKudeatu() {
         // Behar izanez gero, hemen inplementatu.
     }
-
-
-
-
 }
 
 

@@ -32,9 +32,7 @@ public class ErreserbaDB {
             while (resultSet.next()) {
                 Erreserba erreserba = new Erreserba(
                         resultSet.getInt("id"), // Aldatu "id" zure zutabearen izen zehatzarekin
-                        resultSet.getInt("erreserba_id"),
                         resultSet.getString("mahaia_id"),
-                        resultSet.getInt("langilea_id"),
                         resultSet.getString("bezeroIzena"),
                         resultSet.getString("telf"),
                         resultSet.getDate("data") != null ? resultSet.getDate("data").toLocalDate() : LocalDate.ofEpochDay(Integer.parseInt(null)),
@@ -57,21 +55,19 @@ public class ErreserbaDB {
      * @return true eguneratzea arrakastatsua izan bada, false kontrakoa bada.
      */
     public static boolean updateErreserba(Erreserba erreserba) {
-        String query = "UPDATE erreserba SET erreserba_id = ?, mahaia_id = ?, langilea_id = ?, bezeroIzena = ?, telf = ?, " +
+        String query = "UPDATE erreserba SET mahaia_id = ?, bezeroIzena = ?, telf = ?, " +
                 "data = ?, bezeroKop = ? WHERE id = ?";
 
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             // PreparedStatement-aren parametroak ezarri
-            statement.setInt(1, erreserba.getErreserba_id());
             statement.setString(2, erreserba.getMahaia_id());
-            statement.setInt(3, erreserba.getLangilea_id());
-            statement.setString(4, erreserba.getBezeroIzena());
-            statement.setString(5, erreserba.getTelf());
-            statement.setDate(6, java.sql.Date.valueOf(erreserba.getData())); // LocalDate java.sql.Date bihurtu
-            statement.setString(7, erreserba.getBezroKop());
-            statement.setInt(8, erreserba.getId());
+            statement.setString(3, erreserba.getBezeroIzena());
+            statement.setString(4, erreserba.getTelf());
+            statement.setDate(5, java.sql.Date.valueOf(erreserba.getData())); // LocalDate java.sql.Date bihurtu
+            statement.setString(6, erreserba.getBezroKop());
+            statement.setInt(7, erreserba.getId());
 
             // Eguneratzea exekutatu
             int rowsAffected = statement.executeUpdate();

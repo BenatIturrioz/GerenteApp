@@ -29,16 +29,8 @@
         <TextField fx:id="bezroKopField" layoutX="150.0" layoutY="217.0" prefWidth="200.0" />
 
         <!-- Mahaia ID -->
-        <Label layoutX="29.0" layoutY="270.0" text="MAHAIA ID" />
+        <Label layoutX="29.0" layoutY="270.0" text="MAHAIA" />
         <TextField fx:id="mahaiaIdField" layoutX="150.0" layoutY="266.0" prefWidth="200.0" />
-
-        <!-- Langilea ID -->
-        <Label layoutX="29.0" layoutY="318.0" text="LANGILEA ID" />
-        <TextField fx:id="langileaIdField" layoutX="150.0" layoutY="314.0" prefWidth="200.0" />
-
-        <!-- Erreserba ID -->
-        <Label layoutX="365.0" layoutY="76.0" text="ERRESERBA ID" />
-        <TextField fx:id="erreserbaIdField" layoutX="465.0" layoutY="72.0" prefWidth="120.0" />
 
         <!-- Sortu botoia -->
         <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu erreserba berria" />    </children>
