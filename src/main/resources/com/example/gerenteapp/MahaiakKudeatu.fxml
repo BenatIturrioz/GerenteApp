@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiaKudeatuController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiaKudeatuController">
 
-    <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="847.0">
-        <TableView fx:id="mahaiaTable" prefHeight="584.0" prefWidth="1231.0">
+    <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="616.0">
+        <TableView fx:id="mahaiaTable" prefHeight="584.0" prefWidth="602.0">
             <columns>
-                <TableColumn fx:id="mahaiaIdColumn" prefWidth="23.0" text="Mahaia ID">
+                <TableColumn fx:id="mahaiaIdColumn" prefWidth="150.0" text="Mahaia ID">
                     <cellValueFactory>
                         <PropertyValueFactory property="mahaia_id" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="zenbakiaColumn" prefWidth="78.0" text="Zenbakia">
+                <TableColumn fx:id="zenbakiaColumn" minWidth="0.0" prefWidth="150.0" text="Zenbakia">
                     <cellValueFactory>
                         <PropertyValueFactory property="zenbakia" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="bezeroKopMaxColumn" prefWidth="78.0" text="Bezero Kop Max">
+                <TableColumn fx:id="bezeroKopMaxColumn" minWidth="0.0" prefWidth="150.0" text="Bezero Kop Max">
                     <cellValueFactory>
                         <PropertyValueFactory property="bezeroKopMax" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="accionColumn" prefWidth="114.0" text="Acción" />
+                <TableColumn fx:id="accionColumn" prefWidth="150.0" text="Acción" />
             </columns>
         </TableView>
     </ScrollPane>
 
-    <Button fx:id="mahaiaGehituButton" layoutX="892.0" layoutY="23.0" mnemonicParsing="false" onAction="#onMahaiaGehituButtonClicked" prefHeight="95.0" prefWidth="197.0" text="Mahaia Gehitu" textFill="#070707">
+    <Button fx:id="mahaiaGehituButton" layoutX="1028.0" layoutY="619.0" mnemonicParsing="false" onAction="#onMahaiaGehituButtonClicked" prefHeight="88.0" prefWidth="197.0"  text="MAHAIA GEHITU" textFill="#070707">
         <font>
             <Font name="Candara Bold" size="12.0" />
         </font>
     </Button>
 
     <Button fx:id="AtzeraButton" layoutX="21.0" layoutY="622.0" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" prefHeight="88.0" prefWidth="197.0" text="ATZERA" />
-</AnchorPane>
+   <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+    <image>
+        <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
+    </image>
+    </ImageView>
 
+</AnchorPane>

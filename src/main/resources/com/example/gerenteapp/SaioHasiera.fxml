@@ -27,7 +27,7 @@
 
     <!-- Mensaje de error opcional centrado -->
     <Label fx:id="errorLabel" alignment="CENTER" style="-fx-font-size: 14px;" text="Usuario o contraseña incorrectos" textFill="red" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-   <ImageView fitHeight="208.0" fitWidth="377.0" layoutX="465.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="208.0" fitWidth="377.0" layoutX="440.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
       </image>

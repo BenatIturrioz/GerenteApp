@@ -25,9 +25,6 @@ public class ErreserbakKudeatuController extends BaseController {
     private TableColumn<Erreserba, Integer> idColumn;
 
     @FXML
-    private TableColumn<Erreserba, Integer> erreserbaIdColumn;
-
-    @FXML
     private TableColumn<Erreserba, String> mahaiaIdColumn;
 
     @FXML
@@ -55,7 +52,6 @@ public class ErreserbakKudeatuController extends BaseController {
     public void initialize() {
         // Zutabeen konfigurazioa
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        erreserbaIdColumn.setCellValueFactory(new PropertyValueFactory<>("erreserba_id"));
         mahaiaIdColumn.setCellValueFactory(new PropertyValueFactory<>("mahaia_id"));
         langileaIdColumn.setCellValueFactory(new PropertyValueFactory<>("langilea_id"));
         bezeroIzenaColumn.setCellValueFactory(new PropertyValueFactory<>("bezeroIzena"));
@@ -202,6 +198,7 @@ public class ErreserbakKudeatuController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakGehitu.fxml"));
             Scene escenaErreserbaGehitu = new Scene(loader.load());
             ErreserbakGehituController controller = loader.getController();
+            escenaErreserbaGehitu.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             controller.setParentController(this);
             Stage nuevoStage = new Stage();
             controller.setUsingStage(nuevoStage);
