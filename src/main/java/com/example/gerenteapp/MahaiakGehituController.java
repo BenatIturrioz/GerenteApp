@@ -94,6 +94,35 @@ public class MahaiakGehituController extends BaseController {
     public void setParentController(MahaiaKudeatuController parentController) {
         this.parentController = parentController;
     }
+
+    @FXML
+    public void initialize() {
+        // Crear un TextFormatter para solo aceptar números en el campo zenbakiaField con un máximo de 5 dígitos
+        TextFormatter<String> zenbakiaFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            // Permitir solo dígitos y limitar a 5 caracteres
+            if (newText.matches("\\d*") && newText.length() <= 5) {
+                return change;
+            }
+            return null;  // Rechazar el cambio si no es un número o si supera los 5 caracteres
+        });
+
+        // Aplicar el TextFormatter al campo zenbakiaField
+        zenbakiaField.setTextFormatter(zenbakiaFormatter);
+
+        // Crear un TextFormatter para solo aceptar números en el campo bezeroKopMaxField con un máximo de 3 dígitos
+        TextFormatter<String> bezeroKopMaxFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            // Permitir solo dígitos y limitar a 3 caracteres
+            if (newText.matches("\\d*") && newText.length() <= 3) {
+                return change;
+            }
+            return null;  // Rechazar el cambio si no es un número o si supera los 3 caracteres
+        });
+
+        // Aplicar el TextFormatter al campo bezeroKopMaxField
+        bezeroKopMaxField.setTextFormatter(bezeroKopMaxFormatter);
+    }
 }
 
 
