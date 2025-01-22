@@ -54,7 +54,7 @@ public class ErreserbakGehituController extends BaseController {
         // Intentar insertar los datos en la base de datos
         try {
             insertarReserva(bezeroIzena, telefonoa, data, bezeroKopurua, mahaiaId);
-            mostrarInfo("Erreserba arrakastaz sortu da!");
+
 
             // Actualizar tabla en el controlador padre
             if (parentController != null) {
@@ -69,13 +69,27 @@ public class ErreserbakGehituController extends BaseController {
         }
     }
 
-    // Método para insertar la reserva en la base de datos
     private void insertarReserva(String bezeroIzena, String telefonoa, String data, String bezeroKopurua, String mahaiaId) throws SQLException {
         // Conexión a la base de datos
         try (Connection connection = ConnectionTest.connect()) {
             if (connection == null) {
                 mostrarError("Datu-basearekin konexio errorea.");
                 return;
+            }
+
+            // Verificar si ya existe una reserva para la misma mesa y fecha
+            String checkQuery = "SELECT COUNT(*) FROM erreserba WHERE data = ? AND mahaia_id = ?";
+            try (PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
+                checkStatement.setString(1, data);
+                checkStatement.setInt(2, Integer.parseInt(mahaiaId));
+                try (var resultSet = checkStatement.executeQuery()) {
+                    if (resultSet.next() && resultSet.getInt(1) > 0) {
+                        mostrarError("Errorea: Mahaia hori data horretan dagoeneko erreserbatuta dago.");
+                        return;
+                    }else {
+                        mostrarInfo("Erreserba arrakastaz sortu da!");
+                    }
+                }
             }
 
             // Consulta SQL para insertar la reserva
@@ -92,6 +106,7 @@ public class ErreserbakGehituController extends BaseController {
 
                 statement.executeUpdate();
             }
+
         }
     }
 
