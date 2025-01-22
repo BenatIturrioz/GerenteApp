@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -134,6 +135,21 @@ public class ErreserbakGehituController extends BaseController {
         if (usingStage != null) {
             usingStage.close();
         }
+    }
+    // Método de inicialización donde se aplica el TextFormatter
+    @FXML
+    public void initialize() {
+        // Crear un TextFormatter para solo aceptar números
+        TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
+            // Permitir solo dígitos
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;  // Rechazar el cambio si no es un número
+        });
+
+        // Aplicar el TextFormatter al campo de teléfono
+        telfField.setTextFormatter(textFormatter);
     }
 }
 

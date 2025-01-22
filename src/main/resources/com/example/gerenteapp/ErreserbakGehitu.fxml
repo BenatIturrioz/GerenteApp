@@ -13,25 +13,25 @@
         </Label>
 
         <!-- Bezeroaren Izena -->
-        <Label layoutX="29.0" layoutY="76.0" text="BEZEROAREN IZENA" />
-        <TextField fx:id="bezeroIzenaField" layoutX="150.0" layoutY="72.0" prefWidth="200.0" />
+        <Label layoutX="105.0" layoutY="76.0" text="BEZEROAREN IZENA" />
+        <TextField fx:id="bezeroIzenaField" layoutX="250.0" layoutY="72.0" prefWidth="200.0" />
 
         <!-- Telefonoa -->
-        <Label layoutX="29.0" layoutY="123.0" text="TELEFONOA" />
-        <TextField fx:id="telfField" layoutX="150.0" layoutY="119.0" prefWidth="200.0" />
+        <Label layoutX="127.0" layoutY="123.0" text="TELEFONOA" />
+        <TextField fx:id="telfField" layoutX="250.0" layoutY="119.0" prefWidth="200.0" />
 
         <!-- Data -->
-        <Label layoutX="29.0" layoutY="172.0" text="DATA" />
-        <DatePicker fx:id="dataPicker" layoutX="150.0" layoutY="168.0" prefWidth="200.0" />
+        <Label layoutX="135.0" layoutY="172.0" text="DATA" />
+        <DatePicker fx:id="dataPicker" layoutX="250.0" layoutY="168.0" prefWidth="200.0" />
 
         <!-- Bezero Kopurua -->
-        <Label layoutX="29.0" layoutY="221.0" text="BEZERO KOPURUA" />
-        <TextField fx:id="bezroKopField" layoutX="150.0" layoutY="217.0" prefWidth="200.0" />
+        <Label layoutX="100.0" layoutY="221.0" text="BEZERO KOPURUA" />
+        <TextField fx:id="bezroKopField" layoutX="250.0" layoutY="217.0" prefWidth="200.0" />
 
         <!-- Mahaia ID -->
-        <Label layoutX="29.0" layoutY="270.0" text="MAHAIA" />
-        <TextField fx:id="mahaiaIdField" layoutX="150.0" layoutY="266.0" prefWidth="200.0" />
+        <Label layoutX="127.0" layoutY="270.0" text="MAHAIA" />
+        <TextField fx:id="mahaiaIdField" layoutX="250.0" layoutY="266.0" prefWidth="200.0" />
 
         <!-- Sortu botoia -->
-        <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu erreserba berria" />    </children>
+        <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="250.0" layoutY="323.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="200.0" text="Sortu erreserba berria" />    </children>
 </AnchorPane>

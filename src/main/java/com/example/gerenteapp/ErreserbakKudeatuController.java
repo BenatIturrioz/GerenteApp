@@ -59,7 +59,6 @@ public class ErreserbakKudeatuController extends BaseController {
         telfColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         mahaiaIdColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         bezroKopColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
         erreserbaTable.setEditable(true);
 
         // ErreserbaDAO erabiliz datuak lortu datu-basean
