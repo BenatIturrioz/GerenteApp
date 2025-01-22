@@ -93,9 +93,9 @@ public class ChatClientController {
         // Aplicar estilo según si el mensaje es enviado o recibido
         messageBox.setAlignment(Pos.CENTER_LEFT); // Alineación a la izquierda
         if (isSentByUser) {
-            messageLabel.setStyle("-fx-background-color: #c1500e; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
-        } else {
             messageLabel.setStyle("-fx-background-color: #e1a067; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
+        } else {
+            messageLabel.setStyle("-fx-background-color: #ff6600; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         }
 
         messageBox.getChildren().add(messageLabel);

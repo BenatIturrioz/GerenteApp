@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.gerenteapp.ChatClientController"
-      spacing="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9;">
+<VBox spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ChatClientController">
     <children>
-        <Label text="Chat" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Mezularitza" />
         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
             <content>
                 <VBox fx:id="messageArea" spacing="10" style="-fx-padding: 10;" />
             </content>
         </ScrollPane>
         <HBox spacing="5">
-            <TextField fx:id="messageField" promptText="Escribe un mensaje..." style="-fx-pref-width: 400;" />
-            <Button fx:id="sendButton" text="Enviar" style="-fx-background-color: orange; -fx-text-fill: white;" />
+            <TextField fx:id="messageField" promptText="Idatzi mezua..." style="-fx-pref-width: 400;" />
+            <Button fx:id="sendButton" style="-fx-background-color: #ff6600; -fx-text-fill: white;" text="Bidali" />
         </HBox>
     </children>
 </VBox>

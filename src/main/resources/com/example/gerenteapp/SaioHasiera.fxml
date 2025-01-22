@@ -5,16 +5,16 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.SaioHasieraController">
+<AnchorPane prefHeight="738.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.SaioHasieraController">
 
     <!-- Título centrado en la parte superior -->
-    <Label alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Inicio de Sesión" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+    <Label alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-border-radius: 15" text="Saioa Hasi" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
 
     <!-- Contenedor principal centrado en el medio -->
-    <VBox alignment="CENTER" layoutX="315.0" layoutY="294.0" prefHeight="135.0" prefWidth="171.0" spacing="15.0" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="314.0" AnchorPane.topAnchor="294.0">
+    <VBox alignment="CENTER" layoutX="440.0" layoutY="293.0" prefHeight="273.0" prefWidth="377.0" spacing="15.0" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="433.0" AnchorPane.topAnchor="293.0">
         <!-- Establecer un ancho fijo para los campos de texto -->
-        <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="54.0" promptText="Nombre de usuario" />
-        <PasswordField fx:id="passwordField" prefWidth="250.0" promptText="Contraseña" />
+        <TextField fx:id="usernameField" alignment="CENTER" prefHeight="25.0" prefWidth="535.0" promptText="Nombre de usuario" />
+        <PasswordField fx:id="passwordField" alignment="CENTER" prefWidth="250.0" promptText="Contraseña" />
         <Button fx:id="loginButton" onAction="#onLoginButtonClick" text="Saioa Hasi">
          <effect>
             <Reflection bottomOpacity="0.63" fraction="0.76" topOpacity="0.73">
