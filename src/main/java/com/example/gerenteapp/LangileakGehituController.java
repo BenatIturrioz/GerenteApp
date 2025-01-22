@@ -157,6 +157,34 @@ public class LangileakGehituController extends BaseController {
         this.parentController = parentController;
     }
 
+    @FXML
+    public void initialize() {
+        // Crear un TextFormatter para solo aceptar números en el campo de teléfono
+        TextFormatter<String> telfFormatter = new TextFormatter<>(change -> {
+            // Permitir solo dígitos
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;  // Rechazar el cambio si no es un número
+        });
+
+        // Aplicar el TextFormatter al campo de teléfono
+        telfField.setTextFormatter(telfFormatter);
+
+        // Crear un TextFormatter para solo aceptar números en el campo de PK
+        TextFormatter<String> pkFormatter = new TextFormatter<>(change -> {
+            // Permitir solo dígitos y limitar a 5 caracteres
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*") && newText.length() <= 5) {
+                return change;
+            }
+            return null;  // Rechazar el cambio si no es un número o si supera los 5 caracteres
+        });
+
+        // Aplicar el TextFormatter al campo de PK
+        pkField.setTextFormatter(pkFormatter);
+    }
+
 }
 
 
