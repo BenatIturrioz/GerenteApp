@@ -49,7 +49,7 @@ public class ChatClientController {
     private void connectToServer() {
         try {
             // Conexión al servidor
-            Socket socket = new Socket("localhost", 5555);
+            Socket socket = new Socket("192.168.115.188", 5555);
 
             // Streams para enviar y recibir mensajes
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
