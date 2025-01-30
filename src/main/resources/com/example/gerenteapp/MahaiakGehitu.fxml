@@ -4,24 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="420.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiakGehituController">
+<AnchorPane prefHeight="283.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiakGehituController">
     <children>
-        <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="400.0" text="MAHAIA BERRIAREN DATUAK SARTU">
+        <Label alignment="CENTER" layoutX="116.0" layoutY="14.0" prefHeight="39.0" prefWidth="400.0" text="MAHAIA BERRIAREN DATUAK SARTU">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
 
         <!-- Mahaia Zenbakia -->
-        <Label layoutX="29.0" layoutY="76.0" text="MAHAIA ZENBAKIA" />
-        <TextField fx:id="zenbakiaField" layoutX="150.0" layoutY="72.0" prefWidth="200.0" />
+        <Label layoutX="133.0" layoutY="76.0" text="MAHAIA ZENBAKIA" />
+        <TextField fx:id="zenbakiaField" layoutX="303.0" layoutY="72.0" prefWidth="200.0" />
 
         <!-- Bezero Kopuru Maximoa -->
-        <Label layoutX="29.0" layoutY="123.0" text="BEZERO KOPURU MAXIMOA" />
-        <TextField fx:id="bezeroKopMaxField" layoutX="150.0" layoutY="119.0" prefWidth="200.0" />
+        <Label layoutX="133.0" layoutY="114.0" text="BEZERO KOPURU MAXIMOA" />
+        <TextField fx:id="bezeroKopMaxField" layoutX="303.0" layoutY="110.0" prefWidth="200.0" />
 
         <!-- Sortu botoia -->
-        <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu mahaia berria" />
+        <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="228.0" layoutY="176.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu mahaia berria" />
     </children>
 </AnchorPane>
-

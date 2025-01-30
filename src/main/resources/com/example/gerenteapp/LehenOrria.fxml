@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="735.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LehenOrriaController">
-     <Button fx:id="langileakButton" layoutX="234.0" layoutY="201.0" onAction="#onLangileakButtonClick" prefHeight="88.0" prefWidth="197.0" text="LANGILEAK KUDEATU" />
-     <Button fx:id="erreserbakButton" layoutX="543.0" layoutY="201.0" onAction="#onErreserbakButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERRESERBAK KUDEATU" />
-     <Button fx:id="chatIrekiButton" layoutX="1028.0" layoutY="619.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="88.0" prefWidth="197.0" text="CHAT IREKI" />
-     <Button fx:id="mahaiakButton" layoutX="868.0" layoutY="201.0" mnemonicParsing="false" onAction="#onMahaiakButtonClick" prefHeight="88.0" prefWidth="197.0" text="MAHAIAK KUDEATU" />
-     <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+     <Button fx:id="langileakButton" layoutX="543.0" layoutY="267.0" onAction="#onLangileakButtonClick" prefHeight="88.0" prefWidth="197.0" text="LANGILEAK KUDEATU" />
+     <Button fx:id="erreserbakButton" layoutX="543.0" layoutY="139.0" onAction="#onErreserbakButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERRESERBAK KUDEATU" />
+     <Button fx:id="chatIrekiButton" layoutX="543.0" layoutY="524.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="88.0" prefWidth="197.0" text="CHAT IREKI" />
+     <Button fx:id="mahaiakButton" layoutX="543.0" layoutY="395.0" mnemonicParsing="false" onAction="#onMahaiakButtonClick" prefHeight="88.0" prefWidth="197.0" text="MAHAIAK KUDEATU" />
+     <ImageView fitHeight="170.0" fitWidth="258.0" layoutX="978.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
           <image>
                <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
           </image>
