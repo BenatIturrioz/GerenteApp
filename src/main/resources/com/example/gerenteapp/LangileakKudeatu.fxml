@@ -88,5 +88,5 @@
             <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
         </image>
     </ImageView>
-
+    <Label fx:id="lblUser" visible="false" />
 </AnchorPane>

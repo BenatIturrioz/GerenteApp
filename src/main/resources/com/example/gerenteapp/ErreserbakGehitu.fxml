@@ -11,7 +11,7 @@
                 <Font size="22.0" />
             </font>
         </Label>
-
+        <Label fx:id="lblUser" visible="false" />
         <!-- Bezeroaren Izena -->
         <Label layoutX="105.0" layoutY="76.0" text="BEZEROAREN IZENA" />
         <TextField fx:id="bezeroIzenaField" layoutX="250.0" layoutY="72.0" prefWidth="200.0" />

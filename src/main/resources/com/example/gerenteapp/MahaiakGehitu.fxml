@@ -22,5 +22,6 @@
 
         <!-- Sortu botoia -->
         <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="228.0" layoutY="176.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu mahaia berria" />
+        <Label fx:id="lblUser" visible="false" />
     </children>
 </AnchorPane>

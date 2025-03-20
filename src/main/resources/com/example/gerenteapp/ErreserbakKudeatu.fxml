@@ -56,6 +56,7 @@
    <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
-      </image></ImageView>
-
+      </image>
+   </ImageView>
+    <Label fx:id="lblUser" visible="false" />
 </AnchorPane>
