@@ -31,6 +31,13 @@ public class LehenOrriaController extends BaseController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Label lblUser;
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
+
     /**
      * "Langileak" botoian klik egitean gertatzen dena.
      */
@@ -72,17 +79,40 @@ public class LehenOrriaController extends BaseController {
      * @param button Botoia, uneko Stage-a eskuratzeko.
      */
     private void aldatuEscena(String fxmlPath, String izenburua, Button button) {
+        LangileaDB lk = new LangileaDB();
+        boolean baimena = lk.baimenaTxat(lblUser.getText());
+        String erabiltzaileIzena = lblUser.getText().trim();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Scene eszenaBerria = new Scene(loader.load());
+            if(izenburua.equals("Chat Ireki Kudeaketa")){
+                if(baimena){
+                    FXMLLoader load = new FXMLLoader(getClass().getResource(fxmlPath));
+                    Scene eszenaBerria = new Scene(load.load());
 
-            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+                    eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
 
-            Stage oraingoStagea = (Stage) button.getScene().getWindow();
+                    Stage oraingoStagea = (Stage) button.getScene().getWindow();
 
-            oraingoStagea.setScene(eszenaBerria);
-            oraingoStagea.setTitle(izenburua);
-            oraingoStagea.centerOnScreen();
+                    oraingoStagea.setScene(eszenaBerria);
+                    oraingoStagea.setTitle(izenburua);
+                    oraingoStagea.centerOnScreen();
+
+                    ChatClientController controller = load.getController();
+                    controller.setErabiltzailea(erabiltzaileIzena);
+                }else{
+                    erakutsiErrorea("Ez daukazu baimenik txatean sartzeko");
+                }
+            }else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                Scene eszenaBerria = new Scene(loader.load());
+
+                eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+
+                Stage oraingoStagea = (Stage) button.getScene().getWindow();
+
+                oraingoStagea.setScene(eszenaBerria);
+                oraingoStagea.setTitle(izenburua);
+                oraingoStagea.centerOnScreen();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             erakutsiErrorea("Orria ezin izan da kargatu :(");

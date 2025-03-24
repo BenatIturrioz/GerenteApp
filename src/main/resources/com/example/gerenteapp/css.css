@@ -2,6 +2,9 @@
     -fx-background-color: #ead6cb;
 }
 
+*{
+    -fx-background-color: #ead6cd;
+}
 
 .button {
     -fx-background-color: #ff6600;

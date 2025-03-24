@@ -4,34 +4,34 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="420.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErreserbakGehituController">
+<AnchorPane prefHeight="420.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErreserbakGehituController">
     <children>
-        <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="400.0" text="ERRESERBA BERRIAREN DATUAK SARTU">
+        <Label layoutX="103.0" layoutY="14.0" prefHeight="39.0" prefWidth="400.0" text="ERRESERBA BERRIAREN DATUAK SARTU">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-
+        <Label fx:id="lblUser" visible="false" />
         <!-- Bezeroaren Izena -->
         <Label layoutX="105.0" layoutY="76.0" text="BEZEROAREN IZENA" />
         <TextField fx:id="bezeroIzenaField" layoutX="250.0" layoutY="72.0" prefWidth="200.0" />
 
         <!-- Telefonoa -->
-        <Label layoutX="127.0" layoutY="123.0" text="TELEFONOA" />
+        <Label layoutX="105.0" layoutY="123.0" text="TELEFONOA" />
         <TextField fx:id="telfField" layoutX="250.0" layoutY="119.0" prefWidth="200.0" />
 
         <!-- Data -->
-        <Label layoutX="135.0" layoutY="172.0" text="DATA" />
+        <Label layoutX="105.0" layoutY="172.0" text="DATA" />
         <DatePicker fx:id="dataPicker" layoutX="250.0" layoutY="168.0" prefWidth="200.0" />
 
         <!-- Bezero Kopurua -->
-        <Label layoutX="100.0" layoutY="221.0" text="BEZERO KOPURUA" />
+        <Label layoutX="100.0" layoutY="221.0" text="BEZERO KOPURUA" translateX="5.0" />
         <TextField fx:id="bezroKopField" layoutX="250.0" layoutY="217.0" prefWidth="200.0" />
 
         <!-- Mahaia ID -->
-        <Label layoutX="127.0" layoutY="270.0" text="MAHAIA" />
+        <Label layoutX="105.0" layoutY="270.0" text="MAHAIA" />
         <TextField fx:id="mahaiaIdField" layoutX="250.0" layoutY="266.0" prefWidth="200.0" />
 
         <!-- Sortu botoia -->
-        <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="250.0" layoutY="323.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="200.0" text="Sortu erreserba berria" />    </children>
+        <Button fx:id="sortuButton" layoutX="192.0" layoutY="323.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="200.0" style="-fx-background-color: #4cc14c" text="Sortu erreserba berria" />    </children>
 </AnchorPane>
