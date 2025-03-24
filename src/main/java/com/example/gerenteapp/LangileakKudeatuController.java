@@ -170,7 +170,7 @@ public class LangileakKudeatuController extends BaseController {
             Scene scene = new Scene(loader.load());
             LangileakGehituController controller = loader.getController();
             controller.setParentController(this);
-
+            scene.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             Stage stage = new Stage();
             controller.setUsingStage(stage);
             stage.setScene(scene);

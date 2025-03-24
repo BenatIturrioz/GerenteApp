@@ -91,6 +91,16 @@
       <artifactId>fxgl</artifactId>
       <version>17.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-swing</artifactId>
+      <version>22.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.help</groupId>
+      <artifactId>javahelp</artifactId>
+      <version>2.0.05</version>
+    </dependency>
 
     <!-- JUnit Dependencies -->
     <dependency>

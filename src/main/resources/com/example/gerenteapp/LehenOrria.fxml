@@ -9,6 +9,7 @@
      <Button fx:id="erreserbakButton" layoutX="543.0" layoutY="201.0" onAction="#onErreserbakButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERRESERBAK KUDEATU" />
      <Button fx:id="chatIrekiButton" layoutX="1028.0" layoutY="619.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="88.0" prefWidth="197.0" text="CHAT IREKI" />
      <Button fx:id="mahaiakButton" layoutX="868.0" layoutY="201.0" mnemonicParsing="false" onAction="#onMahaiakButtonClick" prefHeight="88.0" prefWidth="197.0" text="MAHAIAK KUDEATU" />
+     <Button fx:id="LaguntzaButton" layoutX="868.0" layoutY="201.0" mnemonicParsing="false" onAction="#onLaguntzaButtonClick" prefHeight="88.0" prefWidth="197.0" text="Laguntza" />
      <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
           <image>
                <Image url="@../../../images/Logo_Charlies_Nagusia.png" />

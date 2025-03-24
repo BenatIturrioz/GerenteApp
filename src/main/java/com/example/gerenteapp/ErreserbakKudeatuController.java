@@ -47,6 +47,7 @@ public class ErreserbakKudeatuController extends BaseController {
 
     @FXML
     public void initialize() {
+        setupEditListeners();
         // Zutabeen konfigurazioa
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         mahaiaIdColumn.setCellValueFactory(new PropertyValueFactory<>("mahaia_id"));
@@ -199,12 +200,8 @@ public class ErreserbakKudeatuController extends BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErreserbakGehitu.fxml"));
             Scene escenaErreserbaGehitu = new Scene(loader.load());
             ErreserbakGehituController controller = loader.getController();
-
             // Pasar el controlador padre
             controller.setParentController(this);
-
-
-
             // Configurar la escena y el estilo
             escenaErreserbaGehitu.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
 

@@ -36,7 +36,7 @@
       <TextField fx:id="kontuKorronteaField" layoutX="483.0" layoutY="168.0" />
       <Label layoutX="365.0" layoutY="221.0" text="JAIOTZE DATA" />
       <DatePicker fx:id="jaiotzeDataPicker" layoutX="484.0" layoutY="217.0" prefHeight="25.0" prefWidth="149.0" />
-      <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu langile berria" />
+      <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="149.0" text="Sortu langile berria" />
       <ChoiceBox fx:id="motaChoiceBox" layoutX="483.0" layoutY="266.0" prefWidth="150.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -47,8 +47,6 @@
             </FXCollections>
          </items>
       </ChoiceBox>
-
-
       <Label layoutX="361.0" layoutY="270.0" text="POSTUA" />
    </children>
 </AnchorPane>

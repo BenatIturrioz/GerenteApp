@@ -1,5 +1,6 @@
 package com.example.gerenteapp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +15,9 @@ public class LehenOrriaController extends BaseController {
 
     @FXML
     private Button langileakButton;
+
+    @FXML
+    private Button LaguntzaButton;
 
     @FXML
     private Button erreserbakButton;
@@ -35,6 +39,8 @@ public class LehenOrriaController extends BaseController {
         aldatuEscena("/com/example/gerenteapp/LangileakKudeatu.fxml",
                 "Langile Kudeaketa", langileakButton);
     }
+
+
 
     /**
      * "Erreserbak" botoian klik egitean gertatzen dena.
@@ -99,6 +105,9 @@ public class LehenOrriaController extends BaseController {
     @FXML
     public void handleErreserbakKudeatu() {
         // Behar izanez gero, hemen inplementatu.
+    }
+
+    public void onLaguntzaButtonClick(ActionEvent actionEvent) {
     }
 }
 
