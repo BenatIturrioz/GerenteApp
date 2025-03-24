@@ -32,6 +32,7 @@
          <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
       </image>
    </ImageView>
-   <Label fx:id="lblUser" layoutX="977.0" layoutY="59.0" text="Label" visible="false"/>
+   <Label fx:id="lblUser" layoutX="977.0" layoutY="59.0" text="Label" visible="false" />
+   <Label fx:id="lblUser" layoutX="51.0" layoutY="33.0" visible="false" />
 
 </AnchorPane>
