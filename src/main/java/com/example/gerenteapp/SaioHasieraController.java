@@ -19,6 +19,12 @@ public class SaioHasieraController extends BaseController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Label lblUser;
+
+    private String setErabiltzailea(String erabiltzaileIzena){
+        return erabiltzaileIzena;
+    }
     /**
      * Saio-hasierako botoian klik egitean gertatzen dena.
      */
@@ -26,6 +32,7 @@ public class SaioHasieraController extends BaseController {
     protected void onLoginButtonClick() {
         String erabiltzaileIzena = usernameField.getText().trim();
         String pasahitza = passwordField.getText().trim();
+        lblUser.setText(erabiltzaileIzena);
 
         if (erabiltzaileIzena.isEmpty() || pasahitza.isEmpty()) {
             erakutsiErrorea("Sartzeko erabiltzailea eta pasahitza sartu behar da");
@@ -67,6 +74,10 @@ public class SaioHasieraController extends BaseController {
 
             lehenOrria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
             Stage oraingoLeihoa = this.getUsingStage();
+
+            String erabiltzaileIzena = usernameField.getText().trim();
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
 
             oraingoLeihoa.setScene(lehenOrria);
             oraingoLeihoa.setTitle("Lehen Orria");

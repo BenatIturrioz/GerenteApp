@@ -23,8 +23,15 @@ public class ChatClientController {
     @FXML
     private Button sendButton; // Botón para enviar el mensaje
 
+    @FXML
+    private Label lblUser;
+
     private PrintWriter out; // Para enviar mensajes al servidor
     private BufferedReader in; // Para recibir mensajes del servidor
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
 
     @FXML
     public void initialize() {
@@ -38,11 +45,17 @@ public class ChatClientController {
     }
 
     private void handleSendMessage() {
+        LangileaDB lk = new LangileaDB();
+        boolean baimena = lk.baimenaTxat(lblUser.getText());
         String message = messageField.getText().trim(); // Capturar el mensaje
         if (!message.isEmpty()) {
-            addMessage(message, true); // Mostrar el mensaje enviado
-            sendMessage(message); // Enviar al servidor
-            messageField.clear(); // Limpiar el campo de texto
+            if (baimena) {
+                addMessage(message, true); // Mostrar el mensaje enviado
+                sendMessage(message); // Enviar al servidor
+                messageField.clear(); // Limpiar el campo de texto
+            }else{
+                addMessage("Ez daukazu txatean idazteko baimenik", false);
+            }
         }
     }
 
