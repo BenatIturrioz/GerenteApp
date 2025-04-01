@@ -25,6 +25,12 @@ public class LehenOrriaController extends BaseController {
     private Button chatIrekiButton;
 
     @FXML
+    private Button erabiltzaileaKudeatuButton;
+
+    @FXML
+    private Button saioaItxiButton;
+
+    @FXML
     private Label errorLabel;
 
     @FXML
@@ -64,6 +70,17 @@ public class LehenOrriaController extends BaseController {
                 "Mahai kudeaketa", mahaiakButton);
     }
 
+    @FXML
+    private void onSaioaItxiButtonClick() {
+        aldatuEscena("/com/example/gerenteapp/SaioHasiera.fxml",
+                "Saioa hasi", saioaItxiButton);
+    }
+
+    @FXML
+    private void onErabiltzaileaKudeatuButtonClick() {
+        aldatuEscena("/com/example/gerenteapp/ErabiltzaileakKudeatu.fxml",
+                "Erabiltzaile kudeaketa", erabiltzaileaKudeatuButton);
+    }
 
     /**
      * Eszena aldatu emandako datuekin.
@@ -73,7 +90,7 @@ public class LehenOrriaController extends BaseController {
      * @param button Botoia, uneko Stage-a eskuratzeko.
      */
     private void aldatuEscena(String fxmlPath, String izenburua, Button button) {
-        LangileaDB lk = new LangileaDB();
+        ErabiltzaileaDB lk = new ErabiltzaileaDB();
         boolean baimena = lk.baimenaTxat(lblUser.getText());
         String erabiltzaileIzena = lblUser.getText().trim();
         try {

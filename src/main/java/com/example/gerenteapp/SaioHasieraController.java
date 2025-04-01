@@ -32,7 +32,6 @@ public class SaioHasieraController extends BaseController {
     protected void onLoginButtonClick() {
         String erabiltzaileIzena = usernameField.getText().trim();
         String pasahitza = passwordField.getText().trim();
-        lblUser.setText(erabiltzaileIzena);
 
         if (erabiltzaileIzena.isEmpty() || pasahitza.isEmpty()) {
             erakutsiErrorea("Sartzeko erabiltzailea eta pasahitza sartu behar da");
@@ -40,24 +39,9 @@ public class SaioHasieraController extends BaseController {
         }
 
         try {
-            Erabiltzailea erabiltzailea = new Erabiltzailea();
-            erabiltzailea.setErabiltzaileIzena(erabiltzaileIzena);
-            erabiltzailea.setPasahitza(pasahitza);
-
             // Verificar las credenciales
-            if (erabiltzailea.validarErabiltzailea()) {
-
+            if (ErabiltzaileaDB.validarErabiltzailea(erabiltzaileIzena, pasahitza)) {
                 erakutsiErrorea("Saioa hasita.");
-
-                // Lógica adicional si es necesario
-                int erabiltzaileaId = erabiltzailea.getErabiltzaileaId();
-                String langileaMota = erabiltzailea.getLangileaMota();
-                int langileaId = erabiltzailea.getLangileaId();
-
-                System.out.println("ErabiltzaileaId: " + erabiltzaileaId);
-                System.out.println("LangileaMota: " + langileaMota);
-
-                // Aquí puedes cambiar a una nueva pantalla, por ejemplo, LehenOrria.fxml
                 aldatuLehenOrrira();
             } else {
                 erakutsiErrorea("Ez duzu baimenik sartzeko.");
@@ -66,6 +50,7 @@ public class SaioHasieraController extends BaseController {
             erakutsiErrorea("Saioa hasterakoan arazoa: " + e.getMessage());
         }
     }
+
 
     private void aldatuLehenOrrira() {
         try {

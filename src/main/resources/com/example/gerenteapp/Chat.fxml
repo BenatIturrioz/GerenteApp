@@ -14,7 +14,8 @@
         </ScrollPane>
         <HBox spacing="5">
             <TextField fx:id="messageField" promptText="Idatzi mezua..." style="-fx-pref-width: 400;" />
-            <Button fx:id="sendButton" style="-fx-background-color: #ff6600; -fx-text-fill: white;" text="Bidali" />
+            <Button fx:id="sendButton" style="-fx-background-color: #4caf50; -fx-text-fill: white;" text="Bidali" />
+         <Button fx:id="atzeraButton" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" style="-fx-background-color: #da0126; -fx-text-fill: white;" text="Atzera" />
         </HBox>
     </children>
 </VBox>

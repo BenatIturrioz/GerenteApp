@@ -2,12 +2,15 @@ package com.example.gerenteapp;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
@@ -22,6 +25,9 @@ public class ChatClientController {
 
     @FXML
     private Button sendButton; // Botón para enviar el mensaje
+
+    @FXML
+    private Button atzeraButton;
 
     @FXML
     private Label lblUser;
@@ -45,7 +51,7 @@ public class ChatClientController {
     }
 
     private void handleSendMessage() {
-        LangileaDB lk = new LangileaDB();
+        ErabiltzaileaDB lk = new ErabiltzaileaDB();
         boolean baimena = lk.baimenaTxat(lblUser.getText());
         String message = messageField.getText().trim(); // Capturar el mensaje
         if (!message.isEmpty()) {
@@ -120,6 +126,28 @@ public class ChatClientController {
         });
     }
 
+    @FXML
+    private void onAtzeraButtonClicked() {
+        atzeraItzuli("/com/example/gerenteapp/LehenOrria.fxml",
+                "Saioa hasi", atzeraButton);
+    }
+
+    public void atzeraItzuli(String fxmlPath, String izenburua, Button button) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene eszenaBerria = new Scene(loader.load());
+
+            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+
+            Stage oraingoStagea = (Stage) button.getScene().getWindow();
+
+            oraingoStagea.setScene(eszenaBerria);
+            oraingoStagea.setTitle(izenburua);
+            oraingoStagea.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

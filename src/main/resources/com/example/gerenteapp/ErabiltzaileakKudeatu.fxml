@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ErabiltzaileakKudeatuController">
+
+    <ScrollPane layoutX="22.0" layoutY="21.0" prefHeight="583.0" prefWidth="1071.0">
+        <TableView fx:id="erabiltzaileTable" prefHeight="584.0" prefWidth="1080.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="20.0" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="erabiltzaileaIzenaColumn" prefWidth="80.0" text="Erabiltzailea">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="erabiltzaileIzena" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="pasahitzaColumn" prefWidth="80.0" text="Pasahitza">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="pasahitza" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="langileIdColumn" prefWidth="80.0" text="Langilea id">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="langilea_id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="langileMotaColumn" prefWidth="80.0" text="Langile mota">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="langile_mota" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="txatBaimenaColumn" prefWidth="80.0" text="Txat baimena">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="txatBaimena" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="accionColumn" prefWidth="108.0" text="Acción" />
+            </columns>
+        </TableView>
+    </ScrollPane>
+
+    <Button fx:id="AtzeraButton" layoutX="21.0" layoutY="622.0" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" prefHeight="88.0" prefWidth="197.0" text="ATZERA" />
+    <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
+        </image>
+    </ImageView>
+
+</AnchorPane>

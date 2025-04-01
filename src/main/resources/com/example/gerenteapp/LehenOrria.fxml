@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="735.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LehenOrriaController">
-     <Button fx:id="langileakButton" layoutX="234.0" layoutY="201.0" onAction="#onLangileakButtonClick" prefHeight="88.0" prefWidth="197.0" text="LANGILEAK KUDEATU" />
-     <Button fx:id="erreserbakButton" layoutX="543.0" layoutY="201.0" onAction="#onErreserbakButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERRESERBAK KUDEATU" />
-     <Button fx:id="chatIrekiButton" layoutX="1028.0" layoutY="619.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="88.0" prefWidth="197.0" text="CHAT IREKI" />
-     <Button fx:id="mahaiakButton" layoutX="868.0" layoutY="201.0" mnemonicParsing="false" onAction="#onMahaiakButtonClick" prefHeight="88.0" prefWidth="197.0" text="MAHAIAK KUDEATU" />
+     <Button fx:id="langileakButton" layoutX="69.0" layoutY="201.0" onAction="#onLangileakButtonClick" prefHeight="88.0" prefWidth="197.0" text="LANGILEAK KUDEATU" />
+     <Button fx:id="erreserbakButton" layoutX="336.0" layoutY="201.0" onAction="#onErreserbakButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERRESERBAK KUDEATU" />
+     <Button fx:id="chatIrekiButton" layoutX="1137.0" layoutY="201.0" mnemonicParsing="false" onAction="#onChatIrekiButtonClick" prefHeight="88.0" prefWidth="197.0" text="CHAT IREKI" />
+     <Button fx:id="mahaiakButton" layoutX="605.0" layoutY="201.0" mnemonicParsing="false" onAction="#onMahaiakButtonClick" prefHeight="88.0" prefWidth="197.0" text="MAHAIAK KUDEATU" />
      <ImageView fitHeight="100.0" fitWidth="197.0" layoutX="1071.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
           <image>
                <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
@@ -16,4 +16,6 @@
      </ImageView>
    <Label fx:id="lblUser" layoutX="52.0" layoutY="44.0" visible="false" />
    <Label fx:id="errorLabel" layoutX="713.0" layoutY="646.0" />
+   <Button fx:id="saioaItxiButton" layoutX="1222.0" layoutY="576.0" mnemonicParsing="false" onAction="#onSaioaItxiButtonClick" prefHeight="88.0" prefWidth="197.0" text="SAIOA ITXI" />
+    <Button fx:id="erabiltzaileaKudeatuButton" layoutX="873.0" layoutY="201.0" mnemonicParsing="false" onAction="#onErabiltzaileaKudeatuButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERABILTZAILEAK KUDEATU" />
 </AnchorPane>

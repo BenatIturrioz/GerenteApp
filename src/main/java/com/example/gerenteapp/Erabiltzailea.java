@@ -1,101 +1,48 @@
 package com.example.gerenteapp;
 
-import java.sql.*;
+import javafx.beans.property.*;
 
 public class Erabiltzailea {
-    private String erabiltzaileIzena;
-    private String pasahitza;
-    private int erabiltzaileaId;
-    private String langileaMota;
-    private int langileaId;
+    private final IntegerProperty id;
+    private final StringProperty erabiltzaileIzena;
+    private final StringProperty pasahitza;
+    private final IntegerProperty langilea_id;
+    private final IntegerProperty langilea_mota;
+    private final BooleanProperty txatBaimena;
 
-    // Getters y Setters
-    public String getErabiltzaileIzena() {
-        return erabiltzaileIzena;
+    // Constructor
+    public Erabiltzailea(int id, String erabiltzaileIzena, String pasahitza, int langilea_id, int langilea_mota, boolean txatBaimena){
+        this.id = new SimpleIntegerProperty(id);
+        this.erabiltzaileIzena = new SimpleStringProperty(erabiltzaileIzena);
+        this.pasahitza = new SimpleStringProperty(pasahitza);
+        this.langilea_id = new SimpleIntegerProperty(langilea_id);
+        this.langilea_mota = new SimpleIntegerProperty(langilea_mota);
+        this.txatBaimena = new SimpleBooleanProperty(txatBaimena);
     }
 
-    public int getLangileaId() {
-        return langileaId;
-    }
+    // Getters y setters observables
+    public int getId() { return id.get(); }
+    public void setId(int id) { this.id.set(id); }
+    public IntegerProperty idProperty() { return id; }
 
-    public void setLangileaId(int langileaId) {
-        this.langileaId = langileaId;
-    }
+    public String getErabiltzaileIzena() { return erabiltzaileIzena.get(); }
+    public void setErabiltzaileIzena(String erabiltzaileIzena) { this.erabiltzaileIzena.set(erabiltzaileIzena); }
+    public StringProperty erabiltzaileIzenaProperty() { return erabiltzaileIzena; }
 
-    public void setErabiltzaileIzena(String erabiltzaileIzena) {
-        this.erabiltzaileIzena = erabiltzaileIzena;
-    }
+    public String getPasahitza() { return pasahitza.get(); }
+    public void setPasahitza(String pasahitza) { this.pasahitza.set(pasahitza); }
+    public StringProperty pasahitzaProperty() { return pasahitza; }
 
-    public String getPasahitza() {
-        return pasahitza;
-    }
+    public Integer getLangilea_id() { return langilea_id.get(); }
+    public void setLangilea_id(int langilea_id) { this.langilea_id.set(langilea_id); }
+    public IntegerProperty langileIdProperty() { return langilea_id; }
 
-    public void setPasahitza(String pasahitza) {
-        this.pasahitza = pasahitza;
-    }
+    public Integer getLangilea_mota() { return langilea_mota.get(); }
+    public void setLangilea_mota(int langilea_mota) { this.langilea_mota.set(langilea_mota); }
+    public IntegerProperty langileMotaProperty() { return langilea_mota; }
 
-    public int getErabiltzaileaId() {
-        return erabiltzaileaId;
-    }
+    public Boolean getTxatBaimena() { return txatBaimena.get(); }
+    public void setTxatBaimena(boolean txatBaimena) { this.txatBaimena.set(txatBaimena); }
+    public BooleanProperty txatBaimenaProperty() { return txatBaimena; }
 
-    public void setErabiltzaileaId(int erabiltzaileaId) {
-        this.erabiltzaileaId = erabiltzaileaId;
-    }
-
-    public String getLangileaMota() {
-        return langileaMota;
-    }
-
-    public void setLangileaMota(String langileaMota) {
-        this.langileaMota = langileaMota;
-    }
-
-    // Método para validar las credenciales
-    public boolean validarErabiltzailea() {
-        String query = "SELECT id, langilea_mota, langilea_id FROM erabiltzailea WHERE erabiltzaileIzena = ? AND pasahitza = ?";
-
-        // Conectarse a la base de datos usando la clase ConnectionTest
-        try (Connection connection = ConnectionTest.connect();  // Utiliza el método connect de ConnectionTest
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            if (connection == null) {
-                System.out.println("No se pudo conectar a la base de datos.");
-                return false;
-            }
-
-            preparedStatement.setString(1, this.erabiltzaileIzena);
-            preparedStatement.setString(2, this.pasahitza);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    this.erabiltzaileaId = resultSet.getInt("id");
-                    this.langileaMota = resultSet.getString("langilea_mota");
-                    this.langileaId = resultSet.getInt("langilea_id");
-
-                    // Imprimir los valores obtenidos para depuración
-                    System.out.println("ID Usuario: " + this.erabiltzaileaId);
-                    System.out.println("Tipo de usuario (langilea_mota): " + this.langileaMota);
-                    System.out.println("ID Usuario: " + this.erabiltzaileaId);
-
-                    // Verificar si langilea_mota es "3"
-                    if ("4".equals(this.langileaMota)) {
-                        return true;
-                    } else {
-                        System.out.println("El tipo de usuario no es 4");
-                        return false;
-                    }
-                } else {
-                    System.out.println("No se encontró el usuario con las credenciales proporcionadas.");
-                    return false;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error de base de datos: " + e.getMessage());
-        }
-
-        return false;
-    }
 }
-
-

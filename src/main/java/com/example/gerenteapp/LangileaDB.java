@@ -12,13 +12,12 @@ import java.time.LocalDate;
 
 public class LangileaDB {
 
-
     public static ObservableList<Langilea> getLangileak() {
         // Emaitzak gordetzeko zerrenda
         ObservableList<Langilea> langileak = FXCollections.observableArrayList();
 
         // Datuak lortzeko SQL kontsulta
-        String query = "SELECT * FROM langilea"; // Aldatu "langileak" zure taularen izen errealera, desberdina bada
+        String query = "SELECT * FROM erronka1.langilea;"; // Aldatu "langileak" zure taularen izen errealera, desberdina bada
 
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -79,38 +78,6 @@ public class LangileaDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean baimenaTxat(String erabiltzailea) {
-        boolean baimena = false;
-        String query = "SELECT COUNT(*) FROM erabiltzailea WHERE erabiltzaileIzena = ? AND txatBaimena = 1";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = ConnectionTest.connect();
-            stmt = conn.prepareStatement(query);
-            stmt.setString(1, erabiltzailea);
-
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                baimena = rs.getInt(1) > 0; // COUNT(*) > 0 bada, true itzuli
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Arazoa gertatu da");
-        } finally {
-            // Itxi baliabideak
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return baimena;
     }
 
 }
