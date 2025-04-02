@@ -14,6 +14,12 @@ public class MahaiakGehituController extends BaseController {
     private TextField bezeroKopMaxField;
     @FXML
     private Button sortuButton;
+    @FXML
+    private Label lblUser;
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
 
     @FXML
     private void onSortuClick() {

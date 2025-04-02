@@ -2,11 +2,8 @@ package com.example.gerenteapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +17,12 @@ public class ErreserbakGehituController extends BaseController {
     @FXML private DatePicker dataPicker;
     @FXML private TextField bezroKopField;
     @FXML private TextField mahaiaIdField;
+    @FXML
+    private Label lblUser;
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
     private ErreserbakKudeatuController parentController;
     // Establecer el controlador padre
     public void setParentController(ErreserbakKudeatuController parentController) {

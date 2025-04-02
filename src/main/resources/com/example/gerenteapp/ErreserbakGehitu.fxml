@@ -34,4 +34,5 @@
 
         <!-- Sortu botoia -->
         <Button fx:id="sortuButton" style="-fx-background-color: #4cc14c" layoutX="250.0" layoutY="323.0" mnemonicParsing="false" onAction="#onSortuClick" prefHeight="68.0" prefWidth="200.0" text="Sortu erreserba berria" />    </children>
+    <Label fx:id="lblUser" layoutX="52.0" layoutY="44.0" visible="false" />
 </AnchorPane>

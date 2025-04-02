@@ -36,7 +36,12 @@ public class LangileakGehituController extends BaseController {
     private Button sortuButton;
     @FXML
     private ChoiceBox<String> motaChoiceBox;  // Hautaketa-koadroa lanpostu motarako
+    @FXML
+    private Label lblUser;
 
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
     @FXML
     private void onSortuClick() {
         // Oinarrizko baliozkotzea

@@ -37,7 +37,12 @@ public class MahaiaKudeatuController extends BaseController {
 
     // TableView-erako datuen zerrenda
     private ObservableList<Mahaia> mahaiaList = FXCollections.observableArrayList();
+    @FXML
+    private Label lblUser;
 
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
     @FXML
     public void initialize() {
         // Zutabeen konfigurazioa
@@ -148,6 +153,10 @@ public class MahaiaKudeatuController extends BaseController {
 
             currentStage.centerOnScreen();
 
+            String erabiltzaileIzena = lblUser.getText().trim();
+
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,6 +177,9 @@ public class MahaiaKudeatuController extends BaseController {
             nuevoStage.centerOnScreen();
             nuevoStage.show();
 
+            String erabiltzaileIzena = lblUser.getText().trim();
+
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }

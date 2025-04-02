@@ -112,7 +112,7 @@ public class LehenOrriaController extends BaseController {
                 } else {
                     erakutsiErrorea("Ez daukazu baimenik txatean sartzeko");
                 }
-            } else {
+            }else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
                 Scene eszenaBerria = new Scene(loader.load());
 
@@ -123,6 +123,20 @@ public class LehenOrriaController extends BaseController {
                 oraingoStagea.setScene(eszenaBerria);
                 oraingoStagea.setTitle(izenburua);
                 oraingoStagea.centerOnScreen();
+                if(izenburua.equals("Langile Kudeaketa")) {
+                    LangileakKudeatuController controller = loader.getController();
+                    controller.setErabiltzailea(erabiltzaileIzena);
+                }else if(izenburua.equals("Erreserba Kudeaketa")) {
+                    ErreserbakKudeatuController controller = loader.getController();
+                    controller.setErabiltzailea(erabiltzaileIzena);
+                }else if(izenburua.equals("Mahai kudeaketa")) {
+                    MahaiaKudeatuController controller = loader.getController();
+                    controller.setErabiltzailea(erabiltzaileIzena);
+                }else if(izenburua.equals("Erabiltzaile kudeaketa")) {
+                    ErabiltzaileakKudeatuController controller = loader.getController();
+                    controller.setErabiltzailea(erabiltzaileIzena);
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();

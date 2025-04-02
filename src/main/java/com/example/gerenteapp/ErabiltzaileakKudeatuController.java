@@ -35,6 +35,13 @@ public class ErabiltzaileakKudeatuController {
     private TableColumn<Erabiltzailea, Void> accionColumn;
 
     @FXML
+    private Label lblUser;
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
+
+    @FXML
     private Button ErabiltzaileaGehituButton;
 
     private ObservableList<Erabiltzailea> erabiltzaileList = FXCollections.observableArrayList();
@@ -133,6 +140,7 @@ public class ErabiltzaileakKudeatuController {
 
     @FXML
     public void onAtzeraButtonClicked() {
+        String erabiltzaileIzena = lblUser.getText().trim();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/LehenOrria.fxml"));
             Scene scene = new Scene(loader.load());
@@ -141,6 +149,8 @@ public class ErabiltzaileakKudeatuController {
             stage.setScene(scene);
             stage.setTitle("Lehen Orria");
             stage.centerOnScreen();
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }

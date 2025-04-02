@@ -51,4 +51,5 @@
 
       <Label layoutX="361.0" layoutY="270.0" text="POSTUA" />
    </children>
+   <Label fx:id="lblUser" layoutX="52.0" layoutY="44.0" visible="false" />
 </AnchorPane>

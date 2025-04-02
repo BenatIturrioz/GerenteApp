@@ -57,5 +57,5 @@
       <image>
          <Image url="@../../../images/Logo_Charlies_Nagusia.png" />
       </image></ImageView>
-
+    <Label fx:id="lblUser" layoutX="52.0" layoutY="44.0" visible="false" />
 </AnchorPane>

@@ -45,7 +45,12 @@ public class LangileakKudeatuController extends BaseController {
     private TableColumn<Langilea, LocalDate> jaiotzeDataColumn;
     @FXML
     private TableColumn<Langilea, Void> accionColumn;
+    @FXML
+    private Label lblUser;
 
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
     @FXML
     private Button LangileakGehituButton;
 
@@ -179,6 +184,9 @@ public class LangileakKudeatuController extends BaseController {
             stage.setHeight(460);
             stage.centerOnScreen();
             stage.show();
+
+            String erabiltzaileIzena = lblUser.getText().trim();
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -194,6 +202,11 @@ public class LangileakKudeatuController extends BaseController {
             stage.setScene(scene);
             stage.setTitle("Lehen Orria");
             stage.centerOnScreen();
+
+            String erabiltzaileIzena = lblUser.getText().trim();
+
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -46,6 +46,13 @@ public class ErreserbakKudeatuController extends BaseController {
     private ObservableList<Erreserba> erreserbaList = FXCollections.observableArrayList();
 
     @FXML
+    private Label lblUser;
+
+    void setErabiltzailea(String izena){
+        lblUser.setText(izena);
+    }
+
+    @FXML
     public void initialize() {
         // Zutabeen konfigurazioa
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -183,6 +190,11 @@ public class ErreserbakKudeatuController extends BaseController {
 
             currentStage.centerOnScreen();
 
+            String erabiltzaileIzena = lblUser.getText().trim();
+
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -203,8 +215,6 @@ public class ErreserbakKudeatuController extends BaseController {
             // Pasar el controlador padre
             controller.setParentController(this);
 
-
-
             // Configurar la escena y el estilo
             escenaErreserbaGehitu.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
 
@@ -217,6 +227,10 @@ public class ErreserbakKudeatuController extends BaseController {
             nuevoStage.setHeight(460); // Alto deseado
             nuevoStage.centerOnScreen();
             nuevoStage.show();
+
+            String erabiltzaileIzena = lblUser.getText().trim();
+
+            controller.setErabiltzailea(erabiltzaileIzena);
 
         } catch (IOException e) {
             e.printStackTrace();

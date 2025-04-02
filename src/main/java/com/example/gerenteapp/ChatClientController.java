@@ -1,39 +1,34 @@
 package com.example.gerenteapp;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.application.Platform;
+import javafx.geometry.Pos;
 import java.io.*;
 import java.net.Socket;
 
 public class ChatClientController {
 
     @FXML
-    private VBox messageArea; // Contenedor para mostrar los mensajes
+    private VBox messageArea;
 
     @FXML
-    private TextField messageField; // Campo de entrada del mensaje
+    private TextField messageField;
 
     @FXML
-    private Button sendButton; // Botón para enviar el mensaje
-
-    @FXML
-    private Button atzeraButton;
+    private Button sendButton, atzeraButton, emojiButton, fileButton;
 
     @FXML
     private Label lblUser;
 
-    private PrintWriter out; // Para enviar mensajes al servidor
-    private BufferedReader in; // Para recibir mensajes del servidor
+    private PrintWriter out;
+    private BufferedReader in;
 
     void setErabiltzailea(String izena){
         lblUser.setText(izena);
@@ -42,24 +37,23 @@ public class ChatClientController {
     @FXML
     public void initialize() {
         connectToServer();
-
-        // Acción del botón enviar
         sendButton.setOnAction(event -> handleSendMessage());
-
-        // Acción al presionar Enter en el campo de texto
         messageField.setOnAction(event -> handleSendMessage());
+        emojiButton.setOnAction(event -> showEmojiMenu());
+        fileButton.setOnAction(event -> handleSendFile());
     }
 
     private void handleSendMessage() {
         ErabiltzaileaDB lk = new ErabiltzaileaDB();
         boolean baimena = lk.baimenaTxat(lblUser.getText());
-        String message = messageField.getText().trim(); // Capturar el mensaje
+        String message = messageField.getText().trim();
+
         if (!message.isEmpty()) {
             if (baimena) {
-                addMessage(message, true); // Mostrar el mensaje enviado
-                sendMessage(message); // Enviar al servidor
-                messageField.clear(); // Limpiar el campo de texto
-            }else{
+                addMessage(message, true);
+                sendMessage(message);
+                messageField.clear();
+            } else {
                 addMessage("Ez daukazu txatean idazteko baimenik", false);
             }
         }
@@ -67,27 +61,21 @@ public class ChatClientController {
 
     private void connectToServer() {
         try {
-            // Conexión al servidor
             Socket socket = new Socket("localhost", 5555);
-
-            // Streams para enviar y recibir mensajes
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
-            // Hilo para recibir mensajes
             Thread receiveThread = new Thread(() -> {
                 try {
                     String incomingMessage;
                     while ((incomingMessage = in.readLine()) != null) {
                         String finalMessage = incomingMessage;
-                        // Actualizar la interfaz con el mensaje recibido
                         Platform.runLater(() -> addMessage(finalMessage, false));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-
             receiveThread.setDaemon(true);
             receiveThread.start();
         } catch (IOException e) {
@@ -98,19 +86,16 @@ public class ChatClientController {
 
     private void sendMessage(String message) {
         if (out != null) {
-            String prefixedMessage = "[Gerente] " + message; // Agregar prefijo al mensaje
-            out.println(prefixedMessage); // Enviar mensaje con prefijo al servidor
+            out.println("[Gerente] " + message);
         }
     }
 
     private void addMessage(String message, boolean isSentByUser) {
-        // Crear el contenedor para el mensaje
         HBox messageBox = new HBox();
         Label messageLabel = new Label(message);
         messageLabel.setWrapText(true);
 
-        // Aplicar estilo según si el mensaje es enviado o recibido
-        messageBox.setAlignment(Pos.CENTER_LEFT); // Alineación a la izquierda
+        messageBox.setAlignment(Pos.CENTER_LEFT);
         if (isSentByUser) {
             messageLabel.setStyle("-fx-background-color: #e1a067; -fx-text-fill: black; -fx-padding: 10; -fx-background-radius: 10;");
         } else {
@@ -118,36 +103,58 @@ public class ChatClientController {
         }
 
         messageBox.getChildren().add(messageLabel);
+        Platform.runLater(() -> messageArea.getChildren().add(messageBox));
+    }
 
-        // Agregar el mensaje al área de mensajes
-        Platform.runLater(() -> {
-            messageArea.getChildren().add(messageBox);
-            messageArea.layout(); // Asegurar que el layout se actualice
-        });
+    private void showEmojiMenu() {
+        ContextMenu emojiMenu = new ContextMenu();
+        String[] emojis = {"😀", "😂", "😍", "😎", "👍", "🎉"};
+
+        for (String emoji : emojis) {
+            MenuItem item = new MenuItem(emoji);
+            item.setOnAction(e -> messageField.appendText(emoji));
+            emojiMenu.getItems().add(item);
+        }
+
+        emojiMenu.show(emojiButton, javafx.geometry.Side.BOTTOM, 0, 0);
+    }
+
+    private void handleSendFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Aukeratu fitxategia bidaltzeko");
+        File file = fileChooser.showOpenDialog(fileButton.getScene().getWindow());
+
+        if (file != null) {
+            addMessage("Fitxategia bidaltzen: " + file.getName(), true);
+            sendMessage("[Fitxategia] " + file.getName());
+        }
     }
 
     @FXML
     private void onAtzeraButtonClicked() {
-        atzeraItzuli("/com/example/gerenteapp/LehenOrria.fxml",
-                "Saioa hasi", atzeraButton);
+        atzeraItzuli("/com/example/gerenteapp/LehenOrria.fxml", "Saioa hasi", atzeraButton);
     }
 
     public void atzeraItzuli(String fxmlPath, String izenburua, Button button) {
+        String erabiltzaileIzena = lblUser.getText();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene eszenaBerria = new Scene(loader.load());
-
             eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-
             Stage oraingoStagea = (Stage) button.getScene().getWindow();
-
             oraingoStagea.setScene(eszenaBerria);
             oraingoStagea.setTitle(izenburua);
             oraingoStagea.centerOnScreen();
+
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
+
+
 
 
