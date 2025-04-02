@@ -55,15 +55,26 @@ public class UrlFindFinder {
         InputStream iXmlFile = null;
 
         if (url != null) {
+            try{
             aukeratu = false;
             MyUrlConnection.disableSSLCertificateValidation();
             iXmlFile = MyUrlConnection.getFileFromURL(url);
+            } catch (MalformedURLException e) {
+                throw new IOException("La URL proporcionada no es válida: " + url, e);
+            }
         } else if (fXmlFile == null) {
            Alert alert = new Alert(AlertType.ERROR);
            alert.setTitle("Error");
            alert.setHeaderText("No se pudo obtener el archivo XML.");
            alert.setContentText("Error no se pudo obtener el enlace");
            alert.showAndWait();
+        }else if(url == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error URL");
+            alert.setHeaderText("No se pudo obtener el archivo XML.");
+            alert.setContentText("Error no se pudo obtener el enlace");
+            alert.showAndWait();
+
         }
 
         ArrayList<Object> a = new ArrayList<>();
