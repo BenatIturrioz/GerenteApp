@@ -1,11 +1,15 @@
 package com.example.gerenteapp;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -25,7 +29,13 @@ public class LehenOrriaController extends BaseController {
     private Button chatIrekiButton;
 
     @FXML
+    private Label eguraldiaLabel;
+
+    @FXML
     private Button erabiltzaileaKudeatuButton;
+
+    @FXML
+    private Button eguraldiaButton;
 
     @FXML
     private Button saioaItxiButton;
@@ -56,6 +66,29 @@ public class LehenOrriaController extends BaseController {
     private void onErreserbakButtonClick() {
         aldatuEscena("/com/example/gerenteapp/ErreserbakKudeatu.fxml",
                 "Erreserba Kudeaketa", erreserbakButton);
+    }
+
+    @FXML
+    private void onEguraldiaButtonClick() {
+        try {
+            // 1. Llama a tu función existente en HelloController
+            new HelloController().onHelloButtonClick();
+
+            // 2. Muestra la alerta de confirmación
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Éxito");
+            alert.setHeaderText(null);
+            alert.setContentText("Eguraldia deskargatuta!");
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Error al descargar: " + e.getMessage());
+            errorAlert.showAndWait();
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -151,6 +184,22 @@ public class LehenOrriaController extends BaseController {
     private void erakutsiErrorea(String mezua) {
         errorLabel.setText(mezua);
         errorLabel.setVisible(true);
+    }
+
+    public Button getEguraldiaButton() {
+        return eguraldiaButton;
+    }
+
+    public void setEguraldiaButton(Button eguraldiaButton) {
+        this.eguraldiaButton = eguraldiaButton;
+    }
+
+    public Label getEguraldiaLabel() {
+        return eguraldiaLabel;
+    }
+
+    public void setEguraldiaLabel(Label eguraldiaLabel) {
+        this.eguraldiaLabel = eguraldiaLabel;
     }
 }
 
