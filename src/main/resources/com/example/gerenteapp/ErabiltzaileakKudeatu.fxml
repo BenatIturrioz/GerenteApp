@@ -52,4 +52,5 @@
         </image>
     </ImageView>
     <Label fx:id="lblUser" layoutX="52.0" layoutY="44.0" visible="false" />
+    <Button fx:id="sortuButton" layoutX="483.0" layoutY="319.0" mnemonicParsing="false" onAction="#ShowErabiltzaileakGehitu" prefHeight="68.0" prefWidth="149.0" text="Sortu erabiltzaile berria" />
 </AnchorPane>

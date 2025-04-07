@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="296.0" prefWidth="647.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ChatClientController">
+<VBox prefHeight="432.0" prefWidth="647.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ChatClientController">
     <children>
         <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Mezularitza" />
       <Label fx:id="lblUser" visible="false" />
         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
             <content>
-                <VBox fx:id="messageArea" prefHeight="145.0" prefWidth="633.0" spacing="10" style="-fx-padding: 10;" />
+                <VBox fx:id="messageArea" prefHeight="303.0" prefWidth="633.0" spacing="10" style="-fx-padding: 10;" />
             </content>
         </ScrollPane>
         <HBox spacing="5">

@@ -80,7 +80,29 @@ public class LangileaDB {
         }
     }
 
+    public static ErabiltzaileaInfo langileaInfo(String izena) {
+        String query = "SELECT id, mota FROM erronka1.langilea WHERE izena = ?";
+        try (Connection connection = ConnectionTest.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, izena); // Asignamos el valor del nombre
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) { // Si hay resultados
+                    int id = resultSet.getInt("id");
+                    String mota = resultSet.getString("mota");
+                    return new ErabiltzaileaInfo(id, mota);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Si no hay resultados o hay un error, devolver null
+    }
+
 }
+
+
 
 
 

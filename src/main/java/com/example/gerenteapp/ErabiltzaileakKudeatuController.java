@@ -133,6 +133,30 @@ public class ErabiltzaileakKudeatuController {
         });
     }
 
+    @FXML
+    private void ShowErabiltzaileakGehitu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gerenteapp/ErabiltzaileakGehitu.fxml"));
+            Scene scene = new Scene(loader.load());
+            ErabiltzaileaGehituController controller = loader.getController();
+            controller.setParentController(this);
+
+            Stage stage = new Stage();
+            controller.setUsingStage(stage);
+            stage.setScene(scene);
+            stage.setTitle("Erabiltzaile Kudeaketa");
+            stage.setWidth(670);
+            stage.setHeight(460);
+            stage.centerOnScreen();
+            stage.show();
+
+            String erabiltzaileIzena = lblUser.getText().trim();
+            controller.setErabiltzailea(erabiltzaileIzena);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void deleteErabiltzailea(Erabiltzailea erabiltzailea) {
         erabiltzaileList.remove(erabiltzailea);
         ErabiltzaileaDB.deleteErabiltzailea(erabiltzailea.getId());

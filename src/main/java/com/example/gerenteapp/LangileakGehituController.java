@@ -2,11 +2,9 @@ package com.example.gerenteapp;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.collections.FXCollections;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class LangileakGehituController extends BaseController {
 
