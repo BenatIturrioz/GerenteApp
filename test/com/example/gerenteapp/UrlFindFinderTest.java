@@ -48,7 +48,7 @@ class UrlFindFinderTest {
     @Test
     void getFilesWithInvalidUrl() {
         Exception exception = assertThrows(IOException.class, () -> {
-            UrlFindFinder.getFiles(true, "invalid-url");
+            UrlFindFinder.getFiles(true, "");
         });
 
         assertTrue(exception.getMessage().contains("La URL proporcionada no es válida"));

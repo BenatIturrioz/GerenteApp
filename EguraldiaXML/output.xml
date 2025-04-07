@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<datos>
+  <dia>
+    <fecha>2025-04-03</fecha>
+    <prob_precipitacion_media>75.0</prob_precipitacion_media>
+    <temperatura_media>13.0</temperatura_media>
+    <estado_cielo periodo="12-24">Cubierto con lluvia</estado_cielo>
+    <estado_cielo periodo="06-12">Muy nuboso con lluvia</estado_cielo>
+    <estado_cielo periodo="12-18">Cubierto con lluvia escasa</estado_cielo>
+    <estado_cielo periodo="18-24">Muy nuboso</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-04</fecha>
+    <prob_precipitacion_media>65.71428571428571</prob_precipitacion_media>
+    <temperatura_media>16.0</temperatura_media>
+    <estado_cielo periodo="00-24">Intervalos nubosos con lluvia</estado_cielo>
+    <estado_cielo periodo="00-12">Nuboso con lluvia</estado_cielo>
+    <estado_cielo periodo="12-24">Intervalos nubosos con lluvia</estado_cielo>
+    <estado_cielo periodo="00-06">Nuboso</estado_cielo>
+    <estado_cielo periodo="06-12">Nuboso con lluvia</estado_cielo>
+    <estado_cielo periodo="12-18">Intervalos nubosos</estado_cielo>
+    <estado_cielo periodo="18-24">Intervalos nubosos con lluvia escasa</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-05</fecha>
+    <prob_precipitacion_media>65.0</prob_precipitacion_media>
+    <temperatura_media>15.0</temperatura_media>
+    <estado_cielo periodo="00-24">Nuboso con lluvia</estado_cielo>
+    <estado_cielo periodo="00-12">Nuboso</estado_cielo>
+    <estado_cielo periodo="12-24">Nuboso con tormenta</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-06</fecha>
+    <prob_precipitacion_media>30.0</prob_precipitacion_media>
+    <temperatura_media>13.5</temperatura_media>
+    <estado_cielo periodo="00-24">Nuboso</estado_cielo>
+    <estado_cielo periodo="00-12">Muy nuboso</estado_cielo>
+    <estado_cielo periodo="12-24">Nuboso</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-07</fecha>
+    <prob_precipitacion_media>55.0</prob_precipitacion_media>
+    <temperatura_media>14.0</temperatura_media>
+    <estado_cielo>Nuboso con lluvia escasa</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-08</fecha>
+    <prob_precipitacion_media>10.0</prob_precipitacion_media>
+    <temperatura_media>12.0</temperatura_media>
+    <estado_cielo>Intervalos nubosos</estado_cielo>
+  </dia>
+  <dia>
+    <fecha>2025-04-09</fecha>
+    <prob_precipitacion_media>15.0</prob_precipitacion_media>
+    <temperatura_media>13.0</temperatura_media>
+    <estado_cielo>Muy nuboso</estado_cielo>
+  </dia>
+</datos>
