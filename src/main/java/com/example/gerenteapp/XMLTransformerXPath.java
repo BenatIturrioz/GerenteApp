@@ -113,9 +113,9 @@ public class XMLTransformerXPath {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
             DOMSource source = new DOMSource(newDoc);
-            String outputPath = System.getProperty("user.dir") + "/EguraldiaXML/output.xml";
-            new File("EguraldiaXML").mkdirs(); // Crea el directorio si no existe
-            StreamResult result = new StreamResult(new File(outputPath));
+            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+            File outputFile = new File(desktopPath + File.separator + "output.xml");
+            StreamResult result = new StreamResult(outputFile);
             transformer.transform(source, result);
 
             System.out.println("Archivo XML transformado correctamente y guardado como 'output.xml'");

@@ -9,7 +9,7 @@ public class UploadToDrive {
 
     public static void uploadFile() {
         try {
-            File file = new File("../../EguraldiaXML/output.xml");
+            File file = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "output.xml");
             String scriptUrl = "https://script.google.com/macros/s/AKfycbx_veprvJF3dyfjCCPDvzTOuY88Cz-iCq_SVwOTzgS0W1AUkCglU6k6Rm-3KGHtvjcj/exec";  // URL del script
 
 
