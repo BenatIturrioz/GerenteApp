@@ -41,6 +41,7 @@ public class ErabiltzaileaDB{
         return erabiltzailea;
     }
 
+
     public static void updateErabiltzailea(Erabiltzailea erabiltzailea) {
         String query = "UPDATE erronka1.erabiltzailea SET erabiltzaileIzena = ?, pasahitza = ?, txatBaimena = ? WHERE id = ?";
         try (Connection connection = ConnectionTest.connect();
