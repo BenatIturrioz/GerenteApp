@@ -50,14 +50,25 @@ public class ChatClientController {
 
         if (!message.isEmpty()) {
             if (baimena) {
-                addMessage(message, true);
-                sendMessage(message);
+                // Preparamos el mensaje completo
+                String fullMessage = message;
+
+                // Encriptamos el mensaje completo
+                String encryptedMessage = EncryptionUtils.encrypt(fullMessage);
+
+                // Mostramos el mensaje localmente
+                addMessage(fullMessage, true);
+
+                // Enviamos el mensaje encriptado
+                sendMessage(encryptedMessage);
+
                 messageField.clear();
             } else {
                 addMessage("Ez daukazu txatean idazteko baimenik", false);
             }
         }
     }
+
 
     private void connectToServer() {
         try {
@@ -69,8 +80,17 @@ public class ChatClientController {
                 try {
                     String incomingMessage;
                     while ((incomingMessage = in.readLine()) != null) {
+
+                        /*
+                        //Mezuak deskodifikatu gabe bidaltzeko
                         String finalMessage = incomingMessage;
                         Platform.runLater(() -> addMessage(finalMessage, false));
+                        */
+                        ///*
+                        //Mezuak deskodifikatuta bidaltzeko
+                        String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
+                        Platform.runLater(() -> addMessage(decryptedMessage, false));
+                        //*/
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -86,7 +106,7 @@ public class ChatClientController {
 
     private void sendMessage(String message) {
         if (out != null) {
-            out.println("[Gerente] " + message);
+            out.println(message);
         }
     }
 
