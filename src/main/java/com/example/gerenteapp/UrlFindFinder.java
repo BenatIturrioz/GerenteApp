@@ -50,38 +50,30 @@ public class UrlFindFinder {
 
 
     public static ArrayList<Object> getFiles(boolean aukeratu, String url)
-            throws KeyManagementException, NoSuchAlgorithmException, MalformedURLException, IOException {
+            throws KeyManagementException, NoSuchAlgorithmException, IOException {
+
         File fXmlFile = null;
         InputStream iXmlFile = null;
+        ArrayList<Object> result = new ArrayList<>();
 
-        if (url != null) {
-            try{
-            aukeratu = false;
-            MyUrlConnection.disableSSLCertificateValidation();
-            iXmlFile = MyUrlConnection.getFileFromURL(url);
+        if (url != null && !url.isEmpty()) {
+            try {
+                aukeratu = false;
+                MyUrlConnection.disableSSLCertificateValidation();
+                iXmlFile = MyUrlConnection.getFileFromURL(url);
             } catch (MalformedURLException e) {
                 throw new IOException("La URL proporcionada no es válida: " + url, e);
             }
-        } else if (fXmlFile == null) {
-           Alert alert = new Alert(AlertType.ERROR);
-           alert.setTitle("Error");
-           alert.setHeaderText("No se pudo obtener el archivo XML.");
-           alert.setContentText("Error no se pudo obtener el enlace");
-           alert.showAndWait();
-        }else if(url == null){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error URL");
-            alert.setHeaderText("No se pudo obtener el archivo XML.");
-            alert.setContentText("Error no se pudo obtener el enlace");
-            alert.showAndWait();
-
+        } else {
+            result.add(null);
+            result.add(null);
+            return result;
         }
 
-        ArrayList<Object> a = new ArrayList<>();
-        a.add(iXmlFile);
-        a.add(fXmlFile);
-
-        return a;
+        result.add(iXmlFile);
+        result.add(fXmlFile);
+        return result;
     }
+
 
 }
