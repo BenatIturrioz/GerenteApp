@@ -19,5 +19,6 @@
    <Button fx:id="saioaItxiButton" layoutX="1222.0" layoutY="576.0" mnemonicParsing="false" onAction="#onSaioaItxiButtonClick" prefHeight="88.0" prefWidth="197.0" text="SAIOA ITXI" />
     <Button fx:id="erabiltzaileaKudeatuButton" layoutX="873.0" layoutY="201.0" mnemonicParsing="false" onAction="#onErabiltzaileaKudeatuButtonClick" prefHeight="88.0" prefWidth="197.0" text="ERABILTZAILEAK KUDEATU" />
    <Button fx:id="eguraldiaButton" layoutX="83.0" layoutY="501.0" mnemonicParsing="false"  prefHeight="88.0"  onAction="#onEguraldiaButtonClick" prefWidth="197.0" text="EGURALDIA DESKARGATU" />
+    <Button fx:id="JasperButton" layoutX="360.0" layoutY="501.0" mnemonicParsing="false"  prefHeight="88.0"  onAction="#onJReportButtonClick" prefWidth="197.0" text="ERRESERBEN REPORTEA SORTU" />
 
 </AnchorPane>

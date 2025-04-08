@@ -10,9 +10,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LehenOrriaController extends BaseController {
 
@@ -90,6 +97,47 @@ public class LehenOrriaController extends BaseController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void onJReportButtonClick() {
+        try {
+            String fullName = "Unai, Ander & Beñat";
+
+            // Rutas de los archivos
+            String jrxmlPath = "src/main/resources/com/example/gerenteapp/chartToReplace.jrxml";
+
+            //Aldagaia zerrendan sartu. Gehiago badaude, gehiago gehitu beharko dira.
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("firstName", fullName);
+
+            //Zerrenda hartu DBtik
+            List<ErreserbaJasper> listaDeProductos = ErreserbaJasper.loadErreserbaList();
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaDeProductos);
+            parameters.put("ProduktuaDataSet", dataSource);
+
+            List<ErreserbaChart> productListForChart = ErreserbaChart.loadErreserbaList();
+            JRBeanCollectionDataSource dataSourceForChart = new JRBeanCollectionDataSource(productListForChart);
+            parameters.put("MotaDataSource", dataSourceForChart);
+
+            //Konpilatu .jrxml .jasper fitxategi batera
+            String jasperPath = "src/main/resources/com/example/gerenteapp/produktuaReport.jasper";
+            JasperCompileManager.compileReportToFile(jrxmlPath, jasperPath);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(new File(jasperPath));
+
+            // Report-a osatu (DBko konexiorik gabe, soilik parametroak)
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+
+            String home = System.getProperty("user.home");
+            String outputPath = home + "/Desktop/2ERRONKA_JatetxeInformea_2Taldea.pdf";
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+
+            System.out.println("Reporte generado en: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void onChatIrekiButtonClick() {

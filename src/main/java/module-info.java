@@ -6,6 +6,7 @@ module com.example.gerenteapp {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires net.sf.jasperreports.core;
 
     opens com.example.gerenteapp to javafx.fxml;
     exports com.example.gerenteapp;
