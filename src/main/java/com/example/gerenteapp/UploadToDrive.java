@@ -10,7 +10,13 @@ public class UploadToDrive {
     public static void uploadFile() {
         try {
             File file = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "output.xml");
-            String scriptUrl = "https://script.google.com/macros/s/AKfycbx_veprvJF3dyfjCCPDvzTOuY88Cz-iCq_SVwOTzgS0W1AUkCglU6k6Rm-3KGHtvjcj/exec";  // URL del script
+
+
+            if (!file.exists()) {
+                throw new FileNotFoundException("El archivo no se encuentra en la ubicación especificada: " + file.getAbsolutePath());
+            }
+
+            String scriptUrl = "https://script.google.com/macros/s/AKfycbx_veprvJF3dyfjCCPDvzTOuY88Cz-iCq_SVwOTzgS0W1AUkCglU6k6Rm-3KGHtvjcj/exec";
 
 
             StringBuilder fileContent = new StringBuilder();
@@ -30,6 +36,7 @@ public class UploadToDrive {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
+
             try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())) {
                 writer.write(postData);
             }
@@ -42,6 +49,8 @@ public class UploadToDrive {
                 }
             }
 
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
