@@ -50,7 +50,7 @@ public class UrlFindFinder {
 
 
     public static ArrayList<Object> getFiles(boolean aukeratu, String url)
-            throws KeyManagementException, NoSuchAlgorithmException, IOException {
+            throws KeyManagementException, NoSuchAlgorithmException {
 
         File fXmlFile = null;
         InputStream iXmlFile = null;
@@ -62,7 +62,17 @@ public class UrlFindFinder {
                 MyUrlConnection.disableSSLCertificateValidation();
                 iXmlFile = MyUrlConnection.getFileFromURL(url);
             } catch (MalformedURLException e) {
-                throw new IOException("La URL proporcionada no es válida: " + url, e);
+                showError("La URL proporcionada no es válida.");
+                return new ArrayList<>() {{
+                    add(null);
+                    add(null);
+                }};
+            } catch (IOException e) {
+                showError("Ezin izan duzu xml deskargatu, mesedez, begiratu ea internetera konexioa duzun.");
+                return new ArrayList<>() {{
+                    add(null);
+                    add(null);
+                }};
             }
         } else {
             result.add(null);
@@ -73,6 +83,14 @@ public class UrlFindFinder {
         result.add(iXmlFile);
         result.add(fXmlFile);
         return result;
+    }
+
+    private static void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
