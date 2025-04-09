@@ -33,7 +33,7 @@ public class HelloController {
             NoSuchAlgorithmException, IOException, KeyManagementException, SAXException {
 
         UrlFindFinder.obtainDocument();
-        UploadToDrive.uploadFile();
+        UploadToFileZila.uploadFile();
     }
 
     public HelloController() {

@@ -113,8 +113,7 @@ public class XMLTransformerXPath {
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
             DOMSource source = new DOMSource(newDoc);
-            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
-            File outputFile = new File(desktopPath + File.separator + "output.xml");
+            File outputFile = new File( "./output.xml");
             StreamResult result = new StreamResult(outputFile);
             transformer.transform(source, result);
 

@@ -6,7 +6,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UploadToDriveTest {
+class UploadToFileZilaTest {
 
     @Test
     void uploadFile_whenFileDoesNotExist_shouldThrowException() {
@@ -17,7 +17,7 @@ class UploadToDriveTest {
             file.renameTo(tempBackup);
         }
 
-        assertDoesNotThrow(() -> UploadToDrive.uploadFile());
+        assertDoesNotThrow(() -> UploadToFileZila.uploadFile());
 
 
         if (tempBackup.exists()) {
@@ -34,7 +34,7 @@ class UploadToDriveTest {
                 file.createNewFile(); // creamos archivo vacío solo para test
             }
 
-            assertDoesNotThrow(() -> UploadToDrive.uploadFile());
+            assertDoesNotThrow(() -> UploadToFileZila.uploadFile());
 
         } catch (Exception e) {
             fail("No debería lanzar excepción: " + e.getMessage());

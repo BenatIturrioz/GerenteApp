@@ -193,7 +193,11 @@
       <artifactId>fxgl</artifactId>
       <version>17.3</version>
     </dependency>
-
+    <dependency>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>3.9.0</version>
+    </dependency>
     <!-- JUnit Dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
