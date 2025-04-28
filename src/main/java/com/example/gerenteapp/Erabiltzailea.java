@@ -45,4 +45,5 @@ public class Erabiltzailea {
     public void setTxatBaimena(boolean txatBaimena) { this.txatBaimena.set(txatBaimena); }
     public BooleanProperty txatBaimenaProperty() { return txatBaimena; }
 
+
 }

@@ -18,16 +18,22 @@ import java.nio.file.Files;
 public class ChatClientController {
 
     @FXML
-    private VBox messageArea;
+    VBox messageArea;
 
     @FXML
-    private TextField messageField;
+    TextField messageField;
 
     @FXML
-    private Button sendButton, atzeraButton, emojiButton, fileButton;
+    Button sendButton;
+    @FXML
+    Button atzeraButton;
+    @FXML
+    Button emojiButton;
+    @FXML
+    Button fileButton;
 
     @FXML
-    private Label lblUser;
+    Label lblUser;
 
     private PrintWriter out;
     private BufferedReader in;
