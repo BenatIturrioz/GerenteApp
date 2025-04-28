@@ -6,12 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
 
 public class ChatClientController {
 
@@ -29,8 +31,9 @@ public class ChatClientController {
 
     private PrintWriter out;
     private BufferedReader in;
+    private DataOutputStream dataOut;
 
-    void setErabiltzailea(String izena){
+    void setErabiltzailea(String izena) {
         lblUser.setText(izena);
     }
 
@@ -48,49 +51,52 @@ public class ChatClientController {
         boolean baimena = lk.baimenaTxat(lblUser.getText());
         String message = messageField.getText().trim();
 
-        if (!message.isEmpty()) {
-            if (baimena) {
-                // Preparamos el mensaje completo
-                String fullMessage = message;
+        // Validación de mensaje vacío
+        if (message.isEmpty()) {
+            return; // No hacer nada si está vacío
+        }
 
-                // Encriptamos el mensaje completo
-                String encryptedMessage = EncryptionUtils.encrypt(fullMessage);
-
-                // Mostramos el mensaje localmente
-                addMessage(fullMessage, true);
-
-                // Enviamos el mensaje encriptado
-                sendMessage(encryptedMessage);
-
-                messageField.clear();
-            } else {
-                addMessage("Ez daukazu txatean idazteko baimenik", false);
+        if (baimena) {
+            try {
+                String encryptedMessage = EncryptionUtils.encrypt(message);
+                // Solo proceder si el cifrado fue exitoso
+                if (encryptedMessage != null && !encryptedMessage.isEmpty()) {
+                    addMessage(message, true);
+                    sendMessage(encryptedMessage);
+                    messageField.clear();
+                } else {
+                    addMessage("Arazoa mezua zifratzerakoan", false);
+                }
+            } catch (Exception e) {
+                addMessage("Arazoa mezua zifratzerakoan", false);
             }
+        } else {
+            addMessage("Ez daukazu txatean idazteko baimenik", false);
         }
     }
-
 
     private void connectToServer() {
         try {
             Socket socket = new Socket("localhost", 5555);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+            dataOut = new DataOutputStream(socket.getOutputStream());
 
             Thread receiveThread = new Thread(() -> {
                 try {
                     String incomingMessage;
                     while ((incomingMessage = in.readLine()) != null) {
-
-                        /*
-                        //Mezuak deskodifikatu gabe bidaltzeko
-                        String finalMessage = incomingMessage;
-                        Platform.runLater(() -> addMessage(finalMessage, false));
-                        */
-                        ///*
-                        //Mezuak deskodifikatuta bidaltzeko
                         String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
-                        Platform.runLater(() -> addMessage(decryptedMessage, false));
-                        //*/
+
+                        // Manejar notificación de archivo
+                        if (decryptedMessage.startsWith("[ARCHIVO] ")) {
+                            Platform.runLater(() -> {
+                                addMessage(decryptedMessage.substring(10), false);
+                                // Aquí puedes añadir un botón para descargar si lo deseas
+                            });
+                        } else {
+                            Platform.runLater(() -> addMessage(decryptedMessage, false));
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -99,8 +105,34 @@ public class ChatClientController {
             receiveThread.setDaemon(true);
             receiveThread.start();
         } catch (IOException e) {
-            Platform.runLater(() -> addMessage("Error al conectar con el servidor.", false));
+            Platform.runLater(() -> addMessage("Errorea zerbitzarira konektatzerakoan.", false));
             e.printStackTrace();
+        }
+    }
+
+    private void handleSendFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Aukeratu bidali nahi duzun fitxategia");
+        File file = fileChooser.showOpenDialog(fileButton.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                byte[] fileBytes = Files.readAllBytes(file.toPath());
+
+                // Primero enviar metadatos
+                String metadata = "[ARCHIVO_METADATOS]" + file.getName() + ":" + fileBytes.length;
+                String encryptedMetadata = EncryptionUtils.encrypt(metadata);
+                sendMessage(encryptedMetadata);
+
+                // Luego enviar el archivo
+                dataOut.write(fileBytes);
+                dataOut.flush();
+
+                addMessage("Bidali duzun fitxategia: " + file.getName(), true);
+            } catch (IOException e) {
+                addMessage("Arazoa fitxategia bidaltzerakoan", false);
+                e.printStackTrace();
+            }
         }
     }
 
@@ -128,7 +160,8 @@ public class ChatClientController {
 
     private void showEmojiMenu() {
         ContextMenu emojiMenu = new ContextMenu();
-        String[] emojis = {"😀", "😂", "😍", "😎", "👍", "🎉"};
+        String[] emojis = {"😍", "😎", "👍", "🎉", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😘", "😴", "🤧", "😨", "😰", "😭", "😱", "😈", "👿", "💀", "🙈", "🙉", "🙊", "❤️‍"
+        };
 
         for (String emoji : emojis) {
             MenuItem item = new MenuItem(emoji);
@@ -139,40 +172,39 @@ public class ChatClientController {
         emojiMenu.show(emojiButton, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
-    private void handleSendFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Aukeratu fitxategia bidaltzeko");
-        File file = fileChooser.showOpenDialog(fileButton.getScene().getWindow());
-
-        if (file != null) {
-            addMessage("Fitxategia bidaltzen: " + file.getName(), true);
-            sendMessage("[Fitxategia] " + file.getName());
-        }
-    }
-
     @FXML
     private void onAtzeraButtonClicked() {
         atzeraItzuli("/com/example/gerenteapp/LehenOrria.fxml", "Saioa hasi", atzeraButton);
     }
 
     public void atzeraItzuli(String fxmlPath, String izenburua, Button button) {
-        String erabiltzaileIzena = lblUser.getText();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Scene eszenaBerria = new Scene(loader.load());
-            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-            Stage oraingoStagea = (Stage) button.getScene().getWindow();
-            oraingoStagea.setScene(eszenaBerria);
-            oraingoStagea.setTitle(izenburua);
-            oraingoStagea.centerOnScreen();
+            String erabiltzaileIzena = lblUser.getText();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                Scene eszenaBerria = new Scene(loader.load());
+                eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+                Stage oraingoStagea = (Stage) button.getScene().getWindow();
+                oraingoStagea.setScene(eszenaBerria);
+                oraingoStagea.setTitle(izenburua);
+                oraingoStagea.centerOnScreen();
 
-            LehenOrriaController controller = loader.getController();
-            controller.setErabiltzailea(erabiltzaileIzena);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                LehenOrriaController controller = loader.getController();
+                controller.setErabiltzailea(erabiltzaileIzena);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
