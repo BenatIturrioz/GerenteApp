@@ -74,7 +74,7 @@
                 <column kind="single" uuid="d850b070-a67e-46ca-a4a0-0e6606dd2a90" width="60">
                     <columnHeader height="30" rowSpan="1" style="Table_CH">
                         <element kind="textField" uuid="f1a0c8d4-55eb-4318-ab68-a0b956225ddc" x="0" y="0" width="60" height="30">
-                            <expression><![CDATA["Izena"]]></expression>
+                            <expression><![CDATA["ErreserbaIzena"]]></expression>
                         </element>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </columnHeader>
@@ -102,7 +102,7 @@
                 <column kind="single" uuid="304f20ae-3a14-4cf0-badf-50c9b422d2e8" width="60">
                     <columnHeader height="30" rowSpan="1" style="Table_CH">
                         <element kind="textField" uuid="c3b8bbd2-127e-4485-9f44-a2532249b2e4" x="0" y="0" width="60" height="30">
-                            <expression><![CDATA["Kopurua"]]></expression>
+                            <expression><![CDATA["BezeroKopurua"]]></expression>
                         </element>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </columnHeader>
