@@ -74,7 +74,7 @@
                 <column kind="single" uuid="d850b070-a67e-46ca-a4a0-0e6606dd2a90" width="60">
                     <columnHeader height="30" rowSpan="1" style="Table_CH">
                         <element kind="textField" uuid="f1a0c8d4-55eb-4318-ab68-a0b956225ddc" x="0" y="0" width="60" height="30">
-                            <expression><![CDATA["ErreserbaIzena"]]></expression>
+                            <expression><![CDATA["BezeroIzena"]]></expression>
                         </element>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </columnHeader>
@@ -88,7 +88,7 @@
                 <column kind="single" uuid="701d4fa0-ec94-4d61-ab21-10803ba081ee" width="60">
                     <columnHeader height="30" rowSpan="1" style="Table_CH">
                         <element kind="textField" uuid="19c47513-b2b7-49ff-b110-ef9d176b7699" x="0" y="0" width="60" height="30">
-                            <expression><![CDATA["Mahaia"]]></expression>
+                            <expression><![CDATA["MahaiZenbakia"]]></expression>
                         </element>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </columnHeader>
