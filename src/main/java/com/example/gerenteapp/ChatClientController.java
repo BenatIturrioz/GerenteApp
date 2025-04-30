@@ -84,26 +84,23 @@ public class ChatClientController {
 
     private void connectToServer() {
         try {
-            //Lokalea konektatzeko
             Socket socket = new Socket("localhost", 5555);
-            //Zerbitzaria konektatzeko
+            //Zerbitzarira konektatzeko
             //Socket socket = new Socket("192.168.115.158", 5555);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
             dataOut = new DataOutputStream(socket.getOutputStream());
 
             Thread receiveThread = new Thread(() -> {
-                    try {
-                        String incomingMessage;
-                        while ((incomingMessage = in.readLine()) != null) {
-
-                            String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
-                            Platform.runLater(() -> addMessage(decryptedMessage, false));
-
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                try {
+                    String incomingMessage;
+                    while ((incomingMessage = in.readLine()) != null) {
+                        String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
+                        Platform.runLater(() -> addMessage(decryptedMessage, false));
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
             receiveThread.setDaemon(true);
             receiveThread.start();
@@ -131,9 +128,38 @@ public class ChatClientController {
                 dataOut.write(fileBytes);
                 dataOut.flush();
 
+                // Crear botón de descarga para el archivo
+                addFileDownloadButton(file.getName(), fileBytes);
                 addMessage("Bidali duzun fitxategia: " + file.getName(), true);
             } catch (IOException e) {
                 addMessage("Arazoa fitxategia bidaltzerakoan", false);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void addFileDownloadButton(String fileName, byte[] fileBytes) {
+        HBox fileBox = new HBox();
+        Button downloadButton = new Button("Deskargatu: " + fileName);
+        downloadButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
+        downloadButton.setOnAction(event -> downloadFile(fileName, fileBytes));
+        fileBox.setAlignment(Pos.CENTER_LEFT);
+        fileBox.getChildren().add(downloadButton);
+        Platform.runLater(() -> messageArea.getChildren().add(fileBox));
+    }
+
+    private void downloadFile(String fileName, byte[] fileBytes) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Gorde fitxategia");
+        fileChooser.setInitialFileName(fileName);
+        File file = fileChooser.showSaveDialog(messageArea.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                Files.write(file.toPath(), fileBytes);
+                addMessage("Fitxategia gordeta: " + file.getName(), true);
+            } catch (IOException e) {
+                addMessage("Arazoa fitxategia gordetzerakoan", false);
                 e.printStackTrace();
             }
         }
@@ -181,26 +207,23 @@ public class ChatClientController {
     }
 
     public void atzeraItzuli(String fxmlPath, String izenburua, Button button) {
-            String erabiltzaileIzena = lblUser.getText();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                Scene eszenaBerria = new Scene(loader.load());
-                eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-                Stage oraingoStagea = (Stage) button.getScene().getWindow();
-                oraingoStagea.setScene(eszenaBerria);
-                oraingoStagea.setTitle(izenburua);
-                oraingoStagea.centerOnScreen();
+        String erabiltzaileIzena = lblUser.getText();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene eszenaBerria = new Scene(loader.load());
+            eszenaBerria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
+            Stage oraingoStagea = (Stage) button.getScene().getWindow();
+            oraingoStagea.setScene(eszenaBerria);
+            oraingoStagea.setTitle(izenburua);
+            oraingoStagea.centerOnScreen();
 
-                LehenOrriaController controller = loader.getController();
-                controller.setErabiltzailea(erabiltzaileIzena);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            LehenOrriaController controller = loader.getController();
+            controller.setErabiltzailea(erabiltzaileIzena);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
-
-
 
 
 
