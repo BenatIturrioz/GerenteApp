@@ -55,7 +55,8 @@ public class ChatClientController {
     private void handleSendMessage() {
         ErabiltzaileaDB lk = new ErabiltzaileaDB();
         boolean baimena = lk.baimenaTxat(lblUser.getText());
-        String message = messageField.getText().trim();
+        String mensaje = messageField.getText().trim();
+        String message = "["+lblUser.getText()+"] "+mensaje;
 
         // Validación de mensaje vacío
         if (message.isEmpty()) {
@@ -83,30 +84,26 @@ public class ChatClientController {
 
     private void connectToServer() {
         try {
+            //Lokalea konektatzeko
             Socket socket = new Socket("localhost", 5555);
+            //Zerbitzaria konektatzeko
+            //Socket socket = new Socket("192.168.115.158", 5555);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
             dataOut = new DataOutputStream(socket.getOutputStream());
 
             Thread receiveThread = new Thread(() -> {
-                try {
-                    String incomingMessage;
-                    while ((incomingMessage = in.readLine()) != null) {
-                        String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
+                    try {
+                        String incomingMessage;
+                        while ((incomingMessage = in.readLine()) != null) {
 
-                        // Manejar notificación de archivo
-                        if (decryptedMessage.startsWith("[ARCHIVO] ")) {
-                            Platform.runLater(() -> {
-                                addMessage(decryptedMessage.substring(10), false);
-                                // Aquí puedes añadir un botón para descargar si lo deseas
-                            });
-                        } else {
+                            String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
                             Platform.runLater(() -> addMessage(decryptedMessage, false));
+
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             });
             receiveThread.setDaemon(true);
             receiveThread.start();
