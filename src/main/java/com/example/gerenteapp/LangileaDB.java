@@ -17,7 +17,7 @@ public class LangileaDB {
         ObservableList<Langilea> langileak = FXCollections.observableArrayList();
 
         // Datuak lortzeko SQL kontsulta
-        String query = "SELECT * FROM erronka1.langilea;"; // Aldatu "langileak" zure taularen izen errealera, desberdina bada
+        String query = "SELECT * FROM langilea;";
 
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -44,7 +44,7 @@ public class LangileaDB {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Errorea erakutsi zerbait gaizki badoa
+            e.printStackTrace();
         }
 
         return langileak;
@@ -81,7 +81,7 @@ public class LangileaDB {
     }
 
     public static ErabiltzaileaInfo langileaInfo(String izena) {
-        String query = "SELECT id, mota FROM erronka1.langilea WHERE izena = ?";
+        String query = "SELECT id, mota FROM langilea WHERE izena = ?";
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
 

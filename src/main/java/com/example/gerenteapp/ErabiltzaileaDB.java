@@ -43,7 +43,7 @@ public class ErabiltzaileaDB{
 
 
     public static void updateErabiltzailea(Erabiltzailea erabiltzailea) {
-        String query = "UPDATE erronka1.erabiltzailea SET erabiltzaileIzena = ?, pasahitza = ?, txatBaimena = ? WHERE id = ?";
+        String query = "UPDATE erabiltzailea SET erabiltzaileIzena = ?, pasahitza = ?, txatBaimena = ? WHERE id = ?";
         try (Connection connection = ConnectionTest.connect();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -100,17 +100,17 @@ public class ErabiltzaileaDB{
                     if ("4".equals(langileaMota)) {
                         return true;
                     } else {
-                        System.out.println("El tipo de usuario no es 4");
+                        System.out.println("Langilearen postua ez da 4");
                         return false;
                     }
                 } else {
-                    System.out.println("No se encontró el usuario con las credenciales proporcionadas.");
+                    System.out.println("Ez da erabiltzailea aurkitu.");
                     return false;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error de base de datos: " + e.getMessage());
+            System.out.println("Errorea datu basean: " + e.getMessage());
         }
         return false;
     }
