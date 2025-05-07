@@ -58,7 +58,7 @@ public class SaioHasieraController extends BaseController {
             Scene lehenOrria = new Scene(loader.load());
 
             lehenOrria.getStylesheets().add(getClass().getResource("/com/example/gerenteapp/css.css").toExternalForm());
-            Stage oraingoLeihoa = this.getUsingStage();
+            Stage oraingoLeihoa = (Stage) usernameField.getScene().getWindow();
 
             String erabiltzaileIzena = usernameField.getText().trim();
             LehenOrriaController controller = loader.getController();
