@@ -84,9 +84,8 @@ public class ChatClientController {
 
     private void connectToServer() {
         try {
-            Socket socket = new Socket("localhost", 5555);
-            //Zerbitzarira konektatzeko
-            //Socket socket = new Socket("192.168.115.158", 5555);
+            //Socket socket = new Socket("localhost", 5555);
+            Socket socket = new Socket("192.168.115.158", 5555);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
             dataOut = new DataOutputStream(socket.getOutputStream());
@@ -96,9 +95,16 @@ public class ChatClientController {
                     String incomingMessage;
                     while ((incomingMessage = in.readLine()) != null) {
                         String decryptedMessage = EncryptionUtils.decrypt(incomingMessage);
-                        Platform.runLater(() -> addMessage(decryptedMessage, false));
+                        if (decryptedMessage != null && decryptedMessage.startsWith("[FITXATEGIA]")) {
+                            receiveFileFromServer(decryptedMessage, socket);
+                        } else {
+                            if (decryptedMessage != null && !decryptedMessage.isEmpty()) {
+                                Platform.runLater(() -> addMessage(decryptedMessage, false));
+                            }
+                        }
                     }
                 } catch (IOException e) {
+                    Platform.runLater(() -> addMessage("Errorea zerbitzaritik irakurtzean.", false));
                     e.printStackTrace();
                 }
             });
@@ -120,7 +126,7 @@ public class ChatClientController {
                 byte[] fileBytes = Files.readAllBytes(file.toPath());
 
                 // Primero enviar metadatos
-                String metadata = "[ARCHIVO_METADATOS]" + file.getName() + ":" + fileBytes.length;
+                String metadata = "[FITXATEGIA]" + file.getName() + ":" + fileBytes.length;
                 String encryptedMetadata = EncryptionUtils.encrypt(metadata);
                 sendMessage(encryptedMetadata);
 
@@ -130,7 +136,6 @@ public class ChatClientController {
 
                 // Crear botón de descarga para el archivo
                 addFileDownloadButton(file.getName(), fileBytes);
-                addMessage("Bidali duzun fitxategia: " + file.getName(), true);
             } catch (IOException e) {
                 addMessage("Arazoa fitxategia bidaltzerakoan", false);
                 e.printStackTrace();
@@ -138,9 +143,50 @@ public class ChatClientController {
         }
     }
 
+    private void receiveFileFromServer(String decryptedMetadata, Socket socket) {
+        try {
+            InputStream inputStream = socket.getInputStream();
+            String[] parts = decryptedMetadata.substring(11).split(":", 2); // Quitar "[FITXATEGIA]"
+
+            if (parts.length != 2) {
+                Platform.runLater(() -> addMessage("Fitxategiaren metadatuak okerrak dira", false));
+                return;
+            }
+
+            String fileName = parts[0];
+            int fileSize;
+            try {
+                fileSize = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                Platform.runLater(() -> addMessage("Fitxategiaren tamaina baliogabea", false));
+                return;
+            }
+
+            byte[] fileBytes = new byte[fileSize];
+            int totalRead = 0;
+            while (totalRead < fileSize) {
+                int read = inputStream.read(fileBytes, totalRead, fileSize - totalRead);
+                if (read == -1) {
+                    throw new IOException("Ezinezkoa da fitxategi osoa jasotzea");
+                }
+                totalRead += read;
+            }
+
+            // Mostrar botón de descarga
+            Platform.runLater(() -> {
+                addFileDownloadButton(fileName, fileBytes);
+            });
+
+        } catch (Exception e) {
+            Platform.runLater(() -> addMessage("Errorea fitxategia jasotzean: " + e.getMessage(), false));
+            e.printStackTrace();
+        }
+    }
+
     private void addFileDownloadButton(String fileName, byte[] fileBytes) {
+        String izena = lblUser.getText();
         HBox fileBox = new HBox();
-        Button downloadButton = new Button("Deskargatu: " + fileName);
+        Button downloadButton = new Button("["+ izena + fileName);
         downloadButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
         downloadButton.setOnAction(event -> downloadFile(fileName, fileBytes));
         fileBox.setAlignment(Pos.CENTER_LEFT);
@@ -189,8 +235,7 @@ public class ChatClientController {
 
     private void showEmojiMenu() {
         ContextMenu emojiMenu = new ContextMenu();
-        String[] emojis = {"😍", "😎", "👍", "🎉", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😘", "😴", "🤧", "😨", "😰", "😭", "😱", "😈", "👿", "💀", "🙈", "🙉", "🙊", "❤️‍"
-        };
+        String[] emojis = {"😍", "😎", "👍", "🎉", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😘", "😴", "🤧", "😨", "😰", "😭", "😱", "😈", "👿", "💀", "🙈", "🙉", "🙊", "❤️"};
 
         for (String emoji : emojis) {
             MenuItem item = new MenuItem(emoji);

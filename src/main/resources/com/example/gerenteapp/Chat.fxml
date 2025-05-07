@@ -3,21 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="432.0" prefWidth="647.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ChatClientController">
+<VBox prefHeight="635.0" prefWidth="647.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.ChatClientController">
     <children>
         <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Mezularitza" />
-      <Label fx:id="lblUser" visible="false" />
+        <Label fx:id="lblUser" visible="false" />
         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
             <content>
-                <VBox fx:id="messageArea" prefHeight="303.0" prefWidth="633.0" spacing="10" style="-fx-padding: 10;" />
+                <VBox fx:id="messageArea" prefHeight="658.0" prefWidth="633.0" spacing="10" style="-fx-padding: 10;" />
             </content>
         </ScrollPane>
         <HBox spacing="5">
             <TextField fx:id="messageField" promptText="Idatzi mezua..." style="-fx-pref-width: 400;" />
-         <Button fx:id="fileButton" mnemonicParsing="false" text="Fitxategia igo" />
-         <Button fx:id="emojiButton" mnemonicParsing="false" text="Emoji" />
+            <Button fx:id="fileButton" mnemonicParsing="false" text="Fitxategia igo" />
+            <Button fx:id="emojiButton" mnemonicParsing="false" text="Emoji" />
             <Button fx:id="sendButton" style="-fx-background-color: #4caf50; -fx-text-fill: white;" text="Bidali" />
-         <Button fx:id="atzeraButton" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" style="-fx-background-color: #da0126; -fx-text-fill: white;" text="Atzera" />
+            <Button fx:id="atzeraButton" mnemonicParsing="false" onAction="#onAtzeraButtonClicked" style="-fx-background-color: #da0126; -fx-text-fill: white;" text="Atzera" />
         </HBox>
     </children>
 </VBox>
