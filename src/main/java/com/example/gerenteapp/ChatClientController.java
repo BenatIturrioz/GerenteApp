@@ -186,7 +186,7 @@ public class ChatClientController {
     private void addFileDownloadButton(String fileName, byte[] fileBytes) {
         String izena = lblUser.getText();
         HBox fileBox = new HBox();
-        Button downloadButton = new Button("["+ izena + fileName);
+        Button downloadButton = new Button("["+ izena + "] "+ fileName);
         downloadButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
         downloadButton.setOnAction(event -> downloadFile(fileName, fileBytes));
         fileBox.setAlignment(Pos.CENTER_LEFT);
